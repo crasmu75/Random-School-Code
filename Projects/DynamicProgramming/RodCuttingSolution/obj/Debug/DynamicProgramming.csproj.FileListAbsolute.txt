@@ -1,0 +1,6 @@
+C:\Users\zachary\Source\CS4150\DynamicProgramming\DynamicProgramming\bin\Debug\DynamicProgramming.exe.config
+C:\Users\zachary\Source\CS4150\DynamicProgramming\DynamicProgramming\bin\Debug\DynamicProgramming.exe
+C:\Users\zachary\Source\CS4150\DynamicProgramming\DynamicProgramming\bin\Debug\DynamicProgramming.pdb
+C:\Users\zachary\Source\CS4150\DynamicProgramming\DynamicProgramming\obj\Debug\DynamicProgramming.csprojResolveAssemblyReference.cache
+C:\Users\zachary\Source\CS4150\DynamicProgramming\DynamicProgramming\obj\Debug\DynamicProgramming.exe
+C:\Users\zachary\Source\CS4150\DynamicProgramming\DynamicProgramming\obj\Debug\DynamicProgramming.pdb

@@ -1,0 +1,6 @@
+C:\Users\zachary\Source\CS4150\DynamicProgramming\EditDistance\bin\Debug\EditDistance.exe.config
+C:\Users\zachary\Source\CS4150\DynamicProgramming\EditDistance\bin\Debug\EditDistance.exe
+C:\Users\zachary\Source\CS4150\DynamicProgramming\EditDistance\bin\Debug\EditDistance.pdb
+C:\Users\zachary\Source\CS4150\DynamicProgramming\EditDistance\obj\Debug\EditDistance.csprojResolveAssemblyReference.cache
+C:\Users\zachary\Source\CS4150\DynamicProgramming\EditDistance\obj\Debug\EditDistance.exe
+C:\Users\zachary\Source\CS4150\DynamicProgramming\EditDistance\obj\Debug\EditDistance.pdb

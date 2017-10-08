@@ -1,0 +1,6 @@
+C:\Users\zachary\Source\CS4150\DynamicProgramming\IncreasingSubsequence\bin\Debug\IncreasingSubsequence.exe.config
+C:\Users\zachary\Source\CS4150\DynamicProgramming\IncreasingSubsequence\bin\Debug\IncreasingSubsequence.exe
+C:\Users\zachary\Source\CS4150\DynamicProgramming\IncreasingSubsequence\bin\Debug\IncreasingSubsequence.pdb
+C:\Users\zachary\Source\CS4150\DynamicProgramming\IncreasingSubsequence\obj\Debug\IncreasingSubsequence.csprojResolveAssemblyReference.cache
+C:\Users\zachary\Source\CS4150\DynamicProgramming\IncreasingSubsequence\obj\Debug\IncreasingSubsequence.exe
+C:\Users\zachary\Source\CS4150\DynamicProgramming\IncreasingSubsequence\obj\Debug\IncreasingSubsequence.pdb

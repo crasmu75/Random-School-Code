@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncreasingSubsequence", "IncreasingSubsequence\IncreasingSubsequence.csproj", "{2D210DE8-E9ED-4525-8670-AC292F27B173}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditDistance", "EditDistance\EditDistance.csproj", "{7562FB19-21B1-4DA9-9636-F79CF9A97BB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RodCutting", "RodCutting\RodCutting.csproj", "{690A16CE-9BF3-44A7-94BA-8F80460E4417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditDistanceSolution", "EditDistanceSolution\EditDistanceSolution.csproj", "{8113A149-E649-4FE7-8851-F3752E69A2EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncreasingSubsequenceSolution", "IncreasingSubsequenceSolution\IncreasingSubsequenceSolution.csproj", "{0C826F04-F2B1-4040-9C63-8BAE943BDB51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RodCuttingSolution", "RodCuttingSolution\RodCuttingSolution.csproj", "{721248E8-F87B-4BCC-A9AF-60C8256D97D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D210DE8-E9ED-4525-8670-AC292F27B173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D210DE8-E9ED-4525-8670-AC292F27B173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D210DE8-E9ED-4525-8670-AC292F27B173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D210DE8-E9ED-4525-8670-AC292F27B173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7562FB19-21B1-4DA9-9636-F79CF9A97BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7562FB19-21B1-4DA9-9636-F79CF9A97BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7562FB19-21B1-4DA9-9636-F79CF9A97BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7562FB19-21B1-4DA9-9636-F79CF9A97BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690A16CE-9BF3-44A7-94BA-8F80460E4417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690A16CE-9BF3-44A7-94BA-8F80460E4417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690A16CE-9BF3-44A7-94BA-8F80460E4417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690A16CE-9BF3-44A7-94BA-8F80460E4417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8113A149-E649-4FE7-8851-F3752E69A2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8113A149-E649-4FE7-8851-F3752E69A2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8113A149-E649-4FE7-8851-F3752E69A2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8113A149-E649-4FE7-8851-F3752E69A2EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C826F04-F2B1-4040-9C63-8BAE943BDB51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C826F04-F2B1-4040-9C63-8BAE943BDB51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C826F04-F2B1-4040-9C63-8BAE943BDB51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C826F04-F2B1-4040-9C63-8BAE943BDB51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{721248E8-F87B-4BCC-A9AF-60C8256D97D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{721248E8-F87B-4BCC-A9AF-60C8256D97D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{721248E8-F87B-4BCC-A9AF-60C8256D97D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{721248E8-F87B-4BCC-A9AF-60C8256D97D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
