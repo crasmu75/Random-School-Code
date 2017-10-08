@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FormulaEvaluator;
+
+namespace Tester
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            Console.WriteLine("Hi I'm testing");
+            FormulaEvaluator.Evaluator.Lookup look = LookUpVariable;
+            Console.WriteLine(FormulaEvaluator.Evaluator.Evaluate("1111+2!", look));
+            Console.Read();
+        }
+
+        public static int LookUpVariable(String v)
+        {
+            if (v.Equals("1111+2"))
+            {
+                return -1;
+            }
+            else
+                return 0;
+            //UNCOMMENT THIS LATER
+                //throw new ArgumentException("thrown");
+        }
+    }
+}

@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FormulaTester</name>
+    </assembly>
+    <members>
+        <member name="T:FormulaTester.FormulaTester">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_1">
+            <summary>
+            Message should say "Sorry, there must be at least something in the expression!"
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_2">
+            <summary>
+            Message should say "Invalid syntax in expression. A variable/double follows another variable/double."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_3">
+            <summary>
+            Message should say "Invalid syntax in expression. An operator follows another operator."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_4">
+            <summary>
+            Message should say "Invalid syntax on variable or invalid symbols used."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_5">
+            <summary>
+            Message should say "Invalid syntax in expression. A variable/double follows another variable/double."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_6">
+            <summary>
+            Message should say "Invalid syntax in expression. Number of open parentheses does not equal number of closed parenthases."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_7">
+            <summary>
+            Message should say "Invalid syntax in expression. Number of open parentheses does not equal number of closed parenthases."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_8">
+            <summary>
+            Message should say "Invalid syntax in expression. Mismatched parenthases."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_9">
+            <summary>
+            Message should say "Invalid syntax in expression. An operator or right parenthasis cannot directly precede a left parenthasis."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_10">
+            <summary>
+            Message should say "Invalid syntax in expression. An operator or right parenthasis cannot directly precede a left parenthasis."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_11">
+            <summary>
+            Message should say "Invalid syntax in expression. Cannot begin with operator."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Invalid_Expression_12">
+            <summary>
+            Message should say "Invalid syntax in expression. Cannot begin with left parenthasis."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_6">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_7">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_8">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Valid_Expression_9">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Get_Variables_1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Get_Variables_2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Get_Variables_3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.ToString_1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.ToString_2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.EqualsMethod_1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.EqualsMethod_2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.EqualsMethod_3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.EqualsMethod_4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.EqualsMethod_5">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.EqualsMethod_6">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

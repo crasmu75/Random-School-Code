@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace BoggleClient
+{
+    public partial class Form1 : Form
+    {
+		private BoggleClientModel model;
+
+		/// <summary>
+		/// Constructor to initialize the component and set up Action events for the model.
+		/// </summary>
+		public Form1()
+		{
+			InitializeComponent();
+			model = new BoggleClientModel();
+			model.IncomingLineEvent += CommandReceived;
+			model.ConnectedEvent += ConnectedSuccessfully;
+		}
+
+		/// <summary>
+		/// Called using the Actions from model when we are successfully connected 
+		/// to the server. 
+		/// </summary>
+		private void ConnectedSuccessfully()
+		{
+			StatusButton.Text = "CANCEL";
+            StatusButton.BackColor = Color.Red;
+		}
+
+		/// <summary>
+		/// Called using the Actions from model when we receive a command from server.
+		/// </summary>
+		/// <param name="line"></param>
+		private void CommandReceived(String line)
+		{
+			// what to do when we receive a message from server
+		}
+
+		/// <summary>
+		/// This method is called when the user clicks on the status button. Depending
+		/// on what text is inside the button, different events are handled.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void StatusButton_Click(object sender, EventArgs e)
+        {
+			// user hasn't connected to server yet, do so
+            if (StatusButton.Text == "CONNECT")
+            {
+                if (IPAddressBox.Text == "" || NameTextBox.Text == "")
+                    MessageBox.Show("IP Address and Name fields cannot be empty to connect. Try Again!");
+                else
+                    model.Connect(IPAddressBox.Text, 2000, NameTextBox.Text);
+            }
+
+			// user has connected to the server, wants to cancel on waiting for game
+            else if (StatusButton.Text == "CANCEL")
+            {
+
+            }
+        }
+    }
+}

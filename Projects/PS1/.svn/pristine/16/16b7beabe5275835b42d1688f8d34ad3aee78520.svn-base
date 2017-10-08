@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FormulaEvaluator;
+
+namespace Tester
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            FormulaEvaluator.Evaluator.Lookup look = LookUpVariable;
+            Console.WriteLine(FormulaEvaluator.Evaluator.Evaluate("A3 + (5 - 9) / 444 * 17 * B678", look));
+            Console.Read();
+        }
+
+        public static int LookUpVariable(String v)
+        {
+            return 15;
+        }
+
+    }
+}

@@ -1,0 +1,16 @@
+﻿
+
+How would you change query to get all the Book info?
+
+
+was:
+
+     select * from Books
+
+     dataset.Add(new Book(1, 1, false, reader["Title"] as String, reader["Author"] as String));
+
+change to:
+
+     SELECT * FROM Books	natural	join Catalog;
+
+     dataset.Add(new Book((int)reader["SerialNum"], (int)reader["ISBN"],  false, reader["Title"] as String, reader["Author"] as String));

@@ -1,0 +1,12 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\bin\Debug\BoggleClient.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\bin\Debug\BoggleClient.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\bin\Debug\BoggleClient.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\bin\Debug\BoggleModel.cs.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\bin\Debug\StringSocketOfficial.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\bin\Debug\BoggleModel.cs.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\obj\Debug\BoggleClient.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\obj\Debug\BoggleClient.Form1.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\obj\Debug\BoggleClient.Properties.Resources.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\obj\Debug\BoggleClient.csproj.GenerateResource.Cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\obj\Debug\BoggleClient.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\BoggleClient\obj\Debug\BoggleClient.pdb

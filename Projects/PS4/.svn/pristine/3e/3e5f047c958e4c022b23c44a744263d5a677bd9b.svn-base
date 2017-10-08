@@ -1,0 +1,99 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SS;
+using SpreadsheetUtilities;
+using System.Linq;
+
+namespace SpreadsheetTester
+{
+	/// <summary>
+	/// 
+	/// </summary>
+	[TestClass]
+	public class SpreadsheetTester
+	{
+		/// <summary>
+		/// Tests a valid cell entry with double
+		/// </summary>
+		[TestMethod]
+		public void Test_SetCellContents_Valid_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("A1", 3990.293823);
+			Assert.AreEqual(sheet.GetCellContents("A1"), 3990.293823);
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with text string
+		/// </summary>
+		[TestMethod]
+		public void Test_SetCellContents_Valid_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("Yyy8_", "hellow");
+			Assert.AreEqual(sheet.GetCellContents("Yyy8_"), "hellow");
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with Formula
+		/// </summary>
+		/*[TestMethod]
+		public void Test_SetCellContents_Valid_3()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			Formula formula = new Formula("6.4444/823.09 + (32.8 * 7)");
+			sheet.SetCellContents("i63", formula);
+			Assert.AreEqual(sheet.GetCellContents("i63"), formula);
+		}*/
+
+		/// <summary>
+		/// Tests the GetNamesOfNonEmptyCells method upon having no non-empty
+		/// cells.
+		/// </summary>
+		[TestMethod]
+		public void Test_GetNamesOfNonEmptyCells_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			Assert.IsFalse(sheet.GetNamesOfAllNonemptyCells().Any());
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 0);
+		}
+
+		/// <summary>
+		/// Tests the GetNamesOfNonEmptyCells method upon having 2 valid non-
+		/// empty cells.
+		/// </summary>
+		[TestMethod]
+		public void Test_GetNamesOfNonEmptyCells_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("FFFo_8i", 72.001);
+			sheet.SetCellContents("_2hP334", "Shrek");
+			Assert.IsTrue(sheet.GetNamesOfAllNonemptyCells().Any());
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 2);
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(0), "FFFo_8i");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(1), "_2hP334");
+		}
+
+		/// <summary>
+		/// Tests the GetNamesOfNonEmptyCells method upon having 5 valid non-
+		/// empty cells.
+		/// </summary>
+		[TestMethod]
+		public void Test_GetNamesOfNonEmptyCells_3()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("B33", 0.04);
+			sheet.SetCellContents("I0_ue4", new Formula("477.22+ 0 * (3/55.4 + 8.94)", x => x, x => true));
+			sheet.SetCellContents("U__", "Get him some melk");
+			sheet.SetCellContents("W2", "Taxes");
+			sheet.SetCellContents("_234567", new Formula("(45)", x => x, x => true));
+			Assert.IsTrue(sheet.GetNamesOfAllNonemptyCells().Any());
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 5);
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(0), "B33");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(1), "I0_ue4");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(2), "U__");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(3), "W2");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(4), "_234567");
+		}
+	}
+}

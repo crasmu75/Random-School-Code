@@ -1,0 +1,14 @@
+C:\Users\mposch\SkyDrive\CSIS-2530 Fall 2013\Assignment\A08 12FaLinq\A08\ReadCsvFile\bin\Debug\ReadCsvFile.exe
+C:\Users\mposch\SkyDrive\CSIS-2530 Fall 2013\Assignment\A08 12FaLinq\A08\ReadCsvFile\bin\Debug\ReadCsvFile.pdb
+C:\Users\mposch\SkyDrive\CSIS-2530 Fall 2013\Assignment\A08 12FaLinq\A08\ReadCsvFile\obj\x86\Debug\StockData.csprojResolveAssemblyReference.cache
+C:\Users\mposch\SkyDrive\CSIS-2530 Fall 2013\Assignment\A08 12FaLinq\A08\ReadCsvFile\obj\x86\Debug\ReadCsvFile.Properties.Resources.resources
+C:\Users\mposch\SkyDrive\CSIS-2530 Fall 2013\Assignment\A08 12FaLinq\A08\ReadCsvFile\obj\x86\Debug\StockData.csproj.GenerateResource.Cache
+C:\Users\mposch\SkyDrive\CSIS-2530 Fall 2013\Assignment\A08 12FaLinq\A08\ReadCsvFile\obj\x86\Debug\ReadCsvFile.exe
+C:\Users\mposch\SkyDrive\CSIS-2530 Fall 2013\Assignment\A08 12FaLinq\A08\ReadCsvFile\obj\x86\Debug\ReadCsvFile.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LINQ\ReadCsvFile\obj\x86\Debug\ReadCsvFile.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LINQ\ReadCsvFile\obj\x86\Debug\ReadCsvFile.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LINQ\ReadCsvFile\bin\Debug\ReadCsvFile.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LINQ\ReadCsvFile\bin\Debug\ReadCsvFile.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LINQ\ReadCsvFile\obj\x86\Debug\StockData.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LINQ\ReadCsvFile\obj\x86\Debug\ReadCsvFile.Properties.Resources.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LINQ\ReadCsvFile\obj\x86\Debug\StockData.csproj.GenerateResource.Cache

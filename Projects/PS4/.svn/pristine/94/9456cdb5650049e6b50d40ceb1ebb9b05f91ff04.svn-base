@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SpreadsheetUtilities;
+
+namespace Spreadsheet
+{
+	class Cell
+	{
+		private string name;
+		private object contents, value;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="contents"></param>
+		public Cell(string name, string contents)
+		{
+			this.name = name;
+
+			// see if this is a double
+			try
+			{
+				this.contents = Double.Parse(contents);
+			}
+			// definitely not a double
+			catch(FormatException)
+			{
+				// check for an equals sign
+				if (contents[0].Equals("="))
+					this.contents = new Formula(contents);
+				// it's just a string of characters
+				else
+					this.contents = contents;
+			}
+		}
+	}
+}

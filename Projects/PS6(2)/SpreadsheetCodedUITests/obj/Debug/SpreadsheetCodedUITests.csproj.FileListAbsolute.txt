@@ -1,0 +1,6 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6(2)\SpreadsheetCodedUITests\bin\Debug\SpreadsheetCodedUITests.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6(2)\SpreadsheetCodedUITests\bin\Debug\SpreadsheetCodedUITests.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6(2)\SpreadsheetCodedUITests\obj\Debug\SpreadsheetCodedUITests.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6(2)\SpreadsheetCodedUITests\obj\Debug\SpreadsheetCodedUITests.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6(2)\SpreadsheetCodedUITests\obj\Debug\SpreadsheetCodedUITests.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6(2)\SpreadsheetCodedUITests\bin\Debug\SpreadsheetCodedUITests.XML

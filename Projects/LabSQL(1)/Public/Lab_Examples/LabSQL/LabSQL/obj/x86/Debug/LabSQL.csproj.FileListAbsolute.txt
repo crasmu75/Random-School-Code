@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabSQL(1)\Public\Lab_Examples\LabSQL\LabSQL\bin\Debug\LabSQL.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabSQL(1)\Public\Lab_Examples\LabSQL\LabSQL\bin\Debug\LabSQL.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabSQL(1)\Public\Lab_Examples\LabSQL\LabSQL\obj\x86\Debug\LabSQL.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabSQL(1)\Public\Lab_Examples\LabSQL\LabSQL\obj\x86\Debug\LabSQL.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabSQL(1)\Public\Lab_Examples\LabSQL\LabSQL\obj\x86\Debug\LabSQL.pdb

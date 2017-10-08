@@ -1,0 +1,64 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SpreadsheetUtilities;
+using System.Collections.Generic;
+
+namespace FormulaTester
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [TestClass]
+    public class FormulaTester
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_1()
+        {
+            Formula testFormula = new Formula(" ", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_2()
+        {
+            Formula testFormula = new Formula("x2 0.2 + 3", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_3()
+        {
+            Formula testFormula = new Formula("y2 + - 6.876", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_4()
+        {
+            Formula testFormula = new Formula("_&3 / 16.07", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_5()
+        {
+            Formula testFormula = new Formula("2x +y3", x => x.ToUpper(), x => true);
+        }
+    }
+}

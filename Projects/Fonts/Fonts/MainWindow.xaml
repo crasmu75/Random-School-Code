@@ -1,0 +1,42 @@
+﻿<Window x:Class="Fonts.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Fonts" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Viewbox Grid.Row="0" Grid.ColumnSpan="2" >
+            <TextBlock Text="Font Demo" Padding="6" />
+        </Viewbox>
+        <ListBox Name ="FontList" Grid.Row="1" Grid.Column="0" ItemsSource="{x:Static Fonts.SystemFontFamilies }" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock FontSize="15" LineHeight="28" FontFamily="{Binding}" Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="15" LineHeight="25"
+                   HorizontalAlignment="Center" Margin="0,50,0,0"
+                   FontFamily="{Binding ElementName=FontList, Path=SelectedItem}">
+            The Road not taken<LineBreak/>
+            <LineBreak/>
+            Two roads diverged in a yellow wood,<LineBreak/>
+            And sorry I could not travel both<LineBreak/>
+            And be one traveler, long I stood<LineBreak/>
+            And looked down one as far as I could<LineBreak/>
+            To where it bent in the undergrowth.<LineBreak/>
+            <LineBreak/>
+            I shall be telling this with a sigh<LineBreak/>
+            Somewhere ages and ages hence:<LineBreak/>
+            Two roads diverged in a wood, and I--<LineBreak/>
+            I took the one less traveled by,<LineBreak/>
+            And that has made all the difference<LineBreak/>
+        </TextBlock>
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FormulaEvaluator;
+
+namespace Tester
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            FormulaEvaluator.Evaluator.Lookup look = LookUpVariable;
+            Console.WriteLine(FormulaEvaluator.Evaluator.Evaluate("(2 + X6) / 5 - 2", look));
+            Console.Read();
+        }
+
+        public static int LookUpVariable(String v)
+        {
+            return 7;
+        }
+
+    }
+}

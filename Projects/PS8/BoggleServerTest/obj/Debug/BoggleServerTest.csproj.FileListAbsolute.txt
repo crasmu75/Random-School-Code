@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTest\bin\Debug\BoggleServerTest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTest\bin\Debug\BoggleServerTest.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTest\obj\Debug\BoggleServerTest.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTest\obj\Debug\BoggleServerTest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTest\obj\Debug\BoggleServerTest.pdb

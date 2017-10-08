@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using CustomNetworking;
+using System.Net;
+using System.Threading;
+using System.Text.RegularExpressions;
+
+namespace BoggleServer
+{
+	class BoggleServer
+	{
+		// Listens for incoming connections
+		private TcpListener server;
+
+		// One StringSocket per connected client
+		private List<StringSocket> allSockets;
+
+		// the name associated with the socket
+		private List<string> user_names;
+
+        // list of boggle playing pairs (tuple of 2 sockets)
+        private List<Game> games;
+
+        // socket that is currently waiting for a partner
+        StringSocket singleSocket;
+
+		// Regex to be used for incoming commands
+		Regex playCommand = new Regex(@"^(PLAY|play)\s[a-zA-Z]+$");
+		Regex wordCommand = new Regex(@"^(WORD|word)\s[a-zA-Z]+$");
+
+		static void Main(string[] args)
+		{
+			new BoggleServer(2000);
+			Console.Read();
+		}
+
+		public BoggleServer(int port)
+		{
+			server = new TcpListener(IPAddress.Any, port);
+			allSockets = new List<StringSocket>();
+			user_names = new List<string>();
+			server.Start();
+			server.BeginAcceptSocket(ConnectionReceived, null);
+
+            singleSocket = null;
+            games = new List<Game>();
+		}
+
+        public void ConnectionReceived(IAsyncResult ar)
+        {
+			Socket socket = server.EndAcceptSocket(ar);
+			StringSocket ss = new StringSocket(socket, UTF8Encoding.Default);
+			ss.BeginReceive(CommandReceived, ss);
+			server.BeginAcceptSocket(ConnectionReceived, null);
+        }
+
+		public void CommandReceived(String incomingCommand, Exception e, object p)
+		{
+			StringSocket ss = (StringSocket)p;
+
+			if (playCommand.IsMatch(incomingCommand))
+			{
+				lock(ss)
+				{
+					user_names.Add(incomingCommand.Substring(5));
+					if (singleSocket == null)
+					{
+						singleSocket = ss;
+					}
+					else
+					{
+						games.Add(new Game(singleSocket, ss));
+						singleSocket = null;
+					}
+				}
+			}
+			else if (wordCommand.IsMatch(incomingCommand))
+			{
+
+			}
+			else
+			{
+				ss.BeginSend("IGNORING " + incomingCommand, (ee, pp) => { }, null);
+			}
+
+			ss.BeginReceive(CommandReceived, p);
+		}
+	}
+}

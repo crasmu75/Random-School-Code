@@ -1,0 +1,25 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net.Sockets;
+using BoggleServer;
+
+namespace BoggleServerTest
+{
+    [TestClass]
+    public class BoggleServerTest
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 10, new File("dictionary.txt"), "AAPOERDSRAVSKEOK");
+
+            TcpClient player1 = new TcpClient();
+            TcpClient player2 = new TcpClient();
+
+            player1.Connect("localhost", 2000);
+            player2.Connect("localhost", 2000);
+
+            
+        }
+    }
+}

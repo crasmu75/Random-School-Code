@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace FormulaEvaluator
+{
+    public static class Evaluator
+    {
+        public delegate int Lookup(String v);
+
+        public static Stack<int> values;
+        public static Stack<char> operators;
+
+        public static int Evaluate(String userInput, Lookup variableEvaluator)
+        {
+            int result = 0;
+
+            values = new Stack<int>();
+            operators = new Stack<char>();
+
+            //split string into tokens
+            string[] substrings = Regex.Split(userInput, "(\\()|(\\))|(-)|(\\+)|(\\*)|(/)");
+            
+            //remove white spaces
+            substrings = RemoveWhitespace(substrings);
+
+            //sort to appropriate stacks
+            SortToStacks(substrings, variableEvaluator);
+
+            Console.WriteLine("values");
+            foreach (int val in values)
+                Console.WriteLine(val);
+
+            Console.WriteLine("operators");
+            foreach (char val in operators)
+                Console.WriteLine(val);
+
+            //sort tokens into appropriate arrays
+
+            variableEvaluator(userInput);
+            return result;
+        }
+
+        private static string[] RemoveWhitespace(string[] tokens)
+        {
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                tokens[i] = Regex.Replace(tokens[i], @"\s+", string.Empty);
+            }
+            return tokens;
+        }
+
+        private static void SortToStacks(string[] tokens, Lookup variableEvaluator)
+        {
+            Regex regExValues = new Regex(@"^[a-zA-Z0-9]+$");
+            Regex regExOperators = new Regex("(\\()|(\\))|(-)|(\\+)|(\\*)|(/)");
+
+            foreach (string character in tokens)
+            {
+                Console.WriteLine(character);
+                //does this token contain only numbers and letters?
+                if (regExValues.IsMatch(character))
+                {
+                    //does it contain letters?
+                    if (Regex.IsMatch(character, "[A-Za-z]"))
+                    {
+                        //must be a variable
+                        if (ValidateVariable(character))
+                            if (variableEvaluator(character) == 0)
+                                throw new ArgumentException("Variable has no value");
+                            else
+                                values.Push(variableEvaluator(character));
+                    }
+                    //must be an integer
+                    else
+                        values.Push(Convert.ToInt32(character));
+                }
+                //must be an operator or invalid
+                else
+                    //is it an operator?
+                    if (regExOperators.IsMatch(character))
+                        operators.Push(Char.Parse(character));
+                    //must be invalid
+                    else
+                        throw new ArgumentException("Invalid syntax in expression");
+            }
+        }
+
+        private int Infix()
+        {
+            int result = 0;
+
+
+            return result;
+        }
+
+        private static Boolean ValidateVariable(String variable)
+        {
+            if (Char.IsLetter(variable[0]))
+                if (Char.IsDigit(variable[variable.Length - 1]))
+                    return true;
+                else
+                    throw new ArgumentException("Invalid syntax on variable");
+            else
+                throw new ArgumentException("Invalid syntax on variable");
+        }
+    }
+}

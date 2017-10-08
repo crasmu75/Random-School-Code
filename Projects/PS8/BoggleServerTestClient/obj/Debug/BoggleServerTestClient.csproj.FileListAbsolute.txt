@@ -1,0 +1,10 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\bin\Debug\BoggleServerTestClient.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\bin\Debug\BoggleServerTestClient.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\bin\Debug\BoggleServerTestClient.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\bin\Debug\StringSocketOfficial.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\obj\Debug\BoggleServerTestClient.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\obj\Debug\BoggleServerTestClient.Properties.Resources.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\obj\Debug\BoggleServerTestClient.csproj.GenerateResource.Cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\obj\Debug\BoggleServerTestClient.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\obj\Debug\BoggleServerTestClient.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8\BoggleServerTestClient\obj\Debug\BoggleServerTestClient.Form1.resources

@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SpreadsheetGUI
+{
+	public partial class Form1 : Form
+	{
+		private int formCount = 0;
+		public Form1()
+		{
+			// start window at full screen
+			WindowState = FormWindowState.Maximized;
+			InitializeComponent();
+		}
+
+		// Deals with the New menu
+		private void menuChoiceNew_Click(object sender, EventArgs e)
+		{
+			// Tell the application context to run the form on the same
+			// thread as the other forms.
+			SpreadsheetApplicationContext.getAppContext().RunForm(new Form1());
+		}
+
+		// Deals with the Close menu
+		private void menuChoiceClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void menuChoiceOpen_Click(object sender, EventArgs e)
+		{
+			openFileDialog1.Filter = "spreadsheet files (*.sprd)|*.sprd|All files (*.*)|*.*";
+			if (openFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				 if(!openFileDialog1.FileName.EndsWith(".sprd"))
+					 MessageBox.Show("Incorrect file type or extension.");
+			}
+		}
+	}
+}

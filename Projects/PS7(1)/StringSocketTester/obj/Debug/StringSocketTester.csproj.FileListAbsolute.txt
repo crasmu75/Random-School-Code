@@ -1,0 +1,8 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\bin\Debug\StringSocketTester.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\bin\Debug\StringSocketTester.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\bin\Debug\StringSocket.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\bin\Debug\StringSocketOfficial.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\bin\Debug\StringSocket.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\obj\Debug\StringSocketTester.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\obj\Debug\StringSocketTester.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS7(1)\StringSocketTester\obj\Debug\StringSocketTester.pdb

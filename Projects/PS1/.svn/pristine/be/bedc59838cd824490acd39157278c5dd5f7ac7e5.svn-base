@@ -1,0 +1,190 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace FormulaEvaluator
+{
+    public static class Evaluator
+    {
+        public delegate int Lookup(String v);
+
+        public static Stack<int> values;
+        public static Stack<String> operators;
+
+        public static int Evaluate(String exp, Lookup variableEvaluator)
+        {
+            values = new Stack<int>();
+            operators = new Stack<String>();
+
+            //remove white spaces
+            exp = RemoveWhitespace(exp);
+
+            //split string into tokens
+            string[] substrings = Regex.Split(exp, "(\\()|(\\))|(-)|(\\+)|(\\*)|(/)");
+
+            //sort to appropriate stacks
+            SortToStacks(substrings, variableEvaluator);
+
+            return values.Pop();
+        }
+
+        private static String RemoveWhitespace(String expression)
+        {
+            char[] arr = expression.ToCharArray();
+            expression = "";
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if(!Regex.IsMatch(arr[i].ToString(), @"\s+"))
+                    expression += arr[i];
+            }
+            return expression;
+            
+        }
+
+        private static void SortToStacks(string[] tokens, Lookup variableEvaluator)
+        {
+            Regex regExValues = new Regex(@"^[a-zA-Z0-9]+$");
+            Regex regExOperators = new Regex("(\\()|(\\))|(-)|(\\+)|(\\*)|(/)");
+
+            foreach (String character in tokens)
+            {
+                if (character != "")
+                {
+                    //does this token contain only numbers and letters?
+                    if (regExValues.IsMatch(character))
+                    {
+                        //does it contain letters?
+                        if (Regex.IsMatch(character, "[A-Za-z]"))
+                        {
+                            //must be a variable
+                            if (ValidateVariable(character))
+                                    Infix(Convert.ToString(variableEvaluator(character)), "intorvar");
+                        }
+                        //must be an integer
+                        else
+                            Infix(character, "intorvar");
+                    }
+                    //must be an operator or invalid
+                    else
+                        //is it an operator?
+                        if (regExOperators.IsMatch(character))
+                            Infix(character, "operator");
+                        //must be invalid
+                        else
+                            throw new ArgumentException("Invalid syntax in expression");
+                }
+            }
+
+            //End of the line
+            if(operators.Count != 0)
+            {
+                values.Push(PerformOperation(operators.Pop(), values.Pop(), values.Pop()));
+            }
+        }
+
+        private static void Infix(String token, String type)
+        {
+            int res;
+
+            if (type == "intorvar")
+            {
+                if (operators.Count != 0)
+                {
+                    if (operators.Peek() == "*" || operators.Peek() == "/")
+                    {
+                        if (values.Count == 0)
+                            throw new ArgumentException("Empty stack, division by zero");
+                        res = PerformOperation(operators.Pop(), values.Pop(), Convert.ToInt32(token));
+                        values.Push(res);
+                    }
+                    else
+                        values.Push(Convert.ToInt32(token));
+                }
+                else   
+                {
+                    values.Push(Convert.ToInt32(token));
+                }
+            }
+            if (type == "operator")
+            {
+                if (token == "+" || token == "-")
+                {
+                    if (operators.Count != 0)
+                        if(operators.Peek() == "+" || operators.Peek() == "-")
+                        {
+                            if (values.Count < 2)
+                                throw new ArgumentException("Not enough values for an operation.");
+                            res = PerformOperation(operators.Pop(), values.Pop(), values.Pop());
+                            values.Push(res);
+                        }
+                    operators.Push(token);
+                }
+                if (token == "*" || token == "/" || token == "(")
+                {
+                    operators.Push(token);
+                }
+                if (token == ")")
+                {
+                    if (operators.Count != 0)
+                        if (operators.Peek() == "+" || operators.Peek() == "-")
+                        {
+                            if (values.Count < 2)
+                                throw new ArgumentException("Not enough values in stack.");
+                            res = PerformOperation(operators.Pop(), values.Pop(), values.Pop());
+                            values.Push(res);
+                        }
+                    if (operators.Count != 0)
+                    {
+                        if (operators.Peek() != "(")
+                        {
+                            throw new ArgumentException("Your right parantheses has no partner");
+                        }
+                        else
+                            operators.Pop();
+                    }
+                    else
+                        throw new ArgumentException("Your right parantheses has no partner");
+
+                    if (operators.Count != 0)
+                        if (operators.Peek() == "*" || operators.Peek() == "/")
+                        {
+                            if (values.Count < 2)
+                                throw new ArgumentException("Not enough values in stack");
+                            res = PerformOperation(operators.Pop(), values.Pop(), values.Pop());
+                            values.Push(res);
+                        }
+                }
+            }
+            
+        }
+
+        private static Boolean ValidateVariable(String variable)
+        {
+            if (Char.IsLetter(variable[0]))
+                if (Char.IsDigit(variable[variable.Length - 1]))
+                    return true;
+                else
+                    throw new ArgumentException("Invalid syntax on variable");
+            else
+                throw new ArgumentException("Invalid syntax on variable");
+        }
+
+        private static int PerformOperation(String operation, int leftOperand, int rightOperand)
+        {
+            int result = 0;
+            if (operation == "*")
+                result = leftOperand * rightOperand;
+            if (operation == "/")
+                result = leftOperand / rightOperand;
+            if (operation == "+")
+                result = leftOperand + rightOperand;
+            if (operation == "-")
+                result = leftOperand - rightOperand;
+            return result;
+
+        }
+    }
+}

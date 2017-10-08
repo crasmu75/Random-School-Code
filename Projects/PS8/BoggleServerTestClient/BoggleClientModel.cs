@@ -1,0 +1,74 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Net;
+using System.Net.Sockets;
+using CustomNetworking;
+using System.Windows.Forms;
+
+namespace BoggleServerTestClient
+{
+	public class BoggleClientModel
+	{
+
+		// The socket used to communicate with the server.  If no connection has been
+		// made yet, this is null.
+        private StringSocket stringSocket;
+
+		//
+		// PAY ATTENTION: this is one of the most interesting features in the program!
+		// Register for this event to be motified when a line of text arrives.
+		public event Action<String> IncomingLineEvent;
+
+		/// <summary>
+		/// Creates a not yet connected client model.
+		/// </summary>
+		public BoggleClientModel()
+		{
+			stringSocket = null;
+		}
+
+		/// <summary>
+		/// Connect to the server at the given hostname and port and with the give name.
+		/// </summary>
+		public void Connect(string hostname, int port)
+		{
+			if (stringSocket == null)
+			{
+				TcpClient client = new TcpClient(hostname, port);
+                stringSocket = new StringSocket(client.Client, UTF8Encoding.Default);
+				stringSocket.BeginReceive(CommandReceived, null);
+			}
+		}
+
+		/// <summary>
+		/// Send a line of text to the server.
+		/// </summary>
+		/// <param name="line"></param>
+		public void SendMessage(String line)
+		{
+			if (stringSocket != null)
+			{
+				stringSocket.BeginSend(line + "\n", SendMessageCallback, null);
+			}
+		}
+
+		private void SendMessageCallback(Exception e, object payload)
+		{
+			MessageBox.Show("Message sent");
+		}
+
+		/// <summary>
+		/// Deal with an arriving line of text.
+		/// </summary>
+		private void CommandReceived(String s, Exception e, object p)
+		{
+			if (IncomingLineEvent != null)
+			{
+				IncomingLineEvent("Command from server: " + s);
+			}
+			stringSocket.BeginReceive(CommandReceived, null);
+		}
+	}
+}

@@ -1,0 +1,16 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleServerTest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleServerTest.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\obj\Debug\BoggleServerTest.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\obj\Debug\BoggleServerTest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\obj\Debug\BoggleServerTest.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleBoard.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleServer.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\Resources.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\StringSocketOfficial.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleBoard.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleServer.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\Resources.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleServerTest.XML
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleBoard.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\BoggleServer.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS8(1)\BoggleServerTest\bin\Debug\Resources.xml

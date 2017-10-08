@@ -1,0 +1,151 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
+
+namespace Selenium
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			OpenQA.Selenium.IWebElement element;
+
+			IWebDriver driver = new FirefoxDriver();
+			driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(2));
+
+			driver.Navigate().GoToUrl("http://uofu-cs4540-60.cloudapp.net/");
+
+			// Navigate to registration page
+			element = driver.FindElement(By.Id("projects"));
+			element.Click();
+			element = driver.FindElement(By.Id("assignment7"));
+			element.Click();
+			element = driver.FindElement(By.Id("register"));
+			element.Click();
+
+			// Test registration page
+			TestRegistration(driver, element);
+
+			// Complete registration
+			element = driver.FindElement(By.Id("login"));
+			element.Click();
+
+			// Test login page
+			TestLogIn(driver, element);
+
+			// Test submitting an application
+			element = driver.FindElement(By.Id("newapplication"));
+			element.Click();
+			TestApplicationSubmission(driver, element);
+		}
+
+		private static void TestApplicationSubmission(IWebDriver driver, OpenQA.Selenium.IWebElement element)
+		{
+			// Fill out some fields
+			element = driver.FindElement(By.Name("textPhone1"));
+			element.SendKeys("hello");
+			element = driver.FindElement(By.Name("textPhone2"));
+			element.SendKeys("801-555-5555");
+			element = driver.FindElement(By.Name("textAddress"));
+			element.SendKeys("45 S No Way Tuscany, WA 37288");
+			// Make the form tell us to fill the gpa field
+			element = driver.FindElement(By.Name("formSubmit"));
+			element.Click();
+
+			// Fill out the gpa correctly
+			element = driver.FindElement(By.Name("GPA"));
+			element.SendKeys("3.22");
+			// Make the form tell us to fix the first phone number
+			element = driver.FindElement(By.Name("formSubmit"));
+			element.Click();
+			driver.SwitchTo().Alert().Accept();
+
+			// Fill out the rest of the form
+			element = driver.FindElement(By.Id("notcsdegree"));
+			element.Click();
+			element = driver.FindElement(By.Name("academicProgram"));
+			element.SendKeys("Culinary");
+			element = driver.FindElement(By.Id("notemployed"));
+			element.Click();
+			element = driver.FindElement(By.Name("jobdescription"));
+			element.SendKeys("This job is going to be suckish, so basically I'll devote all my time to being a TA.");
+			element = driver.FindElement(By.Id("addclassrequest"));
+			element.Click();
+			element = driver.FindElement(By.ClassName("selection1"));
+			SelectElement clickThis = new SelectElement(element);
+			clickThis.SelectByText("CS 104 - Creatng Interactive Web Contnt - Spring 2015(ZACHARY, J. L.)");
+			element = driver.FindElement(By.ClassName("info"));
+			element.SendKeys("I did horribly in this class but should still totally be considered.");
+
+			Console.WriteLine("Third test complete and passed.");
+		}
+
+		private static void TestLogIn(IWebDriver driver, OpenQA.Selenium.IWebElement element)
+		{
+			// Fill out form with incorrect password
+			element = driver.FindElement(By.Name("email"));
+			element.SendKeys("hi@yahoo.com");
+			element = driver.FindElement(By.Name("password"));
+			element.SendKeys("password1");
+			// Make the form tell us the match doesn't exist
+			element = driver.FindElement(By.Name("formSubmit"));
+			element.Click();
+
+			// Put the right password
+			element = driver.FindElement(By.Name("email"));
+			element.SendKeys("hi@yahoo.com");
+			element = driver.FindElement(By.Name("password"));
+			element.SendKeys("password");
+			element = driver.FindElement(By.Name("formSubmit"));
+			element.Click();
+
+			Console.WriteLine("Second test complete and passed.");
+		}
+
+		private static void TestRegistration(IWebDriver driver, OpenQA.Selenium.IWebElement element)
+		{
+			OpenQA.Selenium.IWebElement submitButton;
+			submitButton = driver.FindElement(By.Name("formSubmit"));
+
+			// Fill out a few fields with errors
+			element = driver.FindElement(By.Name("NUname"));
+			element.SendKeys("Johnny Doe");
+			element = driver.FindElement(By.Name("NUuid"));
+			element.SendKeys("45454545");
+			element = driver.FindElement(By.Name("NUemail"));
+			element.SendKeys("hi");
+			// Make the form tell us the email is invalid
+			submitButton.Click();
+
+			// Fix the email
+			element = driver.FindElement(By.Name("NUemail"));
+			element.SendKeys("@yahoo.com");
+			// Make the form tell us we need password fields
+			submitButton.Click();
+
+			// Enter different passwords
+			element = driver.FindElement(By.Name("NUpassword"));
+			element.SendKeys("password");
+			element = driver.FindElement(By.Name("NUpasswordRepeat"));
+			element.SendKeys("password1");
+			// Make the form tell us we need to match password
+			submitButton.Click();
+			driver.SwitchTo().Alert().Accept();
+
+			// Enter the correct password
+			element.Clear();
+			element.SendKeys("password");
+
+			// Submit the form
+			submitButton.Click();
+
+			Console.WriteLine("First test complete and passed.");
+		}
+	}
+}

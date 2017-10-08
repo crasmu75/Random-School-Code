@@ -1,0 +1,6 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AlgorithmsQ11-3\AlgorithmsQ11-3\bin\Debug\AlgorithmsQ11-3.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AlgorithmsQ11-3\AlgorithmsQ11-3\bin\Debug\AlgorithmsQ11-3.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AlgorithmsQ11-3\AlgorithmsQ11-3\bin\Debug\AlgorithmsQ11-3.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AlgorithmsQ11-3\AlgorithmsQ11-3\obj\Debug\AlgorithmsQ11-3.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AlgorithmsQ11-3\AlgorithmsQ11-3\obj\Debug\AlgorithmsQ11-3.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AlgorithmsQ11-3\AlgorithmsQ11-3\obj\Debug\AlgorithmsQ11-3.pdb

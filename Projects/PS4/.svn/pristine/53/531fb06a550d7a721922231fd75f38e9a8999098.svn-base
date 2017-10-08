@@ -1,0 +1,16 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SS;
+
+namespace SpreadsheetTester
+{
+	[TestClass]
+	public class SpreadsheetTester
+	{
+		[TestMethod]
+		public void Test_Spreadsheet_Constructor()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+		}
+	}
+}

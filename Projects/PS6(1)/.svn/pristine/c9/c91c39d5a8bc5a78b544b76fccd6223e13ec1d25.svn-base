@@ -1,0 +1,14 @@
+﻿Camille Rasmussen
+UID: u0717763
+CS 3500
+
+Project started on October 29, 2014
+----------------------------------
+
+
+November 1
+Figured out that I need to pass in isValid that only returns true if cell name
+is one letter followed by one or more digits... for this SpreadsheetPanel obj
+
+Catching SpreadsheetReadWriteExceptions and InvalidNameExceptions and Argument-
+NullExceptions etc.

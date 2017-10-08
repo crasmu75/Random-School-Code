@@ -1,0 +1,12 @@
+\\chips.eng.utah.edu\home\camiller\.win_my_documents\visual studio 2013\Projects\A1-1\A1-1\bin\Debug\A1-1.exe.config
+\\chips.eng.utah.edu\home\camiller\.win_my_documents\visual studio 2013\Projects\A1-1\A1-1\obj\Debug\A1-1.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\camiller\.win_my_documents\visual studio 2013\Projects\A1-1\A1-1\bin\Debug\A1-1.exe
+\\chips.eng.utah.edu\home\camiller\.win_my_documents\visual studio 2013\Projects\A1-1\A1-1\bin\Debug\A1-1.pdb
+\\chips.eng.utah.edu\home\camiller\.win_my_documents\visual studio 2013\Projects\A1-1\A1-1\obj\Debug\A1-1.exe
+\\chips.eng.utah.edu\home\camiller\.win_my_documents\visual studio 2013\Projects\A1-1\A1-1\obj\Debug\A1-1.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\A1-1\A1-1\A1-1\bin\Debug\A1-1.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\A1-1\A1-1\A1-1\obj\Debug\A1-1.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\A1-1\A1-1\A1-1\obj\Debug\A1-1.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\A1-1\A1-1\A1-1\bin\Debug\A1-1.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\A1-1\A1-1\A1-1\bin\Debug\A1-1.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\A1-1\A1-1\A1-1\obj\Debug\A1-1.csprojResolveAssemblyReference.cache

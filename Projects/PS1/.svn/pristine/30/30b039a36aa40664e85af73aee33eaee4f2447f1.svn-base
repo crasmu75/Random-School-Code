@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace FormulaEvaluator
+{
+    public static class Evaluator
+    {
+        public delegate int Lookup(String v);
+
+        //private static string[] operators;
+        //private static string[] numbers;
+        public static int Evaluate(String exp, Lookup variableEvaluator)
+        {
+            //split string into tokens
+            string[] substrings = Regex.Split(exp, "(\\()|(\\))|(-)|(\\+)|(\\*)|(/)");
+            char[] components = exp.ToCharArray();
+            //sort tokens into appropriate arrays
+            Sort(components);
+
+            return -1;
+        }
+
+        private static void Sort(char[] tokens)
+        {
+            foreach (char character in tokens)
+                if (Char.IsDigit(character))
+                    ;
+        }
+    }
+}

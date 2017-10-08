@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SpreadsheetGUI</name>
+    </assembly>
+    <members>
+        <member name="T:SpreadsheetGUI.Form1">
+            <summary>
+            The GUI controller class, contains event handlers for buttons and clicks.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.#ctor">
+            <summary>
+            No-argument constructor for the form
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.DisplayCells(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Takes in a list of cell names that need to be updated, and it accesses 
+            the current spreadsheet we are working with so we can access the correct
+            values for those cells. The GUI display for each cell is updated.
+            </summary>
+            <param name="cellsToBeUpdated"></param>
+            <param name="currentSheet"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.DisplaySelection(SS.SpreadsheetPanel)">
+            <summary>
+            Every time the selection changes, this method is called with the 
+            SpreadsheetPanel as it's parameter. We display the cell name along
+            with it's value and contents above.
+            </summary>
+            <param name="ss"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.LoadSpreadsheet">
+            <summary>
+            There are a number of exceptions that could be thrown when an existing 
+            Spreadsheet is loaded. This method loads the spreadsheet and handles 
+            these exceptions appropriately.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.isValidExcelName(System.String)">
+            <summary>
+            The isValid method being passed into a new spreadsheet. This method maps string
+            names to true if they contain one letter and one digit 1-9 followed by zero or 
+            one digit 0-9. This gives the range A1-Z99. a1 = A1 and z99 = Z99
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.SaveApplication">
+            <summary>
+            Saves the current working spreadsheet.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.CheckToSave">
+            <summary>
+            If any changes have been made to the current spreadsheet, the user is asked
+            if they would like to save their changes.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.menuChoiceNew_Click(System.Object,System.EventArgs)">
+            <summary>
+            Deals with the new menu - opens up another window running another spreadsheet
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.menuChoiceSave_Click(System.Object,System.EventArgs)">
+            <summary>
+            Deals with saving the current spreadsheet. SaveApplication() is called in a 
+            few different situations.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.menuChoiceOpen_Click(System.Object,System.EventArgs)">
+            <summary>
+            Allows user to open a saved spreadsheet.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.menuChoiceClose_Click(System.Object,System.EventArgs)">
+            <summary>
+            Deals with the close menu - calls Close() method which is what happens
+            when the x in the corner is clicked. There is a separate method for that
+            simply for clarity.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.windowClose_Click(System.Object,System.EventArgs)">
+            <summary>
+            Deals with when the user clicks the x in the corner to close the spreadsheet.
+            We want to make sure the user is asked if they want to save their work if there
+            is any unsaved work.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.menuChoiceInstructions_Click(System.Object,System.EventArgs)">
+            <summary>
+            Instructions menu click - displays instructions for application
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.menuChoiceAbout_Click(System.Object,System.EventArgs)">
+            <summary>
+            About menu click - displays information about development of application
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.buttonUpdateContents_Click(System.Object,System.EventArgs)">
+            <summary>
+            Deals with when the user wants to update the contents of a cell
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.comboBoxColors_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the background color changes when the user selects one of the six colors
+            from the drop down combobox.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:SpreadsheetGUI.Form1.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:SpreadsheetGUI.Form1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetGUI.SpreadsheetApplicationContext">
+            <summary>
+            Keeps track of how many top-level forms are running
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.SpreadsheetApplicationContext.#ctor">
+            <summary>
+            Private constructor for singleton pattern
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.SpreadsheetApplicationContext.getAppContext">
+            <summary>
+            Returns the one DemoApplicationContext.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.SpreadsheetApplicationContext.RunForm(System.Windows.Forms.Form)">
+            <summary>
+            Runs the form
+            </summary>
+        </member>
+        <member name="T:SpreadsheetGUI.Program">
+            <summary>
+            Handles the start of the application and allows for several windows of the application
+            to be open at any given time.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetGUI.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetGUI.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:SpreadsheetGUI.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:SpreadsheetGUI.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SpreadsheetUtilities;
+
+namespace SS
+{
+	/// <summary>
+	/// 
+	/// </summary>
+	public class Cell
+	{
+		private string name;
+		private object contents, value;
+
+		/// <summary>
+		/// The Cell constructor for a double
+		/// Sets name, contents, and value appropriately
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="number"></param>
+		public Cell(string name, double number)
+		{
+			this.name = name;
+			this.contents = number;
+			this.value = number;
+		}
+
+		/// <summary>
+		/// The Cell constructor for a text string
+		/// Sets name, contents, and value appropriately
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="text"></param>
+		public Cell(string name, string text)
+		{
+			this.name = name;
+			this.contents = text;
+			this.value = text;
+		}
+
+		/// <summary>
+		/// The Cell constructor for a Formula
+		/// Formula gets passed in omitting the = at the beginning
+		/// Sets name and contents appropriately, and value is 
+		/// calculated using the Formula.Evaluate() method passing 
+		/// in the LookUp function
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="formula"></param>
+		public Cell(string name, Formula formula, Func<string, double> lookup)
+		{
+			this.name = name;
+			this.contents = formula;
+			this.value = formula.Evaluate(lookup);
+		}
+
+		public string GetName()
+		{
+			return name;
+		}
+
+		public object GetContents()
+		{
+			return contents;
+		}
+
+		public void SetDoubleCellContents(double number)
+		{
+			this.contents = number;
+			this.value = number;
+		}
+
+		public void SetTextCellContents(string text)
+		{
+			this.contents = text;
+			this.value = text;
+		}
+
+		public void SetFormulaCellContents(Formula formula, Func<string, double> lookup)
+		{
+			this.contents = formula;
+			this.value = formula.Evaluate(lookup);
+		}
+
+		public object GetValue()
+		{
+			return value;
+		}
+	}
+}

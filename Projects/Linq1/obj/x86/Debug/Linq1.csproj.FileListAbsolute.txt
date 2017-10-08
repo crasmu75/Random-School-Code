@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq1\bin\Debug\Linq1.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq1\bin\Debug\Linq1.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq1\obj\x86\Debug\Linq1.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq1\obj\x86\Debug\Linq1.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq1\obj\x86\Debug\Linq1.pdb

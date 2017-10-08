@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FormulaEvaluator;
+
+namespace Tester
+{
+    /// <summary>
+    /// Tester class to test code
+    /// </summary>
+    class Program
+    {
+        /// <summary>
+        /// main method to test code
+        /// </summary>
+        /// <param name="args"></param>
+        static void Main(String[] args)
+        {
+            FormulaEvaluator.Evaluator.Lookup look = LookUpVariable;
+            Console.WriteLine(FormulaEvaluator.Evaluator.Evaluate("(2 + X6)& * 5 - 2", look));
+            Console.Read();
+        }
+
+        /// <summary>
+        /// The method that is created into a delegate in FormulaEvaluator.
+        /// Evaluates the value of the variable. (TA's method of this will throw exception
+        /// should the variable not have a value.)
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static int LookUpVariable(String v)
+        {
+            return 7;
+        }
+    }
+}

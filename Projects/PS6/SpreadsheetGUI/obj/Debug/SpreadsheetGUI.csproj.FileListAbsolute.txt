@@ -1,0 +1,12 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\bin\Debug\Resources.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\bin\Debug\Resources.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\bin\Debug\Resources.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.Properties.Resources.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.Form1.resources

@@ -1,0 +1,16 @@
+﻿Project started on 12/8/2014
+Authors: Jessie Delacenserie and Camille Rasmussen
+
+Monday 12/8 -- 3 hrs
+Today we set up the tables in our database and set up the connection.
+We had to run several updates on MySQL Workbench so this step took a little longer than expected.
+
+Wednesday 12/10 -- 4 hrs
+Today we modified our server to send data to our tables in teh database.
+We wrote 3 helper methods, each of which could send a command to insert data into one of the three tables
+we had set up. These helper methods were called each time we sent right after the game ended, before the
+final data was sent to the client. As we collected the lists of words for the final game summary we sent that
+data to the database. This might not be the most efficient way, but it worked and we will go back later to modify
+if time allows. Now that we are writing to the database correctly we need to focus on sending the html.
+
+Thursday 12/11

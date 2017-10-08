@@ -1,0 +1,104 @@
+﻿using BB;
+using CustomNetworking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BoggleServer
+{
+	class Game
+	{
+		private StringSocket player1;
+		private StringSocket player2;
+
+		private int p1score;
+		private int p2score;
+
+		private BoggleBoard board;
+
+		private int seconds;
+
+		public Game(StringSocket p1, StringSocket p2, int times)
+		{
+			player1 = p1;
+			player2 = p2;
+
+			p1score = 0;
+			p2score = 0;
+
+			board = new BoggleBoard();
+
+			seconds = times;
+		}
+
+		public StringSocket GetPartner(StringSocket currentPlayer)
+		{
+			if (currentPlayer.Equals(player1))
+				return player2;
+			else if (currentPlayer.Equals(player2))
+				return player1;
+			else
+				return null;
+		}
+		public void IncrementScore(StringSocket player, int points)
+		{
+			if (player.Equals(player1))
+				p1score += points;
+			else if (player.Equals(player2))
+				p2score += points;
+		}
+
+		public int GetScore(StringSocket player)
+		{
+			if (player.Equals(player1))
+				return p1score;
+			else if (player.Equals(player2))
+				return p2score;
+			else
+				return 1000000000;
+		}
+
+		public bool ProcessWord(StringSocket player, string word)
+		{
+			if (!board.CanBeFormed(word))
+				return false;
+			else
+			{
+				if (word.Length < 3)
+					return false;
+				switch(word.Length)
+				{
+					case 3:
+						IncrementScore(player, 1);
+						break;
+					case 4:
+						IncrementScore(player, 1);
+						break;
+					case 5:
+						IncrementScore(player, 2);
+						break;
+					case 6:
+						IncrementScore(player, 3);
+						break;
+					case 7:
+						IncrementScore(player, 5);
+						break;
+					default:
+						IncrementScore(player, 11);
+						break;
+				}
+				return true;
+			}
+		}
+
+		public bool isCurrentGame(StringSocket player)
+		{
+			if (player.Equals(player1) || player.Equals(player2))
+				return true;
+			else
+				return false;
+		}
+	}
+}

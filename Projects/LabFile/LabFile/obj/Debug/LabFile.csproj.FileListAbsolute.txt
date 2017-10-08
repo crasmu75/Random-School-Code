@@ -1,0 +1,7 @@
+c:\users\camille\documents\visual studio 2013\Projects\LabFile\LabFile\bin\Debug\LabFile.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\LabFile\LabFile\bin\Debug\Poem.txt
+c:\users\camille\documents\visual studio 2013\Projects\LabFile\LabFile\bin\Debug\LabFile.exe
+c:\users\camille\documents\visual studio 2013\Projects\LabFile\LabFile\bin\Debug\LabFile.pdb
+c:\users\camille\documents\visual studio 2013\Projects\LabFile\LabFile\obj\Debug\LabFile.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\LabFile\LabFile\obj\Debug\LabFile.exe
+c:\users\camille\documents\visual studio 2013\Projects\LabFile\LabFile\obj\Debug\LabFile.pdb

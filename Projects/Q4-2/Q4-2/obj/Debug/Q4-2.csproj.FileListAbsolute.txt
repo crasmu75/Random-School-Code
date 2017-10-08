@@ -1,0 +1,6 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Q4-2\Q4-2\bin\Debug\Q4-2.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Q4-2\Q4-2\bin\Debug\Q4-2.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Q4-2\Q4-2\bin\Debug\Q4-2.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Q4-2\Q4-2\obj\Debug\Q4-2.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Q4-2\Q4-2\obj\Debug\Q4-2.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Q4-2\Q4-2\obj\Debug\Q4-2.pdb

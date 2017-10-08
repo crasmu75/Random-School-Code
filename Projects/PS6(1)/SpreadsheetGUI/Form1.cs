@@ -1,0 +1,355 @@
+﻿/// Written by Camille Rasmussen 
+/// UID: u0717763
+/// CS 3500 Fall 2014
+
+using SpreadsheetUtilities;
+using SS;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SpreadsheetGUI
+{
+	/// <summary>
+	/// The GUI controller class, contains event handlers for buttons and clicks.
+	/// </summary>
+	public partial class Form1 : Form
+	{
+		// represents the current sheet the current window is working with
+		private AbstractSpreadsheet currentSheet;
+
+		// about section
+		private const string about = "PS6 Putting the VC in MVC\n\nProgram written by Camille Rasmussen\nCS 3500 Fall 2014" +
+			"\nPS6Skeleton for SpreadsheetPanel object from class repository used\n\nFor design implementation and hardships, " +
+			"see the ReadMe file.";
+
+		// instructions section
+		private const string instructions = "Welcome to Spreadsheet Application!\nUpon the start of the application," +
+			" you'll find yourself with a new empty spreadsheet.\n\n1. Should you ever need to open another instance of the" +
+			" application, or simply another new, empty spreadsheet, click File - New.\n2. To save your current " +
+			" working spreadsheet, click File - Save and" +
+			" follow the file dialog. (If there are any problems saving the file you will be notified.)\n3. If you need" +
+			" to open a saved working spreadsheet, select File - Open and follow" +
+			" the file dialog once again. (If there are any problems opening the file you will be notified.)\n4. To close" +
+			" any open spreadsheet either click File - Close or simply the x in the top right corner. (The program will " +
+			" not completely terminate until all spreadsheets are closed.)\n\n\nWorking With Your Spreadsheet\n\n- Sele" +
+			"ct a cell by clicking on it.\n- The selected cell's information will appear above the grid.\n- To edit a " +
+			"cell, first select it, and click up in the contents text box. Edit it and click the 'Update Contents' button." +
+			" If the cell is successfully updated, the information will show. If not, you will get a warning message and " +
+			"the changes will be lost.\n- There are 3 things you can enter into a cell, a number, a formula, or a text " +
+			"string. When entering formulas, begin them with an '=' sign. You will be notified if your formula contains" +
+			" a cell name that does not exist in the grid, or your formula syntax is invalid.\n\n\nAdditional Features\n" +
+			"\nIn the top right corner of the window you'll see options to change the border color of your spreadsheet." +
+			" Simply change the color in the drop down menu to change the border color. :) (If you cannot see these opt" +
+			"ions, be sure to maximize your window.)";
+
+		/// <summary>
+		/// No-argument constructor for the form
+		/// </summary>
+		public Form1()
+		{
+			// start window
+			InitializeComponent();
+
+			// set up the window
+			WindowState = FormWindowState.Maximized;
+			FormClosed += windowClose_Click;
+			this.BackColor = System.Drawing.Color.LightBlue;
+			comboBoxColors.SelectedIndex = 0;
+			spreadsheetPanel.SetSelection(0, 0);
+
+			// Create new empty spreadsheet
+			currentSheet = new Spreadsheet(isValidExcelName, x => x.ToUpper(), "ps6");
+
+			// Here we are registering a method so that it is notified when
+			// an event happens.  The SelectionChanged event is declared with a
+			// delegate that specifies that all methods that register with it must
+			// take a SpreadsheetPanel as its parameter and return nothing.  So we
+			// register the displaySelection method below.
+			spreadsheetPanel.SelectionChanged += DisplaySelection;
+		}
+
+		/// <summary>
+		/// Takes in a list of cell names that need to be updated, and it accesses 
+		/// the current spreadsheet we are working with so we can access the correct
+		/// values for those cells. The GUI display for each cell is updated.
+		/// </summary>
+		/// <param name="cellsToBeUpdated"></param>
+		/// <param name="currentSheet"></param>
+		private void DisplayCells(IEnumerable<string> cellsToBeUpdated)
+		{
+			int col, row = 0;
+			foreach (string cellName in cellsToBeUpdated)
+			{				
+				// take ascii code for letter and retrieve column num
+				col = (int)cellName[0] - 65;
+				
+				// row number is greater than 9
+				if (cellName.Length == 3)
+					row = int.Parse(cellName.Substring(1, 2)) - 1;
+				
+				// row number is less than 10
+				else if (cellName.Length == 2)
+					row = int.Parse(cellName[1].ToString()) - 1;
+				
+				// update the display cell
+				spreadsheetPanel.SetValue(col, row, currentSheet.GetCellValue(cellName).ToString());
+			}
+		}
+
+		/// <summary>
+		/// Every time the selection changes, this method is called with the 
+		/// SpreadsheetPanel as it's parameter. We display the cell name along
+		/// with it's value and contents above.
+		/// </summary>
+		/// <param name="ss"></param>
+		private void DisplaySelection(SpreadsheetPanel ss)
+		{
+			int row, col;
+			ss.GetSelection(out col, out row);
+
+			// set up the string cellName
+			char rowChar = Convert.ToChar(col + 65);
+			string colChar = "" + (row + 1);
+			string cellName = rowChar + colChar;
+
+			// display
+			textBoxCellName.Text = cellName;
+			textBoxValue.Text = currentSheet.GetCellValue(cellName).ToString();
+
+			// if the conents is a formula, we need to display the = sign
+			if(currentSheet.GetCellContents(cellName) is Formula)
+				textBoxContents.Text = "=" + currentSheet.GetCellContents(cellName).ToString();
+			else
+				textBoxContents.Text = currentSheet.GetCellContents(cellName).ToString();
+		}
+
+
+		/// <summary>
+		/// There are a number of exceptions that could be thrown when an existing 
+		/// Spreadsheet is loaded. This method loads the spreadsheet and handles 
+		/// these exceptions appropriately.
+		/// </summary>
+		private void LoadSpreadsheet()
+		{
+			try
+			{
+				// attempt to load the spreadsheet
+				currentSheet = new Spreadsheet(openFileDialog.FileName, isValidExcelName, x => x.ToUpper(), "ps6");
+
+				// if we don't have any problems, clear the spreadsheetPanel and display the new cells
+				spreadsheetPanel.Clear();
+				DisplayCells(currentSheet.GetNamesOfAllNonemptyCells());
+
+				// set the default selection
+				spreadsheetPanel.SetSelection(0, 0);
+				textBoxCellName.Text = "A1";
+				textBoxValue.Text = currentSheet.GetCellValue("A1").ToString();
+				textBoxContents.Text = currentSheet.GetCellContents("A1").ToString();
+
+				MessageBox.Show("Spreadsheet loaded successfully.");
+			}
+			catch (SpreadsheetReadWriteException ex)
+			{
+				// display the message to the user of what went wrong
+				MessageBox.Show(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// The isValid method being passed into a new spreadsheet. This method maps string
+		/// names to true if they contain one letter and one digit 1-9 followed by zero or 
+		/// one digit 0-9. This gives the range A1-Z99. a1 = A1 and z99 = Z99
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		private bool isValidExcelName(string name)
+		{
+			Regex pattern = new Regex("^[A-Za-z][1-9][0-9]?$");
+
+			if (pattern.IsMatch(name))
+				return true;
+			else
+				return false;
+		}
+
+		/// <summary>
+		/// Saves the current working spreadsheet.
+		/// </summary>
+		private void SaveApplication()
+		{
+			saveFileDialog.Filter = "spreadsheet files (*.sprd)|*.sprd|All files (*.*)|*.*";
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				currentSheet.Save(saveFileDialog.FileName);
+				MessageBox.Show("File saved successfully.");
+			}
+			else
+				MessageBox.Show("File will not be saved.");
+		}
+
+		/// <summary>
+		/// If any changes have been made to the current spreadsheet, the user is asked
+		/// if they would like to save their changes.
+		/// </summary>
+		private void CheckToSave()
+		{
+			if (currentSheet.Changed)
+			{
+				DialogResult dialogResult = MessageBox.Show("Do you want to save your changes?", "Close", MessageBoxButtons.YesNo);
+				if (dialogResult == DialogResult.Yes)
+				{
+					SaveApplication();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Deals with the new menu - opens up another window running another spreadsheet
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void menuChoiceNew_Click(object sender, EventArgs e)
+		{
+			// Tell the application context to run the form on the same
+			// thread as the other forms.
+			SpreadsheetApplicationContext.getAppContext().RunForm(new Form1());
+		}
+
+		/// <summary>
+		/// Deals with saving the current spreadsheet. SaveApplication() is called in a 
+		/// few different situations.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void menuChoiceSave_Click(object sender, EventArgs e)
+		{
+			SaveApplication();
+		}
+
+		/// <summary>
+		/// Allows user to open a saved spreadsheet.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void menuChoiceOpen_Click(object sender, EventArgs e)
+		{
+			// if the user has made changes, we ask if they want to save their work
+			if (currentSheet.Changed)
+				CheckToSave();
+
+			// allow user to see only .sprd files or all files
+			openFileDialog.Filter = "spreadsheet files (*.sprd)|*.sprd|All files (*.*)|*.*";
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				LoadSpreadsheet();
+			}
+		}
+
+		/// <summary>
+		/// Deals with the close menu - calls Close() method which is what happens
+		/// when the x in the corner is clicked. There is a separate method for that
+		/// simply for clarity.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void menuChoiceClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		/// <summary>
+		/// Deals with when the user clicks the x in the corner to close the spreadsheet.
+		/// We want to make sure the user is asked if they want to save their work if there
+		/// is any unsaved work.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void windowClose_Click(object sender, EventArgs e)
+		{
+			CheckToSave();
+		}
+
+		/// <summary>
+		/// Instructions menu click - displays instructions for application
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void menuChoiceInstructions_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show(instructions, "Instructions");
+		}
+
+		/// <summary>
+		/// About menu click - displays information about development of application
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void menuChoiceAbout_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show(about, "About");
+		}
+
+		/// <summary>
+		/// Deals with when the user wants to update the contents of a cell
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void buttonUpdateContents_Click(object sender, EventArgs e)
+		{
+			// calls DisplayCells on the cell names returned from changing contents of a cell
+			// (these cells are the ones that need to be recalculated)
+			try
+			{
+				DisplayCells(currentSheet.SetContentsOfCell(textBoxCellName.Text, textBoxContents.Text));
+			}
+			catch (FormulaFormatException ex)
+			{
+				MessageBox.Show("Invalid cell name or formula syntax.\n Cell was not updated.");
+			}
+			catch (CircularException ex)
+			{
+				MessageBox.Show("Updating this cell would cause a circular dependency.\nCell will not be updated.");
+			}
+
+			// update the display
+			textBoxValue.Text = currentSheet.GetCellValue(textBoxCellName.Text).ToString();
+			textBoxContents.Text = currentSheet.GetCellContents(textBoxCellName.Text).ToString();
+		}
+
+		/// <summary>
+		/// Handles the background color changes when the user selects one of the six colors
+		/// from the drop down combobox.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBoxColors_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			switch(comboBoxColors.SelectedIndex)
+			{
+				case 0:
+					this.BackColor = System.Drawing.Color.LightBlue;
+					break;
+				case 1:
+					this.BackColor = System.Drawing.Color.LightGray;
+					break;
+				case 2:
+					this.BackColor = System.Drawing.Color.Yellow;
+					break;
+				case 3:
+					this.BackColor = System.Drawing.Color.Lime;
+					break;
+				case 4:
+					this.BackColor = System.Drawing.Color.LightPink;
+					break;
+			}
+		}
+	}
+}

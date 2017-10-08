@@ -1,0 +1,4 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabLambda\bin\Debug\Delegate.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabLambda\bin\Debug\Delegate.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabLambda\obj\x86\Debug\Delegate.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabLambda\obj\x86\Debug\Delegate.pdb

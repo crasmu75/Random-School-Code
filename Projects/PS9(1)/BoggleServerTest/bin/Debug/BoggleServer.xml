@@ -1,0 +1,394 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BoggleServer</name>
+    </assembly>
+    <members>
+        <member name="T:BoggleServer.BoggleServer">
+            <summary>
+            Boggle Server creates a TCPListener to provide a server for clients to connect
+            to and play Boggle. Two clients are required for one Boggle came to commence and 
+            finish completely.
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.server">
+            <summary>
+            Listens for incoming connections
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.allSockets">
+            <summary>
+            One StringSocket per connected client
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.user_names">
+            <summary>
+            the name associated with the socket
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.games">
+            <summary>
+            list of boggle playing pairs (tuple of 2 sockets)
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.singleSocket">
+            <summary>
+            socket that is currently waiting for a partner
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.playCommand">
+            <summary>
+            Regex to be used for incoming commands
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.seconds">
+            <summary>
+            Length of game
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.dictionary">
+            <summary>
+            Holds all legal words
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.providedBoardLetters">
+            <summary>
+            Optional parameter of 16 letters
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.p1ready">
+            <summary>
+            Booleans to check if players are ready to play
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.p2ready">
+            <summary>
+            Booleans to check if players are ready to play
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.acceptingCommands">
+            <summary>
+            Boolean to check if game is still going on
+            </summary>
+        </member>
+        <member name="F:BoggleServer.BoggleServer.lockObj">
+            <summary>
+            Lock object used for locking to prevent data problems due to multi-threading
+            </summary>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.Main(System.String[])">
+            <summary>
+             Main arguments are passed by the OS from command line into here.
+             Seconds are initialized, dictionary gets populated, and the third
+             parameter as well.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.#ctor(System.Int32)">
+            <summary>
+            CONSTRUCTOR
+            
+            Create a new BoggleServer given an input port
+            </summary>
+            <param name="port"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.#ctor(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            CONSTRUCTOR (for testing)
+            This constructor is used in the unit tests in place of the Main method.
+            Create a new BoggleServer given an input port
+            </summary>
+            <param name="port"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.ConnectionReceived(System.IAsyncResult)">
+            <summary>
+            ConnectionReceived
+            
+            Server callback for BeginAcceptSocket
+            </summary>
+            <param name="ar"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.CommandReceived(System.String,System.Exception,System.Object)">
+            <summary>
+            Method that serves as a callbak for receiving messages. This method goes
+            through and attempts to parse the message into a command according to the 
+            protocol. If it is an invalid command, it sends a message back to the socket
+            indicating that it is ignoring.
+            </summary>
+            <param name="incomingCommand"></param>
+            <param name="e"></param>
+            <param name="p"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.PopulateDictionary(System.String)">
+            <summary>
+            PopulateDictionary -- helper method to make hashset of all words in dictionary from text file
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.Player1ReadyCallback(System.Exception,System.Object)">
+            <summary>
+            Callback to inform program when player1 has received its START message
+            
+            Game can begin when both boolean are set to true
+            </summary>
+            <param name="e"></param>
+            <param name="payload"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.Player2ReadyCallback(System.Exception,System.Object)">
+            <summary>
+            Callback to inform program when player2 has received its START message
+            
+            Game can begin when both boolean are set to true
+            </summary>
+            <param name="e"></param>
+            <param name="payload"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.WaitForPlayers(BoggleServer.Game)">
+            <summary>
+            Helper method to wait until both players' callbacks have been invoked
+            
+            Calls the CountdownTime which starts the timer for the game
+            </summary>
+            <param name="currentGame"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.CountdownTime(BoggleServer.Game)">
+            <summary>
+            CountdownTime -- helper method to run the timer for the game
+            
+            Loop and update the time to both players every second
+            Then call another method to send final messages and end the game
+            </summary>
+            <param name="currentGame"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.ProcessPlayCommand(CustomNetworking.StringSocket,System.String)">
+            <summary>
+            ProcessPlayCommand -- helper method to handle command from client
+            
+            Called when client issues a PLAY command and waits for a second player
+            to start a new game.
+            </summary>
+            <param name="ss"></param>
+            <param name="incomingCommand"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.ProcessWordCommand(CustomNetworking.StringSocket,System.String)">
+            <summary>
+            ProcessWordCommand -- helper method to handle a client input of a new word
+            
+            Finds the current game, then validates the input word and updates the players' scores
+            Reports the scores to the players and adds the word to the appropriate list of words within the game
+            </summary>
+            <param name="ss"></param>
+            <param name="incomingWord"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.FindCurrentGame(CustomNetworking.StringSocket)">
+            <summary>
+            Find the current game we want to deal with. If there is no game associated
+            with this socket, null is returned.
+            </summary>
+            <param name="current"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.EndGame(BoggleServer.Game,CustomNetworking.StringSocket,CustomNetworking.StringSocket)">
+            <summary>
+            EndGame -- helper method to execute all final components of the game
+            
+            Called when the timer reaches zero. 
+            Sends the final score to both players.
+            Send the lists and counts of legal, illegal and common words played to both players
+            Closes sockets TODO: CLOSE SOCKETS
+            </summary>
+            <param name="currentGame"></param>
+            <param name="player1"></param>
+            <param name="player2"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.GameTerminated(CustomNetworking.StringSocket)">
+            <summary>
+            If one client drops out of the game (closes, disconnects, or becomes unresponsive)
+            then the game is terminated and the command TERMINATED is sent to the surviving
+            socket of that game.
+            </summary>
+            <param name="terminatedSocket"></param>
+        </member>
+        <member name="M:BoggleServer.BoggleServer.StopServer">
+            <summary>
+            Used mainly for testing to close the Server. When starting this application 
+            from command line, simply pressing enter will close the server and stop the
+            app.
+            </summary>
+        </member>
+        <member name="T:BoggleServer.Game">
+            <summary>
+            Game Class to be used in BoggleServer
+            
+            Holds variables unique to each game being played and contains methods to assist the server.
+            </summary>
+        </member>
+        <member name="M:BoggleServer.Game.#ctor(CustomNetworking.StringSocket,CustomNetworking.StringSocket,System.String,System.String,System.Int32)">
+            <summary>
+            CONSTRUCTOR
+            
+            Sets member variables relevant to the class and creates a new game to begin play
+            </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <param name="p1n"></param>
+            <param name="p2n"></param>
+            <param name="time"></param>
+        </member>
+        <member name="M:BoggleServer.Game.#ctor(CustomNetworking.StringSocket,CustomNetworking.StringSocket,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            CONSTRUCTOR -- with optional sixth parameter of an inputted string of 16 letters
+            
+            Operates same as constructor above, but uses the string of 16 letters when creatinga new BoggleBoard
+            </summary>
+            <param name="p1"></param>
+            <param name="p2"></param>
+            <param name="p1n"></param>
+            <param name="p2n"></param>
+            <param name="time"></param>
+            <param name="letters"></param>
+        </member>
+        <member name="M:BoggleServer.Game.GetPartner(CustomNetworking.StringSocket)">
+            <summary>
+            GetPartner
+            
+            Returns the partner of the given parameter
+            </summary>
+            <param name="currentPlayer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.CanBeFormed(CustomNetworking.StringSocket,System.String)">
+            <summary>
+            ProcessWord
+            
+            Called by server when a legal word has been played. 
+            Calls IncrementScore on the player which submitted the word and awards the appropriate number of points.
+            Returns a boolean to the server to confirm if a word was successfully processed
+            </summary>
+            <param name="player"></param>
+            <param name="word"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.IncrementScore(CustomNetworking.StringSocket,System.String)">
+            <summary>
+            Increment the score of the game if necessary
+            </summary>
+            <param name="player"></param>
+            <param name="word"></param>
+        </member>
+        <member name="M:BoggleServer.Game.IncrementScore(CustomNetworking.StringSocket,System.Int32)">
+            <summary>
+            IncrementScore
+            
+            Increments the given player's by the amount specified based on word that was played
+            </summary>
+            <param name="player"></param>
+            <param name="points"></param>
+        </member>
+        <member name="M:BoggleServer.Game.GetScore(CustomNetworking.StringSocket)">
+            <summary>
+            GetScore
+            
+            Returns the score of a given player
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.isCurrentGame(CustomNetworking.StringSocket)">
+            <summary>
+            isCurrentGame
+            
+            This method checks if a given socket belongs to the specified game and returns a boolean
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.getP1">
+            <summary>
+            getP1
+            getter for player1
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.getP2">
+            <summary>
+            getP2
+            getter for player2
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.GetPlayerName(CustomNetworking.StringSocket)">
+            <summary>
+            Returns the name of the specified player given it's stringSocket.
+            </summary>
+            <param name="playerSocket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.getTime">
+            <summary>
+            getTime
+            getter for current time
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.decrementTime">
+            <summary>
+            decrementTime
+            decrements and returns current time (used in countdown method)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.AddLegalWord(CustomNetworking.StringSocket,System.String)">
+            <summary>
+            AddLegalWord
+            
+            Adds the legal word to the list of legal words for the given player
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="word"></param>
+        </member>
+        <member name="M:BoggleServer.Game.AddIllegalWord(CustomNetworking.StringSocket,System.String)">
+            <summary>
+            AddIllegalWord
+            
+            Adds the illegal word to the list of illegal words for the given layer
+            </summary>
+            <param name="currentPlayer"></param>
+            <param name="word"></param>
+        </member>
+        <member name="M:BoggleServer.Game.getLegalWords(CustomNetworking.StringSocket)">
+            <summary>
+            getLegalWords
+            
+            Returns the list of legal words for a given player
+            </summary>
+            <param name="currentPlayer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.getIllegalWords(CustomNetworking.StringSocket)">
+            <summary>
+            getIllegalWords
+            
+            Returns the list of illegal wors for the given player
+            </summary>
+            <param name="currentPlayer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.getCommonWords">
+            <summary>
+            getCommonWords
+            
+            Returns the list of common words between the 2 players
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BoggleServer.Game.getBoardLetters">
+            <summary>
+            getBoardLetters
+            
+            Returns a string containing all letters in the board
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

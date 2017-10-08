@@ -1,0 +1,22 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net.Sockets;
+
+namespace BoggleServerTest
+{
+    [TestClass]
+    public class BoggleServerTest
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+            TcpClient player1 = new TcpClient();
+            TcpClient player2 = new TcpClient();
+
+            player1.Connect("localhost", 2000);
+            player2.Connect("localhost", 2000);
+
+          
+        }
+    }
+}

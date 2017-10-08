@@ -1,0 +1,214 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BoggleClient;
+
+namespace BoggleClientTest
+{
+    [TestClass]
+    public class UnitTest1
+    {
+        string boggleBoardLetters = "AAPOERDSRAVSKEOK";
+        int timer = 5;
+
+        [TestMethod]
+        public void TestStartEvent()
+        {
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 60, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+            BoggleClientModel model = new BoggleClientModel();
+            BoggleClientModel model2 = new BoggleClientModel();
+
+            model.Connect("localhost", 2000, "player1");
+            model2.Connect("localhost", 2000, "player2");
+
+
+            model.SendMessage("PLAY player1");
+            model2.SendMessage("PLAY player2");
+
+            model.IncomingStartEvent += StartCommand;
+            model2.IncomingStartEvent += StartCommand2;
+
+            model.CloseSocket();
+            model2.CloseSocket();
+
+            server.StopServer();
+        }
+
+        public void StartCommand(string line)
+        {
+            String actual = "START " + boggleBoardLetters + " 60 player2";
+            Assert.AreEqual(actual, line);
+        }
+
+        public void StartCommand2(string line)
+        {
+            String actual = "START " + boggleBoardLetters + " 60 player1";
+            Assert.AreEqual(actual, line);
+        }
+
+        [TestMethod]
+        public void TestTimeEvent()
+        {
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 5, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+            BoggleClientModel model = new BoggleClientModel();
+            BoggleClientModel model2 = new BoggleClientModel();
+
+            model.Connect("localhost", 2000, "player1");
+            model2.Connect("localhost", 2000, "player2");
+
+
+            model.SendMessage("PLAY player1");
+            model2.SendMessage("PLAY player2");
+
+            model.IncomingTimeEvent += TimeCommand;
+            model2.IncomingTimeEvent += TimeCommand2;
+
+            model.CloseSocket();
+            model2.CloseSocket();
+
+            server.StopServer();
+        }
+
+        public void TimeCommand(string line)
+        {
+            Assert.AreEqual("TIME " + timer, line);
+            timer--;
+        }
+
+        public void TimeCommand2(string line)
+        {
+            Assert.AreEqual("TIME " + timer, line);
+        }
+
+        [TestMethod]
+        public void TestScoreEvent()
+        {
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 5, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+            BoggleClientModel model = new BoggleClientModel();
+            BoggleClientModel model2 = new BoggleClientModel();
+
+            model.Connect("localhost", 2000, "player1");
+            model2.Connect("localhost", 2000, "player2");
+
+
+            model.SendMessage("PLAY player1");
+            model2.SendMessage("PLAY player2");
+
+            model.SendMessage("WORD aardvark");
+
+            model.IncomingScoreEvent += ScoreCommand;
+            model2.IncomingScoreEvent += ScoreCommand2;
+
+            model.CloseSocket();
+            model2.CloseSocket();
+
+            server.StopServer();
+        }
+
+        public void ScoreCommand(string line)
+        {
+            Assert.AreEqual("SCORE 11 0", line);
+        }
+
+        public void ScoreCommand2(string line)
+        {
+            Assert.AreEqual("SCORE 0 11", line);
+        }
+
+        [TestMethod]
+        public void TestIgnoringEvent()
+        {
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 5, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+            BoggleClientModel model = new BoggleClientModel();
+            BoggleClientModel model2 = new BoggleClientModel();
+
+            model.Connect("localhost", 2000, "player1");
+            model2.Connect("localhost", 2000, "player2");
+
+            model.SendMessage("PLAY player1");
+            model2.SendMessage("PLAY player2");
+
+            model.SendMessage("hello");
+
+            model.IncomingIgnoringEvent += IgnoringCommand;
+
+            model.CloseSocket();
+            model2.CloseSocket();
+
+            server.StopServer();
+        }
+
+        public void IgnoringCommand(string line)
+        {
+            Assert.AreEqual("IGNORING hello", line);
+        }
+
+        [TestMethod]
+        public void TestTerminatedEvent()
+        {
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 5, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+            BoggleClientModel model = new BoggleClientModel();
+            BoggleClientModel model2 = new BoggleClientModel();
+
+            model.Connect("localhost", 2000, "player1");
+            model2.Connect("localhost", 2000, "player2");
+
+
+            model.SendMessage("PLAY player1");
+            model2.SendMessage("PLAY player2");
+            
+            model2.CloseSocket();
+
+            model.IncomingTerminatedEvent += TerminatedCommand;
+
+            server.StopServer();
+        }
+
+        /// <summary>
+        /// Assert that the action occurs
+        /// </summary>
+        public void TerminatedCommand()
+        {
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void TestStopEvent()
+        {
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 5, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+            BoggleClientModel model = new BoggleClientModel();
+            BoggleClientModel model2 = new BoggleClientModel();
+
+            model.Connect("localhost", 2000, "player1");
+            model2.Connect("localhost", 2000, "player2");
+
+
+            model.SendMessage("PLAY player1");
+            model2.SendMessage("PLAY player2");
+
+            model.SendMessage("WORD spare");
+            model2.SendMessage("WORD read");
+            model.SendMessage("WORD hello");
+            model2.SendMessage("WORD soaker");
+            model.SendMessage("WORD soaker");
+            model2.SendMessage("WORD reads");
+            
+            model.IncomingStopEvent += StopCommand;
+            model2.IncomingStopEvent += StopCommand2;
+
+            model.CloseSocket();
+            model2.CloseSocket();
+
+            server.StopServer();
+        }
+
+        public void StopCommand(string line)
+        {
+            Assert.AreEqual("STOP 1 spare 2 read reads 1 soaker 1 hello 0", line);
+        }
+
+        public void StopCommand2(string line)
+        {
+            Assert.AreEqual("STOP 2 read reads 1 spare 1 soaker 0 1 hello", line);
+        }
+    }
+}

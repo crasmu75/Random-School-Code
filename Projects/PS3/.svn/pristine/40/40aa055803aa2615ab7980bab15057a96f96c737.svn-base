@@ -1,0 +1,84 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SpreadsheetUtilities;
+using System.Collections.Generic;
+
+namespace FormulaTester
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [TestClass]
+    public class FormulaTester
+    {
+        /// <summary>
+        /// Message should say "Sorry, there must be at least something in the expression!"
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_1()
+        {
+            Formula testFormula = new Formula(" ", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// Message should say "Invalid syntax in expression. A variable/double follows another variable/double."
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_2()
+        {
+            Formula testFormula = new Formula("x2 0.2 + 3", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// Message should say "Invalid syntax in expression. An operator follows another operator."
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_3()
+        {
+            Formula testFormula = new Formula("y2 + - 6.876", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// Message should say "Invalid syntax on variable or invalid symbols used."
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_4()
+        {
+            Formula testFormula = new Formula("_&3 / 16.07", x => x.ToUpper(), x => true);
+        }
+
+        /// <summary>
+        /// Message should say "Invalid syntax in expression. A variable/double follows another variable/double."
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(FormulaFormatException))]
+        public void Invalid_Expression_5()
+        {
+            Formula testFormula = new Formula("2x +y3", x => x.ToUpper(), x => true);
+        }
+
+		/// <summary>
+		/// Message should say "Invalid syntax in expression. Number of open parentheses does not equal number of closed parenthases."
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(FormulaFormatException))]
+		public void Invalid_Expression_6()
+		{
+			Formula testFormula = new Formula("(8 * 9.44))", x => x.ToUpper(), x => true);
+		}
+
+		/// <summary>
+		/// Message should say "Invalid syntax in expression. Number of open parentheses does not equal number of closed parenthases."
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(FormulaFormatException))]
+		public void Invalid_Expression_7()
+		{
+			Formula testFormula = new Formula("((8.4 + (67.2907 * 0)", x => x.ToUpper(), x => true);
+		}
+    }
+}

@@ -1,0 +1,302 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using CustomNetworking;
+using System.Net;
+using System.Threading;
+using System.Text.RegularExpressions;
+using System.IO;
+
+namespace BoggleServer
+{
+	class BoggleServer
+	{
+		// Listens for incoming connections
+		private TcpListener server;
+
+		// One StringSocket per connected client
+		private List<SS> allSockets;
+
+		// the name associated with the socket
+		private List<string> user_names;
+
+        // list of boggle playing pairs (tuple of 2 sockets)
+        private List<Game> games;
+
+        // socket that is currently waiting for a partner
+        Tuple<SS, string> singleSocket;
+
+		// Regex to be used for incoming commands
+		Regex playCommand = new Regex(@"^(PLAY|play)\s[a-zA-Z]+$");
+		Regex wordCommand = new Regex(@"^(WORD|word)\s[a-zA-Z]+$");
+
+		// Length of game
+		static int seconds = 0;
+
+		// Holds all legal words
+		static HashSet<string> dictionary;
+
+		// Optional parameter of 16 letters
+		static string thirdParamString = null;
+
+		// Booleans to check if players are ready to play
+		private bool p1ready, p2ready = false;
+
+		// Boolean to check if game is still going on
+		private bool acceptingCommands = true;
+
+		static void Main(string[] args)
+		{
+			seconds = Convert.ToInt32(args[0]);
+
+			// Populate dictionary of valid words
+			PopulateDictionary(args[1]);
+
+			// Check for and store third parameter
+			if (args.Length == 3)
+				thirdParamString = args[2];
+
+			new BoggleServer(2000);
+			Console.Read();
+		}
+
+		public BoggleServer(int port)
+		{
+			server = new TcpListener(IPAddress.Any, port);
+			allSockets = new List<SS>();
+			user_names = new List<string>();
+			server.Start();
+			server.BeginAcceptSocket(ConnectionReceived, null);
+
+            singleSocket = null;
+            games = new List<Game>();
+		}
+
+        public void ConnectionReceived(IAsyncResult ar)
+        {
+			Socket socket = server.EndAcceptSocket(ar);
+			SS ss = new SS(socket, UTF8Encoding.Default);
+			ss.BeginReceive(CommandReceived, ss);
+			server.BeginAcceptSocket(ConnectionReceived, null);
+        }
+
+		public void CommandReceived(String incomingCommand, Exception e, object p)
+		{
+			if (acceptingCommands)
+			{
+				// create a string socket from the input object
+				SS ss = (SS)p;
+
+				// if the command from client is a PLAY command, add the socket 
+				//		and match the socket pairs
+				if (playCommand.IsMatch(incomingCommand))
+				{
+
+					lock (ss)
+					{
+						// Add the username to the list of all clients
+						string name = incomingCommand.Substring(5);
+
+						// if there is no single socket, replace with the incoming socket
+						if (singleSocket == null)
+						{
+							singleSocket = Tuple.Create(ss, name);
+						}
+
+						// else, combine the singlesocket with the incoming socket to create a new game
+						else
+						{
+							SS p1ss = singleSocket.Item1;
+							SS p2ss = ss;
+							string p1name = singleSocket.Item2;
+							string p2name = name;
+							Game currentGame;
+
+							if (thirdParamString == null)
+							{
+								currentGame = new Game(p1ss, p2ss, p1name, p2name, seconds);
+								p1ss.BeginSend("START " + seconds.ToString() + currentGame.GetPartner(p1ss), Player1ReadyCallback, null);
+								p2ss.BeginSend("START " + seconds.ToString() + currentGame.GetPartner(p2ss), Player2ReadyCallback, null);
+							}
+							else
+							{
+								currentGame = new Game(p1ss, p2ss, p1name, p2name, seconds, thirdParamString);
+								p1ss.BeginSend("START " + thirdParamString + seconds.ToString() + currentGame.GetPartner(p1ss), Player1ReadyCallback, null);
+								p2ss.BeginSend("START " + thirdParamString + seconds.ToString() + currentGame.GetPartner(p2ss), Player2ReadyCallback, null);
+							}
+
+							games.Add(currentGame);
+
+							singleSocket = null;
+
+							new Thread(() => WaitForPlayers(currentGame)).Start();
+						}
+					}
+				}
+				else if (wordCommand.IsMatch(incomingCommand))
+				{
+					Game currentGame = null;
+					foreach (Game game in games)
+					{
+						if (game.isCurrentGame(ss))
+						{
+							currentGame = game;
+							break;
+						}
+					}
+					if (currentGame == null)
+						ss.BeginSend("IGNORING " + incomingCommand, (ee, pp) => { }, null);
+					else
+					{
+						string word = incomingCommand.Substring(5);
+						bool wordInDictionary = dictionary.Contains(word);
+						bool validWord = currentGame.ProcessWord(ss, word);
+
+						if (validWord && wordInDictionary)
+						{
+							SS p1 = ss;
+							SS p2 = currentGame.GetPartner(ss);
+
+							int s1 = currentGame.GetScore(p1);
+							int s2 = currentGame.GetScore(p2);
+
+							currentGame.AddLegalWord(p1, word);
+
+							// TODO Check these callbacks!!!!!! There's no way they are correct :/
+							p1.BeginSend("SCORE " + s1.ToString() + " " + s2.ToString(),
+								(ee, pp) => { }, null);
+
+							p2.BeginSend("SCORE " + s2.ToString() + " " + s1.ToString(),
+								(ee, pp) => { }, null);
+						}
+						else
+							currentGame.AddIllegalWord(ss, word);
+					}
+				}
+				else
+				{
+					ss.BeginSend("IGNORING " + incomingCommand, (ee, pp) => { }, null);
+				}
+
+				ss.BeginReceive(CommandReceived, p);
+			}
+		}
+
+		private static void PopulateDictionary(string filePath)
+		{
+			dictionary = new HashSet<string>();
+			try
+			{
+				using (StreamReader reader = new StreamReader(filePath))
+				{
+					string line;
+					while ((line = reader.ReadLine()) != null)
+					{
+						dictionary.Add(line);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Sorry, something went wrong when reading the list of words:\n" + e.Message);
+			}
+		}
+
+		private void Player1ReadyCallback(Exception e, object payload)
+		{
+			p1ready = true;
+		}
+
+		private void Player2ReadyCallback(Exception e, object payload)
+		{
+			p2ready = true;
+		}
+
+		private void WaitForPlayers(Game currentGame)
+		{
+			while(!p1ready || !p2ready){}
+			CountdownTime(currentGame);
+		}
+
+		private void CountdownTime(Game currentGame)
+		{
+			SS player1 = currentGame.getP1();
+			SS player2 = currentGame.getP2();
+			int t;
+			while (currentGame.getTime() != 0)
+			{
+				t = currentGame.decrementTime();
+				currentGame.getP1().BeginSend("TIME " + t.ToString(), (ee, pp) => { }, null);
+				currentGame.getP2().BeginSend("TIME " + t.ToString(), (ee, pp) => { }, null);
+				Thread.Sleep(1000);
+			}
+			acceptingCommands = false;
+
+			int p1Score = currentGame.GetScore(player1);
+			int p2Score = currentGame.GetScore(player2);
+
+			player1.BeginSend("SCORE " + p1Score.ToString() + " " + p2Score.ToString(),
+								(ee, pp) => { }, null);
+
+			player2.BeginSend("SCORE " + p2Score.ToString() + " " + p1Score.ToString(),
+				(ee, pp) => { }, null);
+
+			currentGame.endGame();
+
+			List<string> p1LegalWords = currentGame.getLegalWords(player1);
+			List<string> p2LegalWords = currentGame.getLegalWords(player2);
+			List<string> p1IllegalWords = currentGame.getIllegalWords(player1);
+			List<string> p2IllegalWords = currentGame.getIllegalWords(player2);
+			List<string> commonWords = currentGame.getCommonWords();
+
+			string p1Legal = "";
+			foreach(string word in p1LegalWords)
+			{
+				p1Legal += word;
+				p1Legal += " ";
+			}
+
+			string p2Legal = "";
+			foreach (string word in p2LegalWords)
+			{
+				p2Legal += word;
+				p1Legal += " ";
+			}
+
+			string p1Illegal = "";
+			foreach(string word in p1IllegalWords)
+			{
+				p1Illegal += word;
+				p1Illegal += " ";
+			}
+
+			string p2Illegal = "";
+			foreach(string word in p2IllegalWords)
+			{
+				p2Illegal += word;
+				p2Illegal += " ";
+			}
+
+			string common = "";
+			foreach(string word in commonWords)
+			{
+				common += word;
+				common += " ";
+			}
+
+			player1.BeginSend("STOP " + p1LegalWords.Count.ToString() + " " +
+				p1Legal + p2LegalWords.Count.ToString() + " " + p2Legal + commonWords.Count.ToString()
+				+ " " + common + p1IllegalWords.Count.ToString() + " " + p1Illegal + p2IllegalWords.Count.ToString() 
+				+ " " + p2Illegal, (ee, pp) => { }, null);
+
+			player2.BeginSend("STOP " + p2LegalWords.Count.ToString() + " " +
+				p2Legal + p1LegalWords.Count.ToString() + " " + p1Legal + commonWords.Count.ToString()
+				+ " " + common + p2IllegalWords.Count.ToString() + " " + p2Illegal + p1IllegalWords.Count.ToString()
+				+ " " + p1Illegal, (ee, pp) => { }, null);
+
+		}
+	}
+}

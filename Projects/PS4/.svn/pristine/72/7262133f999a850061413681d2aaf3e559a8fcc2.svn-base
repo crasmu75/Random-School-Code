@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SpreadsheetUtilities;
+
+namespace SS
+{
+	class Spreadsheet : AbstractSpreadsheet
+	{
+		List<Cell> cells;
+
+		public Spreadsheet() : base()
+		{
+			cells = new List<Cell>();
+		}
+
+		public IEnumerable<String> GetNamesOfAllNonemptyCells()
+		{
+			foreach (Cell cell in cells)
+				yield return cell.GetName();
+		}
+
+		public override object GetCellContents(string name)
+		{
+			foreach (Cell cell in cells)
+				if (name == cell.GetName())
+					return cell.GetContents();
+			return "";
+		}
+
+		/// <summary>
+		/// If name is null or invalid, throws an InvalidNameException.
+		/// 
+		/// Otherwise, the contents of the named cell becomes number.  The method returns a
+		/// set consisting of name plus the names of all other cells whose value depends, 
+		/// directly or indirectly, on the named cell.
+		/// 
+		/// For example, if name is A1, B1 contains A1*2, and C1 contains B1+A1, the
+		/// set {A1, B1, C1} is returned.
+		/// </summary>
+		public override ISet<string> SetCellContents(string name, double number)
+		{
+			if (name == null)
+				throw new InvalidNameException();
+			
+
+
+			foreach (Cell cell in cells)
+			{
+				if (name == cell.GetName())
+					cell.SetDoubleCellContents(number);
+				else ;
+			}
+			
+		}
+
+		public override ISet<string> SetCellContents(string name, string text)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override ISet<string> SetCellContents(string name, Formula formula)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected override IEnumerable<string> GetDirectDependents(string name)
+		{
+			throw new NotImplementedException();
+		}
+
+		private double LookUpCellValue(string cellName)
+		{
+			return 0;
+		}
+
+		private bool ValidateVariableName(string name)
+		{
+			if (Char.IsLetter(name[0]) || name[0].Equals("_"))
+			{
+				if (name.Length > 1)
+				{
+					for (int i = 1; i < name.Length; i++)
+					{
+						if (!Char.IsLetterOrDigit(name[i]) && !name[i].Equals("_"))
+							throw new InvalidNameException();
+					}
+					return true;
+				}
+				else
+					return true;
+			}
+			else
+				throw new InvalidNameException();
+		}
+	}
+}

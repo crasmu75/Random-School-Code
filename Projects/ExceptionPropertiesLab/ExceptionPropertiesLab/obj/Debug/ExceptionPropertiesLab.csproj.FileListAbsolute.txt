@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\ExceptionPropertiesLab\ExceptionPropertiesLab\bin\Debug\ExceptionPropertiesLab.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\ExceptionPropertiesLab\ExceptionPropertiesLab\bin\Debug\ExceptionPropertiesLab.exe
+c:\users\camille\documents\visual studio 2013\Projects\ExceptionPropertiesLab\ExceptionPropertiesLab\bin\Debug\ExceptionPropertiesLab.pdb
+c:\users\camille\documents\visual studio 2013\Projects\ExceptionPropertiesLab\ExceptionPropertiesLab\obj\Debug\ExceptionPropertiesLab.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\ExceptionPropertiesLab\ExceptionPropertiesLab\obj\Debug\ExceptionPropertiesLab.exe
+c:\users\camille\documents\visual studio 2013\Projects\ExceptionPropertiesLab\ExceptionPropertiesLab\obj\Debug\ExceptionPropertiesLab.pdb

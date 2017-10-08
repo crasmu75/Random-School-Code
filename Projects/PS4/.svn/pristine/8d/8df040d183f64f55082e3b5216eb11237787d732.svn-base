@@ -1,0 +1,48 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SS;
+using SpreadsheetUtilities;
+
+namespace SpreadsheetTester
+{
+	/// <summary>
+	/// 
+	/// </summary>
+	[TestClass]
+	public class SpreadsheetTester
+	{
+		/// <summary>
+		/// Tests a valid cell entry with double
+		/// </summary>
+		[TestMethod]
+		public void Test_SetCellContents_Valid_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("A1", 3990.293823);
+			Assert.AreEqual(sheet.GetCellContents("A1"), 3990.293823);
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with text string
+		/// </summary>
+		[TestMethod]
+		public void Test_SetCellContents_Valid_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("Yyy8_", "hellow");
+			Assert.AreEqual(sheet.GetCellContents("Yyy8_"), "hellow");
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with Formula
+		/// </summary>
+		[TestMethod]
+		public void Test_SetCellContents_Valid_3()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			Formula formula = new Formula("6.4444/823.09 + (32.8 * 7)");
+			sheet.SetCellContents("i63", formula);
+			Assert.AreEqual(sheet.GetCellContents("i63"), formula);
+		}
+	}
+}

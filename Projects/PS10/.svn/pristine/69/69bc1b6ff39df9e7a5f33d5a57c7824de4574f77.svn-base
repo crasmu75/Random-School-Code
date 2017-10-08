@@ -1,0 +1,63 @@
+﻿Project started on 12/8/2014
+Authors: Jessie Delacenserie and Camille Rasmussen
+
+Monday 12/8 -- 3 hrs
+Today we set up the tables in our database and set up the connection.
+We had to run several updates on MySQL Workbench so this step took a little longer than expected.
+
+Wednesday 12/10 -- 4 hrs
+Today we modified our server to send data to our tables in teh database.
+We wrote 3 helper methods, each of which could send a command to insert data into one of the three tables
+we had set up. These helper methods were called each time we sent right after the game ended, before the
+final data was sent to the client. As we collected the lists of words for the final game summary we sent that
+data to the database. This might not be the most efficient way, but it worked and we will go back later to modify
+if time allows. Now that we are writing to the database correctly we need to focus on sending the html.
+
+Thursday 12/11 -- 5 1/2 hrs
+Today was a big day and we are almost done with the html - it deals with the database a lot more than we had 
+initially anticipated. We have now learned html!!!
+Questions for the TA today:
+- We have a bit in the table for true/false in 'valid' column - just pas in 1 ok?
+- Does Visual Studio DateTime match MySql DateTime? -- Conclusion: ended up just passing in a string
+- How can we check the tables after the server has added info to it? Look at it in Workbench? -- Conclusion: yes!
+- Does the primary key get automagically generated? -- Conclusion: yes!
+Matthew also suggested splitting up some of our queries that were trying to do multiple things.
+
+Friday 12/12 -- 3 hrs
+Finishing up the project - today we are finishing the last bit of html pages and need to write the database 
+description!
+Note: queries seem redundant sometimes... wish there was one to select a row where column = x or y???
+
+TOTAL HRS SPENT -- about 15 1/2
+
+
+DATABASE DESCRIPTION!!
+----------------------
+Tables: 
+
+game_info - contains all the relevant information pertaining to a specific game ID
+		columns: game_ID (Primary Key), player1_ID, player2_ID, date_time, board_config (the 16 letters that went on the board, 
+		time_limit (in seconds of the game), player1_score, player2_score
+player_info - contains all the relevant information pertaining to a specific player ID
+		columns: ID (Primary Key), p_name (player name), wins (for this player), losses (also), ties (also)
+words_played - contains all words ever played in Boggle and which player played it, in which game, and if it is legal
+		columns: word, game_ID (that this word was played in), player_ID (of the player who played the word), legal (bit 0 for 
+		false, 1 for true), word_ID (Primary Key)
+
+Data Queries Used:
+In SendServerStatsPage, in BoggleServer.cs line 385
+	This query "SELECT * FROM player_info"
+	We create a reader to grab specific things from each row that is returned. We save the name, number of wins, losses, and ties 
+	into a local variable in our program for usage when sending the html page.
+
+In SendGameInfoPage, line 440
+	This query "SELECT * FROM game_info WHERE game_id = {0};", gameID
+	Again we create a reader to grab specific things from each row that is returned. We save each player's ID's, the date/time, the 
+	16 board letters, the game's time limit, and each player's scores into a local variable in our program for usage when sending 
+	the html page.
+In same method, line 460
+	This query "SELECT p_name FROM player_info WHERE ID = {0};", p1ID
+	Get this player's name using their ID we got from game_info query
+In same method, like 462
+	This query "SELECT p_name FROM player_info WHERE ID = {0};", p2ID
+	Get this player's name using their ID we got from game_info query

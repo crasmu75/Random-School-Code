@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FormulaTester</name>
+    </assembly>
+    <members>
+        <member name="T:FormulaTester.FormulaTester">
+            <summary>
+            This is a test class for Formula class and is intended
+            to contain all FormulaTester Unit Tests for 100% code coverage.
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Empty_Expression">
+            <summary>
+            Message should say "Sorry, there must be at least something in the expression!"
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Variable_Followed_By_Double">
+            <summary>
+            Message should say "Invalid syntax in expression. A variable/double follows another variable/double."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Operator_Followed_By_Operator">
+            <summary>
+            Message should say "Invalid syntax in expression. An operator follows another operator."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Invalid_Variable_Syntax">
+            <summary>
+            Message should say "Invalid syntax on variable or invalid symbols used."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Double_Followed_By_Variable">
+            <summary>
+            Message should say "Invalid syntax in expression. A variable/double follows another variable/double."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Unequal_Parenthases_1">
+            <summary>
+            Message should say "Invalid syntax in expression. Number of open parentheses does not equal number of closed parenthases."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Unequal_Parenthases_2">
+            <summary>
+            Message should say "Invalid syntax in expression. Number of open parentheses does not equal number of closed parenthases."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Mismatched_Parenthases">
+            <summary>
+            Message should say "Invalid syntax in expression. Mismatched parenthases."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Invalid_Parenthases_Body_1">
+            <summary>
+            Message should say "Invalid syntax in expression. An operator or right parenthasis cannot directly precede a left parenthasis."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Invalid_Parenthases_Body_2">
+            <summary>
+            Message should say "Invalid syntax in expression. An operator or right parenthasis cannot directly precede a left parenthasis."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Begins_With_Operator">
+            <summary>
+            Message should say "Invalid syntax in expression. Cannot begin with operator."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Begins_With_Left_Parenthasis">
+            <summary>
+            Message should say "Invalid syntax in expression. Cannot begin with right parenthasis."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Ends_With_Right_Parenthasis">
+            <summary>
+            Message should say "Invalid syntax in expression. A left parenthesis cannot end the expression."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Ends_With_Operator">
+            <summary>
+            Message should say "Invalid syntax in expression. An operator cannot end the expression."
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_1">
+            <summary>
+            Tests for plain 5 - valid expression
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_2">
+            <summary>
+            Tests variable - valid expression
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_3">
+            <summary>
+            Test add mechanism - valid expression
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_4">
+            <summary>
+            test subtract mechanism - valid expression
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_5">
+            <summary>
+            test multiply mechanism - valid expression
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_6">
+            <summary>
+            test division mechanism - valid expression
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_7">
+            <summary>
+            test adding doubles and vairable
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_8">
+            <summary>
+            test multiply with add and variable
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Valid_Expression_9">
+            <summary>
+            test multiply with correct parentheses and add mechanisms - valid expression
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Get_Variables_1">
+            <summary>
+            test get variables with normalize of N and no duplicates
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Get_Variables_2">
+            <summary>
+            test get variables with normalize N and duplicates to be removed
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_Get_Variables_3">
+            <summary>
+            test get variables with no normalize and no duplicates
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_ToString_1">
+            <summary>
+            test toString with string to be normalized N
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_ToString_2">
+            <summary>
+            test toString with no normalization
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsMethod_1">
+            <summary>
+            test same on equals with normalize N
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsMethod_2">
+            <summary>
+            test equals method on false with no normalize
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsMethod_3">
+            <summary>
+            tests for false with flipped variables and no normalize
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsMethod_4">
+            <summary>
+            tests for doubles with more precision, on true
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsMethod_5">
+            <summary>
+            tests for not equal on null
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsMethod_6">
+            <summary>
+            test for not equals on obj that is not a Formula
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsEquals_Method_1">
+            <summary>
+            test for not equals in == on unequal objects
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_EqualsEquals_Method_2">
+            <summary>
+            test for equals in == on equal objects
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_NotEquals_Method_1">
+            <summary>
+            test for equals in != on equal objects
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_NotEquals_Method_2">
+            <summary>
+            test for not equals in != on equal objects
+            </summary>
+        </member>
+        <member name="M:FormulaTester.FormulaTester.Public_Test_HashCode_Method_1">
+            <summary>
+            test for hashcode on equal objects
+            </summary>
+        </member>
+    </members>
+</doc>

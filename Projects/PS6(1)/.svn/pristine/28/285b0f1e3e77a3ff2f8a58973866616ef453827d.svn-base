@@ -1,0 +1,165 @@
+﻿namespace SpreadsheetGUI
+{
+	partial class Form1
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
+
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
+
+		#region Windows Form Designer generated code
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuChoiceNew = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuChoiceSave = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuChoiceOpen = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuChoiceClose = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuChoiceInstructions = new System.Windows.Forms.ToolStripMenuItem();
+			this.labelCellName = new System.Windows.Forms.Label();
+			this.textBoxCellName = new System.Windows.Forms.TextBox();
+			this.spreadsheetPanel1 = new SS.SpreadsheetPanel();
+			this.menuStrip1.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuFile,
+            this.menuHelp});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(1203, 24);
+			this.menuStrip1.TabIndex = 0;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// menuFile
+			// 
+			this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuChoiceNew,
+            this.menuChoiceSave,
+            this.menuChoiceOpen,
+            this.menuChoiceClose});
+			this.menuFile.Name = "menuFile";
+			this.menuFile.Size = new System.Drawing.Size(37, 20);
+			this.menuFile.Text = "File";
+			// 
+			// menuChoiceNew
+			// 
+			this.menuChoiceNew.Name = "menuChoiceNew";
+			this.menuChoiceNew.Size = new System.Drawing.Size(152, 22);
+			this.menuChoiceNew.Text = "New";
+			// 
+			// menuChoiceSave
+			// 
+			this.menuChoiceSave.Name = "menuChoiceSave";
+			this.menuChoiceSave.Size = new System.Drawing.Size(152, 22);
+			this.menuChoiceSave.Text = "Save";
+			// 
+			// menuChoiceOpen
+			// 
+			this.menuChoiceOpen.Name = "menuChoiceOpen";
+			this.menuChoiceOpen.Size = new System.Drawing.Size(152, 22);
+			this.menuChoiceOpen.Text = "Open";
+			// 
+			// menuChoiceClose
+			// 
+			this.menuChoiceClose.Name = "menuChoiceClose";
+			this.menuChoiceClose.Size = new System.Drawing.Size(152, 22);
+			this.menuChoiceClose.Text = "Close";
+			// 
+			// menuHelp
+			// 
+			this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuChoiceInstructions});
+			this.menuHelp.Name = "menuHelp";
+			this.menuHelp.Size = new System.Drawing.Size(44, 20);
+			this.menuHelp.Text = "Help";
+			// 
+			// menuChoiceInstructions
+			// 
+			this.menuChoiceInstructions.Name = "menuChoiceInstructions";
+			this.menuChoiceInstructions.Size = new System.Drawing.Size(152, 22);
+			this.menuChoiceInstructions.Text = "Instructions";
+			// 
+			// labelCellName
+			// 
+			this.labelCellName.AutoSize = true;
+			this.labelCellName.Location = new System.Drawing.Point(12, 40);
+			this.labelCellName.Name = "labelCellName";
+			this.labelCellName.Size = new System.Drawing.Size(95, 13);
+			this.labelCellName.TabIndex = 1;
+			this.labelCellName.Text = "Current Cell Name:";
+			// 
+			// textBoxCellName
+			// 
+			this.textBoxCellName.Enabled = false;
+			this.textBoxCellName.Location = new System.Drawing.Point(113, 37);
+			this.textBoxCellName.Name = "textBoxCellName";
+			this.textBoxCellName.ReadOnly = true;
+			this.textBoxCellName.Size = new System.Drawing.Size(211, 20);
+			this.textBoxCellName.TabIndex = 2;
+			this.textBoxCellName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			// 
+			// spreadsheetPanel1
+			// 
+			this.spreadsheetPanel1.Location = new System.Drawing.Point(15, 63);
+			this.spreadsheetPanel1.Name = "spreadsheetPanel1";
+			this.spreadsheetPanel1.Size = new System.Drawing.Size(1176, 586);
+			this.spreadsheetPanel1.TabIndex = 3;
+			// 
+			// Form1
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(1203, 661);
+			this.Controls.Add(this.spreadsheetPanel1);
+			this.Controls.Add(this.textBoxCellName);
+			this.Controls.Add(this.labelCellName);
+			this.Controls.Add(this.menuStrip1);
+			this.MainMenuStrip = this.menuStrip1;
+			this.Name = "Form1";
+			this.Text = "Form1";
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
+
+		}
+
+		#endregion
+
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem menuFile;
+		private System.Windows.Forms.ToolStripMenuItem menuChoiceNew;
+		private System.Windows.Forms.ToolStripMenuItem menuChoiceSave;
+		private System.Windows.Forms.ToolStripMenuItem menuChoiceOpen;
+		private System.Windows.Forms.ToolStripMenuItem menuChoiceClose;
+		private System.Windows.Forms.ToolStripMenuItem menuHelp;
+		private System.Windows.Forms.ToolStripMenuItem menuChoiceInstructions;
+		private System.Windows.Forms.Label labelCellName;
+		private System.Windows.Forms.TextBox textBoxCellName;
+		private SS.SpreadsheetPanel spreadsheetPanel1;
+	}
+}
+

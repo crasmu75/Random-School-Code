@@ -1,0 +1,239 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace FormulaEvaluator
+{
+    /// <summary>
+    /// The Evaluator class allows for input of an expression as a string and evaluates to the result.
+    /// It throws an Argument Exception if any invalid syntax occurs, division by 0, etc.
+    /// </summary>
+    public static class Evaluator
+    {
+        public delegate int Lookup(String v);
+
+        public static Stack<int> values;
+        public static Stack<String> operators;
+
+        /// <summary>
+        /// Evaluates the passed expression by calling several helper methods to process tokens
+        /// and uses the Lookup delegate to look up values of variables.
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <param name="variableEvaluator"></param>
+        /// <returns></returns>
+        public static int Evaluate(String exp, Lookup variableEvaluator)
+        {
+            values = new Stack<int>();
+            operators = new Stack<String>();
+
+            //remove white spaces
+            exp = RemoveWhitespace(exp);
+
+            //split string into tokens
+            string[] substrings = Regex.Split(exp, "(\\()|(\\))|(-)|(\\+)|(\\*)|(/)");
+
+            //sort to appropriate stacks
+            SortToStacks(substrings, variableEvaluator);
+
+            //get result
+            if (values.Count != 1)
+                throw new ArgumentException("Ended with too many values");
+            else
+                return values.Pop();
+        }
+
+        /// <summary>
+        /// A helper method. Takes in the expression string and removes all white spaces,
+        /// including tabs.
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        private static String RemoveWhitespace(String expression)
+        {
+            char[] arr = expression.ToCharArray();
+            expression = "";
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if(!Regex.IsMatch(arr[i].ToString(), @"\s+"))
+                    expression += arr[i];
+            }
+            return expression;
+            
+        }
+
+        /// <summary>
+        /// Another helper method. Checks tokens for validity and sorts them into their
+        /// appropriate stacks at appropriate times, while calling Infix() to process them.
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <param name="variableEvaluator"></param>
+        private static void SortToStacks(string[] tokens, Lookup variableEvaluator)
+        {
+            Regex regExValues = new Regex(@"^[a-zA-Z0-9]+$");
+            Regex regExOperators = new Regex("(\\()|(\\))|(-)|(\\+)|(\\*)|(/)");
+
+            foreach (String character in tokens)
+            {
+                if (character != "")
+                {
+                    //does this token contain only numbers and letters?
+                    if (regExValues.IsMatch(character))
+                    {
+                        //does it contain letters?
+                        if (Regex.IsMatch(character, "[A-Za-z]"))
+                        {
+                            //must be a variable
+                            if (ValidateVariable(character))
+                                    Infix(Convert.ToString(variableEvaluator(character)), "intorvar");
+                        }
+                        //must be an integer
+                        else
+                            Infix(character, "intorvar");
+                    }
+                    //must be an operator or invalid
+                    else
+                        //is it an operator?
+                        if (regExOperators.IsMatch(character))
+                            Infix(character, "operator");
+                        //must be invalid
+                        else
+                            throw new ArgumentException("Invalid syntax in expression");
+                }
+            }
+
+            //End of the line
+            if(operators.Count != 0)
+            {
+                if (operators.Count != 1 || values.Count != 2)
+                    throw new ArgumentException("Wrong number of values and/or operators.");
+                values.Push(PerformOperation(operators.Pop(), values.Pop(), values.Pop()));
+            }
+        }
+
+        /// <summary>
+        /// Another helper method. Processes tokens to evaluate using standard infix notation.
+        /// Respects the usual prescedence rules.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="type"></param>
+        private static void Infix(String token, String type)
+        {
+            int res;
+
+            if (type == "intorvar")
+            {
+                if (operators.Count != 0)
+                {
+                    if (operators.Peek() == "*" || operators.Peek() == "/")
+                    {
+                        if (values.Count == 0)
+                            throw new ArgumentException("Empty stack,");
+                        res = PerformOperation(operators.Pop(), values.Pop(), Convert.ToInt32(token));
+                        values.Push(res);
+                    }
+                    else
+                        values.Push(Convert.ToInt32(token));
+                }
+                else   
+                    values.Push(Convert.ToInt32(token));
+            }
+            if (type == "operator")
+            {
+                if (token == "+" || token == "-")
+                {
+                    if (operators.Count != 0)
+                        if(operators.Peek() == "+" || operators.Peek() == "-")
+                        {
+                            if (values.Count < 2)
+                                throw new ArgumentException("Not enough values for an operation.");
+                            res = PerformOperation(operators.Pop(), values.Pop(), values.Pop());
+                            values.Push(res);
+                        }
+                    operators.Push(token);
+                }
+                if (token == "*" || token == "/" || token == "(")
+                    operators.Push(token);
+                if (token == ")")
+                {
+                    if (operators.Count != 0)
+                        if (operators.Peek() == "+" || operators.Peek() == "-")
+                        {
+                            if (values.Count < 2)
+                                throw new ArgumentException("Not enough values in stack.");
+                            res = PerformOperation(operators.Pop(), values.Pop(), values.Pop());
+                            values.Push(res);
+                        }
+                    if (operators.Count != 0)
+                    {
+                        if (operators.Peek() != "(")
+                        {
+                            throw new ArgumentException("Your right parantheses has no partner");
+                        }
+                        else
+                            operators.Pop();
+                    }
+                    else
+                        throw new ArgumentException("Your right parantheses has no partner");
+
+                    if (operators.Count != 0)
+                        if (operators.Peek() == "*" || operators.Peek() == "/")
+                        {
+                            if (values.Count < 2)
+                                throw new ArgumentException("Not enough values in stack");
+                            res = PerformOperation(operators.Pop(), values.Pop(), values.Pop());
+                            values.Push(res);
+                        }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Another helper method. Validates the variable's syntax (begins with one or more letters and ends 
+        /// with one or more
+        /// variables.) Throws argument exception if it is invalid.
+        /// </summary>
+        /// <param name="variable"></param>
+        /// <returns></returns>
+        private static Boolean ValidateVariable(String variable)
+        {
+            if (Char.IsLetter(variable[0]))
+                if (Char.IsDigit(variable[variable.Length - 1]))
+                    return true;
+                else
+                    throw new ArgumentException("Invalid syntax on variable");
+            else
+                throw new ArgumentException("Invalid syntax on variable");
+        }
+
+        /// <summary>
+        /// Another helper method. Operators and left and right operands are passed in for the operations.
+        /// This method checks for division by 0 and throws an exception should it occur.
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="leftOperand"></param>
+        /// <param name="rightOperand"></param>
+        /// <returns></returns>
+        private static int PerformOperation(String operation, int leftOperand, int rightOperand)
+        {
+            int result = 0;
+            if (operation == "*")
+                result = leftOperand * rightOperand;
+            if (operation == "/")
+            {
+                if (rightOperand == 0)
+                    throw new ArgumentException("Cannot divide by zero.");
+                else
+                    result = leftOperand / rightOperand;
+            }
+            if (operation == "+")
+                result = leftOperand + rightOperand;
+            if (operation == "-")
+                result = leftOperand - rightOperand;
+            return result;
+        }
+    }
+}

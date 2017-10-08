@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\LabFraction\LabFraction\bin\Debug\LabFraction.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\LabFraction\LabFraction\bin\Debug\LabFraction.exe
+c:\users\camille\documents\visual studio 2013\Projects\LabFraction\LabFraction\bin\Debug\LabFraction.pdb
+c:\users\camille\documents\visual studio 2013\Projects\LabFraction\LabFraction\obj\Debug\LabFraction.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\LabFraction\LabFraction\obj\Debug\LabFraction.exe
+c:\users\camille\documents\visual studio 2013\Projects\LabFraction\LabFraction\obj\Debug\LabFraction.pdb

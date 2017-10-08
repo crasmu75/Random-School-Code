@@ -1,0 +1,187 @@
+﻿using SpreadsheetUtilities;
+using SS;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SpreadsheetGUI
+{
+	public partial class Form1 : Form
+	{
+		AbstractSpreadsheet currentSheet;
+		public Form1()
+		{
+			// start window at full screen
+			WindowState = FormWindowState.Maximized;
+			InitializeComponent();
+			// Create new empty spreadsheet
+			currentSheet = new Spreadsheet(isValidExcelName, x => x.ToUpper(), "ps6");
+
+			// This an example of registering a method so that it is notified when
+			// an event happens.  The SelectionChanged event is declared with a
+			// delegate that specifies that all methods that register with it must
+			// take a SpreadsheetPanel as its parameter and return nothing.  So we
+			// register the displaySelection method below.
+			spreadsheetPanel.SelectionChanged += DisplaySelection;
+			spreadsheetPanel.SetSelection(0, 0);
+		}
+
+		/// <summary>
+		/// Takes in a list of cell names that need to be updated, and the 
+		/// current spreadsheet we are working with so we can access the correct
+		/// values for those cells. The display for each cell is updated.
+		/// </summary>
+		/// <param name="cellsToBeUpdated"></param>
+		/// <param name="currentSheet"></param>
+		private void DisplayCells(IEnumerable<string> cellsToBeUpdated)
+		{
+			int col, row = 0;
+			foreach (string cellName in cellsToBeUpdated)
+			{				
+				// take ascii code for letter and retrieve column num
+				col = (int)cellName[0] - 65;
+				
+				// row number is greater than 9
+				if (cellName.Length == 3)
+					row = int.Parse(cellName.Substring(1, 2)) - 1;
+				
+				// row number is less than 10
+				else if (cellName.Length == 2)
+					row = int.Parse(cellName[1].ToString()) - 1;
+				
+				// update the display cell
+				spreadsheetPanel.SetValue(col, row, currentSheet.GetCellValue(cellName).ToString());
+			}
+		}
+
+		/// <summary>
+		/// Every time the selection changes, this method is called with the 
+		/// SpreadsheetPanel as it's parameter. We display the cell name along
+		/// with it's value and contents above.
+		/// </summary>
+		/// <param name="ss"></param>
+		private void DisplaySelection(SpreadsheetPanel ss)
+		{
+			int row, col;
+			ss.GetSelection(out col, out row);
+			char rowChar = Convert.ToChar(col + 65);
+			string colChar = "" + (row + 1);
+
+			string cellName = rowChar + colChar;
+			textBoxCellName.Text = cellName;
+			textBoxValue.Text = currentSheet.GetCellValue(cellName).ToString();
+			if(currentSheet.GetCellContents(cellName) is Formula)
+				textBoxContents.Text = "=" + currentSheet.GetCellContents(cellName).ToString();
+			else
+				textBoxContents.Text = currentSheet.GetCellContents(cellName).ToString();
+		}
+
+		// Deals with the New menu
+		private void menuChoiceNew_Click(object sender, EventArgs e)
+		{
+			// Tell the application context to run the form on the same
+			// thread as the other forms.
+			SpreadsheetApplicationContext.getAppContext().RunForm(new Form1());
+		}
+
+		// Deals with the Close menu
+		private void menuChoiceClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void menuChoiceOpen_Click(object sender, EventArgs e)
+		{
+			openFileDialog.Filter = "spreadsheet files (*.sprd)|*.sprd|All files (*.*)|*.*";
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				if (!openFileDialog.FileName.EndsWith(".sprd"))
+					MessageBox.Show("Incorrect file type or extension.");
+				else
+				{
+					LoadSpreadsheet();
+					textBoxValue.Text = currentSheet.GetCellValue("A1").ToString();
+					textBoxContents.Text = currentSheet.GetCellContents("A1").ToString();
+				}
+			}
+		}
+
+		/// <summary>
+		/// There are a number of exceptions that could be thrown when an existing 
+		/// Spreadsheet is loaded. This method loads the spreadsheet and handles 
+		/// these exceptions appropriately.
+		/// </summary>
+		private void LoadSpreadsheet()
+		{
+			try
+			{
+				currentSheet = new Spreadsheet(openFileDialog.FileName, isValidExcelName, x => x.ToUpper(), "ps6");
+
+			}
+			catch(SpreadsheetReadWriteException ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			catch(InvalidNameException ex)
+			{
+				MessageBox.Show("File contained an invalid cell name(s). This particular cell was not loaded.");
+			}
+			catch(ArgumentNullException ex)
+			{
+				MessageBox.Show("File contained a null argument(s). This particular cell was not loaded.");
+			}
+			catch(CircularException ex)
+			{
+				MessageBox.Show("File contained a circular dependency(s). This particular cell was not loaded.");
+			}
+			DisplayCells(currentSheet.GetNamesOfAllNonemptyCells());
+			MessageBox.Show("Spreadsheet loaded successfully.");
+		}
+
+		/// <summary>
+		/// The isValid method being passed into a new spreadsheet. This method maps string
+		/// names to true if they contain one letter and one digit 1-9 followed by zero or 
+		/// one digit 0-9. This gives the range A1-Z99. a1 = A1 and z99 = Z99
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		private bool isValidExcelName(string name)
+		{
+			Regex pattern = new Regex("^[A-Za-z][1-9][0-9]?$");
+
+			if (pattern.IsMatch(name))
+				return true;
+			else
+				return false;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void buttonUpdateContents_Click(object sender, EventArgs e)
+		{
+			// calls DisplayCells on the cell names returned from changing contents of a cell
+			// (these cells are the ones that need to be recalculated)
+			DisplayCells(currentSheet.SetContentsOfCell(textBoxCellName.Text, textBoxContents.Text));
+			textBoxValue.Text = currentSheet.GetCellValue(textBoxCellName.Text).ToString();
+		}
+
+		private void menuChoiceSave_Click(object sender, EventArgs e)
+		{
+			saveFileDialog.Filter = "spreadsheet files (*.sprd)|*.sprd|All files (*.*)|*.*";
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+﻿Camille Rasmussen
+UID: u0717763
+CS 3500
+
+Project started on September 30, 2014
+
+I definitely need to write a Class. Not just because I will be using it
+later, but I don't see a way to implement the Spreadsheet class without
+a Cell class!
+
+I've worked with the GUI in Visual Studio before and I'm guessing that 
+the cells are going to hold strings. So for now I've decided that I'm
+going to have the cell class constructor accept strings for the contents.
+Within the constructor I will have it try parsing for double and then
+see if the string begins with an equals sign (it will be a Formula then).

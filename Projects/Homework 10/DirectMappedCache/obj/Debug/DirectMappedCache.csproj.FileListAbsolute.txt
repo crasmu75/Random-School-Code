@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\Homework 10\DirectMappedCache\bin\Debug\DirectMappedCache.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\Homework 10\DirectMappedCache\bin\Debug\DirectMappedCache.exe
+c:\users\camille\documents\visual studio 2013\Projects\Homework 10\DirectMappedCache\bin\Debug\DirectMappedCache.pdb
+c:\users\camille\documents\visual studio 2013\Projects\Homework 10\DirectMappedCache\obj\Debug\DirectMappedCache.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\Homework 10\DirectMappedCache\obj\Debug\DirectMappedCache.exe
+c:\users\camille\documents\visual studio 2013\Projects\Homework 10\DirectMappedCache\obj\Debug\DirectMappedCache.pdb

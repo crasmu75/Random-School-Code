@@ -1,0 +1,408 @@
+﻿// Game class
+// Authors: Camille Rasmussen and Jessie Delacenserie
+// CS 3500 -- PS8
+// 11/24/14
+
+using BB;
+using CustomNetworking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BoggleServer
+{
+    /// <summary>
+    /// Game Class to be used in BoggleServer
+    /// 
+    /// Holds variables unique to each game being played and contains methods to assist the server.
+    /// </summary>
+	class Game
+	{
+        // 2 player string sockets
+        private StringSocket player1, player2;
+
+        // Both player names
+        private string p1name, p2name;
+
+        // Both player scores
+		private int p1score, p2score;
+        
+        // Board used during the game
+		private BoggleBoard board;
+
+        // Length of game (time)
+		private int seconds;
+        
+        // Lists of legal and illegal words played by each client, also common words played by both 
+		private List<string> p1LegalWords, p2LegalWords, p1IllegalWords, p2IllegalWords, commonWords;
+
+        /// <summary>
+        /// CONSTRUCTOR
+        /// 
+        /// Sets member variables relevant to the class and creates a new game to begin play
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p1n"></param>
+        /// <param name="p2n"></param>
+        /// <param name="time"></param>
+        public Game(StringSocket p1, StringSocket p2, string p1n, string p2n, int time)
+		{
+            // Set players to player parameters
+			player1 = p1;
+			player2 = p2;
+
+            // Players start with zero scores
+			p1score = 0;
+			p2score = 0;
+
+            // Create a new BoggleBoard
+			board = new BoggleBoard();
+
+            // Timer starts at the inputted time
+			seconds = time;
+
+            // Set the names of the players
+			p1name = p1n;
+			p2name = p2n;
+
+			p1LegalWords = new List<string>();
+			p2LegalWords = new List<string>();
+			p1IllegalWords = new List<string>();
+			p2IllegalWords = new List<string>();
+			commonWords = new List<string>();
+		}
+
+        /// <summary>
+        /// CONSTRUCTOR -- with optional sixth parameter of an inputted string of 16 letters
+        /// 
+        /// Operates same as constructor above, but uses the string of 16 letters when creatinga new BoggleBoard
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p1n"></param>
+        /// <param name="p2n"></param>
+        /// <param name="time"></param>
+        /// <param name="letters"></param>
+        public Game(StringSocket p1, StringSocket p2, string p1n, string p2n, int time, string letters)
+		{
+            // Set player sockets
+			player1 = p1;
+			player2 = p2;
+
+            // Scores = 0
+			p1score = 0;
+			p2score = 0;
+
+            // Create new board with optional parameter of 16 letters
+			board = new BoggleBoard(letters);
+
+            // Set starting time of game
+			seconds = time;
+
+            // Set player names
+			p1name = p1n;
+			p2name = p2n;
+
+
+			p1LegalWords = new List<string>();
+			p2LegalWords = new List<string>();
+			p1IllegalWords = new List<string>();
+			p2IllegalWords = new List<string>();
+			commonWords = new List<string>();
+		}
+
+        /// <summary>
+        /// GetPartner
+        /// 
+        /// Returns the partner of the given parameter
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <returns></returns>
+        public StringSocket GetPartner(StringSocket currentPlayer)
+		{
+            // Finds the current player and returns the other
+			if (currentPlayer.Equals(player1))
+				return player2;
+			else if (currentPlayer.Equals(player2))
+				return player1;
+			else
+				return null;
+		}
+
+        /// <summary>
+        /// ProcessWord
+        /// 
+        /// Called by server when a legal word has been played. 
+        /// Calls IncrementScore on the player which submitted the word and awards the appropriate number of points.
+        /// Returns a boolean to the server to confirm if a word was successfully processed
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public bool CanBeFormed(StringSocket player, string word)
+        {
+            // Checks if word can be formed on the board and is at least 3 chars long
+            if (board.CanBeFormed(word))
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Increment the score of the game if necessary
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="word"></param>
+        public void IncrementScore(StringSocket player, string word)
+        {
+            if (p1LegalWords.Contains(word) || p2LegalWords.Contains(word)) { }
+
+            else
+            {
+                switch (word.Length)
+                {
+                    case 3:
+                        IncrementScore(player, 1);
+                        break;
+                    case 4:
+                        IncrementScore(player, 1);
+                        break;
+                    case 5:
+                        IncrementScore(player, 2);
+                        break;
+                    case 6:
+                        IncrementScore(player, 3);
+                        break;
+                    case 7:
+                        IncrementScore(player, 5);
+                        break;
+                    default:
+                        IncrementScore(player, 11);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// IncrementScore
+        /// 
+        /// Increments the given player's by the amount specified based on word that was played
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="points"></param>
+        public void IncrementScore(StringSocket player, int points)
+		{
+			if (player.Equals(player1))
+				p1score += points;
+			else if (player.Equals(player2))
+				p2score += points;
+		}
+
+        /// <summary>
+        /// GetScore
+        /// 
+        /// Returns the score of a given player
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public int GetScore(StringSocket player)
+		{
+			if (player.Equals(player1))
+				return p1score;
+			else if (player.Equals(player2))
+				return p2score;
+			else
+				return 1000000000;
+		}
+
+        /// <summary>
+        /// isCurrentGame
+        /// 
+        /// This method checks if a given socket belongs to the specified game and returns a boolean
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public bool isCurrentGame(StringSocket player)
+		{
+			if (player.Equals(player1) || player.Equals(player2))
+				return true;
+			else
+				return false;
+		}
+
+        /// <summary>
+        /// getP1
+        /// getter for player1
+        /// </summary>
+        /// <returns></returns>
+        public StringSocket getP1()
+		{
+			return player1;
+		}
+
+        /// <summary>
+        /// getP2
+        /// getter for player2
+        /// </summary>
+        /// <returns></returns>
+        public StringSocket getP2()
+		{
+			return player2;
+		}
+
+		public string GetPlayerName(StringSocket playerSocket)
+		{
+			if (playerSocket.Equals(player1))
+				return p1name;
+			else if (playerSocket.Equals(player2))
+				return p2name;
+			else
+				return null;
+		}
+
+        /// <summary>
+        /// getTime
+        /// getter for current time
+        /// </summary>
+        /// <returns></returns>
+		public int getTime()
+		{
+			return seconds;
+		}
+
+        /// <summary>
+        /// decrementTime
+        /// decrements and returns current time (used in countdown method)
+        /// </summary>
+        /// <returns></returns>
+		public int decrementTime()
+		{
+			return seconds--;
+		}
+
+        /// <summary>
+        /// AddLegalWord
+        /// 
+        /// Adds the legal word to the list of legal words for the given player
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="word"></param>
+        public void AddLegalWord(StringSocket currentPlayer, string word)
+		{
+            if (p1LegalWords.Contains(word) || p2LegalWords.Contains(word)) { }
+            else
+            {
+                if (currentPlayer.Equals(player1))
+                    p1LegalWords.Add(word);
+
+                else if (currentPlayer.Equals(player2))
+                    p2LegalWords.Add(word);
+            }
+		}
+
+        /// <summary>
+        /// AddIllegalWord
+        /// 
+        /// Adds the illegal word to the list of illegal words for the given layer
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <param name="word"></param>
+        public void AddIllegalWord(StringSocket currentPlayer, string word)
+        {
+            if (currentPlayer.Equals(player1))
+            {
+                if (!p1IllegalWords.Contains(word))
+                {
+                    p1IllegalWords.Add(word);
+                    p1score--;
+                }
+            }
+            else if (currentPlayer.Equals(player2))
+            {
+                if (!p2IllegalWords.Contains(word))
+                {
+                    p2IllegalWords.Add(word);
+                    p2score--;
+                }
+            }
+        }
+
+        /// <summary>
+        /// endGame
+        /// 
+        /// Creates the common words list necessary to end the game 
+        /// </summary>
+		public void endGame()
+		{
+            // Check each of player 1's legal words for duplicates
+			foreach (string word in p1LegalWords)
+			{
+                // If the word exists in both lists add to list of common
+				if (p2LegalWords.Contains(word))
+					commonWords.Add(word);
+			}
+
+            // Delete duplicate words from both players' lists of legal words
+            foreach (string word in commonWords)
+            {
+                p1LegalWords.Remove(word);
+                p2LegalWords.Remove(word);
+            }
+		}
+
+        /// <summary>
+        /// getLegalWords
+        /// 
+        /// Returns the list of legal words for a given player
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <returns></returns>
+        public List<string> getLegalWords(StringSocket currentPlayer)
+		{
+			if (currentPlayer.Equals(player1))
+				return p1LegalWords;
+			else
+				return p2LegalWords;
+		}
+
+        /// <summary>
+        /// getIllegalWords
+        /// 
+        /// Returns the list of illegal wors for the given player
+        /// </summary>
+        /// <param name="currentPlayer"></param>
+        /// <returns></returns>
+        public List<string> getIllegalWords(StringSocket currentPlayer)
+		{
+			if (currentPlayer.Equals(player1))
+				return p1IllegalWords;
+			else
+				return p2IllegalWords;
+		}
+
+        /// <summary>
+        /// getCommonWords
+        /// 
+        /// Returns the list of common words between the 2 players
+        /// </summary>
+        /// <returns></returns>
+		public List<string> getCommonWords()
+		{
+			return commonWords;
+		}
+
+		/// <summary>
+		/// getBoardLetters
+		/// 
+		/// Returns a string containing all letters in the board
+		/// </summary>
+		/// <returns></returns>
+		public string getBoardLetters()
+		{
+			return board.ToString();
+		}
+	}
+}

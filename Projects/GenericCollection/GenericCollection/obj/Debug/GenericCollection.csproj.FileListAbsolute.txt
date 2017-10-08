@@ -1,0 +1,1 @@
+c:\users\camille\documents\visual studio 2013\Projects\GenericCollection\GenericCollection\bin\Debug\GenericCollection.exe.config

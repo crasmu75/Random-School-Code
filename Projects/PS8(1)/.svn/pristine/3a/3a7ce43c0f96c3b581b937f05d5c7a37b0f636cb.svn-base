@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoggleServer", "BoggleServer\BoggleServer.csproj", "{F3EBFC41-8E46-4353-9D5F-A2D71B568249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{FFE960E0-A477-4C33-8584-4B3F79DBF640}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoggleBoard", "BoggleBoard\BoggleBoard.csproj", "{36E99209-63C1-4455-A887-92EA4DD7D678}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoggleServerTestClient", "BoggleServerTestClient\BoggleServerTestClient.csproj", "{1D63B66F-9DB4-4B29-BC66-AEF174BD9D12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoggleServerTest", "BoggleServerTest\BoggleServerTest.csproj", "{E6E027B2-8C28-420B-98A1-4E8B2A915E82}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3EBFC41-8E46-4353-9D5F-A2D71B568249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3EBFC41-8E46-4353-9D5F-A2D71B568249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3EBFC41-8E46-4353-9D5F-A2D71B568249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3EBFC41-8E46-4353-9D5F-A2D71B568249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE960E0-A477-4C33-8584-4B3F79DBF640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE960E0-A477-4C33-8584-4B3F79DBF640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE960E0-A477-4C33-8584-4B3F79DBF640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE960E0-A477-4C33-8584-4B3F79DBF640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E99209-63C1-4455-A887-92EA4DD7D678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E99209-63C1-4455-A887-92EA4DD7D678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E99209-63C1-4455-A887-92EA4DD7D678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E99209-63C1-4455-A887-92EA4DD7D678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D63B66F-9DB4-4B29-BC66-AEF174BD9D12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D63B66F-9DB4-4B29-BC66-AEF174BD9D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D63B66F-9DB4-4B29-BC66-AEF174BD9D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D63B66F-9DB4-4B29-BC66-AEF174BD9D12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E027B2-8C28-420B-98A1-4E8B2A915E82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E027B2-8C28-420B-98A1-4E8B2A915E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E027B2-8C28-420B-98A1-4E8B2A915E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E027B2-8C28-420B-98A1-4E8B2A915E82}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

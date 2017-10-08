@@ -1,0 +1,173 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using CustomNetworking;
+using System.Net;
+using System.Threading;
+using System.Text.RegularExpressions;
+using System.IO;
+
+namespace BoggleServer
+{
+	class BoggleServer
+	{
+		// Listens for incoming connections
+		private TcpListener server;
+
+		// One StringSocket per connected client
+		private List<StringSocket> allSockets;
+
+		// the name associated with the socket
+		private List<string> user_names;
+
+        // list of boggle playing pairs (tuple of 2 sockets)
+        private List<Game> games;
+
+        // socket that is currently waiting for a partner
+        StringSocket singleSocket;
+
+		// Regex to be used for incoming commands
+		Regex playCommand = new Regex(@"^(PLAY|play)\s[a-zA-Z]+$");
+		Regex wordCommand = new Regex(@"^(WORD|word)\s[a-zA-Z]+$");
+
+		// Length of game
+		static int seconds = 0;
+
+		// Holds all legal words
+		static HashSet<string> dictionary;
+
+		static void Main(string[] args)
+		{
+			seconds = Convert.ToInt32(args[0]);
+
+			// TODO read boggle dictionary file (or just use reference <3)
+			PopulateDictionary(args[1]);
+
+			new BoggleServer(2000);
+			Console.Read();
+		}
+
+		public BoggleServer(int port)
+		{
+			server = new TcpListener(IPAddress.Any, port);
+			allSockets = new List<StringSocket>();
+			user_names = new List<string>();
+			server.Start();
+			server.BeginAcceptSocket(ConnectionReceived, null);
+
+            singleSocket = null;
+            games = new List<Game>();
+		}
+
+        public void ConnectionReceived(IAsyncResult ar)
+        {
+			Socket socket = server.EndAcceptSocket(ar);
+			StringSocket ss = new StringSocket(socket, UTF8Encoding.Default);
+			ss.BeginReceive(CommandReceived, ss);
+			server.BeginAcceptSocket(ConnectionReceived, null);
+        }
+
+		public void CommandReceived(String incomingCommand, Exception e, object p)
+		{
+			// create a string socket from the input object
+			StringSocket ss = (StringSocket)p;
+
+			// if the command from client is a PLAY command, add the socket 
+			//		and match the socket pairs
+			if (playCommand.IsMatch(incomingCommand))
+			{
+
+				lock(ss)
+				{
+					// Add the username to the list of all clients
+					user_names.Add(incomingCommand.Substring(5));
+
+					// if there is no single socket, replace with the incoming socket
+					if (singleSocket == null)
+					{
+						singleSocket = ss;
+					}
+
+					// else, combine the singlesocket with the incoming socket to create a new game
+					else
+					{
+						games.Add(new Game(singleSocket, ss, seconds));
+						singleSocket.BeginSend("START", null, null); // TODO callback
+						singleSocket = null;
+
+						new Thread ( () => CountdownTime()).Start();
+					}
+				}
+			}
+			else if (wordCommand.IsMatch(incomingCommand))
+			{
+				Game currentGame = null;
+				foreach (Game game in games)
+				{
+					if (game.isCurrentGame(ss))
+					{
+						currentGame = game;
+						break;
+					}
+				}
+				if (currentGame == null)
+					ss.BeginSend("IGNORING " + incomingCommand, (ee, pp) => { }, null);
+				else
+				{
+					string word = incomingCommand.Substring(5);
+					bool validWord = currentGame.ProcessWord(ss, word);
+
+					if (validWord)
+					{
+						StringSocket p1 = ss;
+						StringSocket p2 = currentGame.GetPartner(ss);
+
+						int s1 = currentGame.GetScore(p1);
+						int s2 = currentGame.GetScore(p2);
+
+						// TODO Check these callbacks!!!!!! There's no way they are correct :/
+						p1.BeginSend("SCORE " + s1.ToString() + " " + s2.ToString(),
+							(ee, pp) => { }, null);
+
+						p2.BeginSend("SCORE " + s2.ToString() + " " + s1.ToString(),
+							(ee, pp) => { }, null);
+					}
+				}
+			}
+			else
+			{
+				ss.BeginSend("IGNORING " + incomingCommand, (ee, pp) => { }, null);
+			}
+
+			ss.BeginReceive(CommandReceived, p);
+		}
+
+		private static void PopulateDictionary(string filePath)
+		{
+			dictionary = new HashSet<string>();
+			try
+			{
+				using (StreamReader reader = new StreamReader(filePath))
+				{
+					string line;
+					while ((line = reader.ReadLine()) != null)
+					{
+						
+					}
+				}
+			}
+			catch (Exception e)
+			{
+
+			}
+		}
+
+		private void CountdownTime()
+		{
+
+		}
+	}
+}

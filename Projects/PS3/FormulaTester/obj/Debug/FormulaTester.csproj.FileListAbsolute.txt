@@ -1,0 +1,9 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\bin\Debug\FormulaTester.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\bin\Debug\FormulaTester.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\bin\Debug\SpreadsheetUtilities.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\obj\Debug\FormulaTester.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\obj\Debug\FormulaTester.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\obj\Debug\FormulaTester.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\bin\Debug\FormulaTester.XML
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\FormulaTester\bin\Debug\SpreadsheetUtilities.xml

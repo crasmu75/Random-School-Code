@@ -1,0 +1,152 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using CustomNetworking;
+using System.Text.RegularExpressions;
+
+namespace BoggleClient
+{
+    public class BoggleClientModel
+    {
+		// The socket used to communicate with the server.  If no connection has been
+        // made yet, this is null.
+        private StringSocket socket;
+
+        // Register for this event to be notified when a line of text arrives.
+        public event Action<String> IncomingScoreEvent;
+        public event Action<String> IncomingIgnoringEvent;
+        public event Action<String> IncomingStartEvent;
+        public event Action<String> IncomingTimeEvent;
+        public event Action<String> IncomingStopEvent;
+        public event Action IncomingTerminatedEvent;
+        public event Action<String> CannotConnectEvent;
+
+		// Register for this event to be notified when we are connected to server. 
+		public event Action ConnectedEvent;
+
+        // Regex to be used for incoming commands
+        Regex scoreCommand = new Regex(@"(SCORE)\s+[0-9]+\s+[0-9]+");
+        Regex ignoringCommand = new Regex(@"(IGNORING)\s+.+");
+        Regex startCommand = new Regex(@"(START)\s+[A-Z]{16}\s+[0-9]+\s+.+");
+        Regex timeCommand = new Regex(@"(TIME)\s+[0-9]+");
+        Regex stopCommand = new Regex(@"(STOP).+");
+        Regex terminatedCommand = new Regex(@"(TERMINATED)");
+
+        /// <summary>
+        /// Boolean to check if game is still going on
+        /// </summary>
+        private bool acceptingCommands = true;
+
+        /// <summary>
+        /// Creates a not yet connected client model.
+        /// </summary>
+        public BoggleClientModel()
+        {
+            socket = null;
+        }
+
+        /// <summary>
+        /// Connect to the server at the given hostname and port and with the give name.
+        /// </summary>
+        public void Connect(string hostname, int port, String name)
+        {
+            if (socket == null)
+            {
+                try
+                {
+                    acceptingCommands = true;
+                    TcpClient client = new TcpClient(hostname, port);
+                    socket = new StringSocket(client.Client, UTF8Encoding.Default);
+                    socket.BeginSend("PLAY " + name + "\n", ConnectedCallback, null);
+                    socket.BeginReceive(CommandReceived, null);
+                }
+                catch (Exception e)
+                {
+                    acceptingCommands = false;
+                    CannotConnectEvent(e.ToString());
+                    
+                }
+            }
+        }
+
+        /// <summary>
+        /// Send a line of text to the server.
+        /// </summary>
+        /// <param name="line"></param>
+        public void SendMessage(String line)
+        {
+            if (socket != null)
+            {
+                socket.BeginSend(line + "\n", (e, p) => { }, null);
+            }
+        }
+
+		/// <summary>
+		/// Called once we are connected to the server.
+		/// </summary>
+		/// <param name="e"></param>
+		/// <param name="payload"></param>
+		private void ConnectedCallback(Exception e, object payload)
+		{
+			if (ConnectedEvent != null)
+			{
+				ConnectedEvent();
+			}
+		}
+
+        /// <summary>
+        /// Deal with an arriving line of text.
+        /// </summary>
+        private void CommandReceived(String s, Exception e, object p)
+        {
+            if (acceptingCommands)
+            {
+                if (s == null)
+                {
+                    IncomingTerminatedEvent();
+                    CloseSocket();
+                }
+                else
+                {
+                    s = s.Trim();
+                    s = s.ToUpper();
+
+                    if (scoreCommand.IsMatch(s))
+                        IncomingScoreEvent(s);
+
+                    else if (ignoringCommand.IsMatch(s))
+                        IncomingIgnoringEvent(s);
+
+                    else if (startCommand.IsMatch(s))
+                        IncomingStartEvent(s);
+
+                    else if (timeCommand.IsMatch(s))
+                        IncomingTimeEvent(s);
+
+                    else if (stopCommand.IsMatch(s))
+                        IncomingStopEvent(s);
+
+                    else if (terminatedCommand.IsMatch(s))
+                    {
+                        IncomingTerminatedEvent();
+                        CloseSocket();
+                    }
+                    if (socket != null)
+                        socket.BeginReceive(CommandReceived, null);
+                }
+            }
+        }  
+       
+        public void CloseSocket()
+        {
+            if (socket != null)
+                socket.Close();
+            socket = null;
+            acceptingCommands = false;
+            
+        }
+    }
+}

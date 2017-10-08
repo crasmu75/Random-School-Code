@@ -1,0 +1,26 @@
+﻿
+
+(1) Notice that the a reference to the variable "i" is "stored" with the created function.  
+    (Note: the function is of course created using a lambda expression.)
+    BEFORE the thread actually gets to execute, the value of i is increased
+    by the for loop, thus several threads can report the same value for i.
+    IMPORTANT: all loops share the same variable i (it is "outside" of the closure)
+
+
+(2) Same as one.  No real difference between using i and using nn;
+
+(3) Same as one/two but using thread pool.  Notice that the thread pool "queues"
+    up the work, which takes longer, and thus the loop finishes before the
+    threads start.
+
+(4) Something Interesting Happens Here!  Notice that the variable n is "local"
+    to the loop and is stored as A SEPARATE VARIABLE for each closure!!!
+    Again, n being "inside" the closure is created anew for each version.
+
+(5) Better SE way of doing 4.  Here the value of i is stored in the parameter "id"
+    and the parameter id is "closed" in the thread closure
+
+(6) Same as 5 but using thread pool
+
+
+As always, notice that the ordering of which thread actually executes is unpredictable 

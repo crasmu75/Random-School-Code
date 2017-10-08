@@ -1,0 +1,54 @@
+﻿using CustomNetworking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BoggleServer
+{
+	class Game
+	{
+		private StringSocket player1;
+		private StringSocket player2;
+
+		private int p1score;
+		private int p2score;
+
+		public Game(StringSocket p1, StringSocket p2)
+		{
+			player1 = p1;
+			player2 = p2;
+
+			p1score = 0;
+			p2score = 0;
+		}
+
+		public StringSocket GetPartner(StringSocket currentPlayer)
+		{
+			if (currentPlayer.Equals(player1))
+				return player2;
+			else if (currentPlayer.Equals(player2))
+				return player1;
+			else
+				return null;
+		}
+		public void IncrementScore(StringSocket player, int points)
+		{
+			if (player.Equals(player1))
+				p1score += points;
+			else if (player.Equals(player2))
+				p2score += points;
+		}
+
+		public int getScore(StringSocket player)
+		{
+			if (player.Equals(player1))
+				return p1score;
+			else if (player.Equals(player2))
+				return p2score;
+			else
+				return 1000000000;
+		}
+	}
+}

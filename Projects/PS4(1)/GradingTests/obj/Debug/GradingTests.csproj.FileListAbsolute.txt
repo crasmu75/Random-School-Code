@@ -1,0 +1,15 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\GradingTests.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\GradingTests.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Formula.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Resources.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Spreadsheet.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Resources.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Resources.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Spreadsheet.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Spreadsheet.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\Formula.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\obj\Debug\GradingTests.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\obj\Debug\GradingTests.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\GradingTests\obj\Debug\GradingTests.pdb

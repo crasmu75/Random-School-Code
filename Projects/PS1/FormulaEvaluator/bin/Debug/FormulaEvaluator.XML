@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FormulaEvaluator</name>
+    </assembly>
+    <members>
+        <member name="T:FormulaEvaluator.Evaluator">
+            <summary>
+            The Evaluator class allows for input of an expression as a string and evaluates to the result.
+            It throws an Argument Exception if any invalid syntax occurs, division by 0, etc.
+            
+            Written by Camille Rasmussen
+            UID: u0717763
+            </summary>
+        </member>
+        <member name="M:FormulaEvaluator.Evaluator.Evaluate(System.String,FormulaEvaluator.Evaluator.Lookup)">
+            <summary>
+            Evaluates the passed expression by calling several helper methods to process tokens
+            and uses the Lookup delegate to look up values of variables.
+            </summary>
+            <param name="exp"></param>
+            <param name="variableEvaluator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FormulaEvaluator.Evaluator.RemoveWhitespace(System.String)">
+            <summary>
+            A helper method. Takes in the expression string and removes all white spaces,
+            including tabs.
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FormulaEvaluator.Evaluator.SortToStacks(System.String[],FormulaEvaluator.Evaluator.Lookup)">
+            <summary>
+            Another helper method. Checks tokens for validity and sorts them into their
+            appropriate stacks at appropriate times, while calling Infix() to process them.
+            </summary>
+            <param name="tokens"></param>
+            <param name="variableEvaluator"></param>
+        </member>
+        <member name="M:FormulaEvaluator.Evaluator.Infix(System.String,System.String)">
+            <summary>
+            Another helper method. Processes tokens to evaluate using standard infix notation.
+            Respects the usual prescedence rules.
+            </summary>
+            <param name="token"></param>
+            <param name="type"></param>
+        </member>
+        <member name="M:FormulaEvaluator.Evaluator.ValidateVariable(System.String)">
+            <summary>
+            Another helper method. Validates the variable's syntax (begins with one or more letters and ends 
+            with one or more
+            variables.) Throws argument exception if it is invalid.
+            </summary>
+            <param name="variable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FormulaEvaluator.Evaluator.PerformOperation(System.String,System.Int32,System.Int32)">
+            <summary>
+            Another helper method. Operators and left and right operands are passed in for the operations.
+            This method checks for division by 0 and throws an exception should it occur.
+            </summary>
+            <param name="operation"></param>
+            <param name="leftOperand"></param>
+            <param name="rightOperand"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

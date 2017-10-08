@@ -1,0 +1,816 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SpreadsheetCodedUITests</name>
+    </assembly>
+    <members>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest1">
+            <summary>
+            Summary description for CodedUITest1
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest1.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest2">
+            <summary>
+            Summary description for CodedUITest2
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest2.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest3">
+            <summary>
+            Summary description for CodedUITest3
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest3.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest4">
+            <summary>
+            Summary description for CodedUITest4
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest4.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest5">
+            <summary>
+            Summary description for CodedUITest5
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest5.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest6">
+            <summary>
+            Summary description for CodedUITest6
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest6.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest7">
+            <summary>
+            Summary description for CodedUITest7
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest7.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CodedUITest8">
+            <summary>
+            Summary description for CodedUITest8
+            </summary>
+        </member>
+        <member name="P:SpreadsheetCodedUITests.CodedUITest8.TestContext">
+             <summary>
+            Gets or sets the test context which provides
+            information about and functionality for the current test run.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.OpenAndNewAndClose">
+            <summary>
+            Opens the app, opens a new spreadsheet, and closes both.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.EditCellContentsFormulaError">
+            <summary>
+            Edits cell A1 to =A2 and it should display SpreadsheetUtilities.FormulaError. Also Contents text box should go from a2 to A2
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.Testa2ChangedToA2">
+            <summary>
+            Make sure case is ignored
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ValueUpdatedToFormulaError">
+            <summary>
+            Make sure value becomes a Formula Error
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.HelpMenuAndChangeColors">
+            <summary>
+            Accessing the instructions and about pages, and background color combo box
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.OpenAndUpdateASavedFile">
+            <summary>
+            opens demo.sprd and updates the contents of one of the cells
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CellNameDisplayedProperly">
+            <summary>
+            Makes sure selected cell name is displayed properly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ValueUpdatedCorrectly">
+            <summary>
+            Make sure value text box is updated correctlu
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsUpdatedCorrectly">
+            <summary>
+            Makes sure contents still shows up correctly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.SaveFileAndClose">
+            <summary>
+            saves the new demo file and close program
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.EnterInvalidCellName">
+            <summary>
+            referencing a cell not in the graph
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CheckContentsUnchanged">
+            <summary>
+            Make sure contents is unchanged after the formula format exception
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.EnterInvalidSyntax">
+            <summary>
+            enter invalid formula syntax and try to update
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsNotUpdated">
+            <summary>
+            make sure contents was unchanged
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CircularDependencySelf">
+            <summary>
+            Make a cell reference itself
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsNotUpdated1">
+            <summary>
+            check contents remains what it was
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CloseApplication">
+            <summary>
+            Make sure you are not asked if you want to save (no changes are made)
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.UpdatingSomeCells">
+            <summary>
+            updating contents of a few cells
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.SelectedCellNameDisplayed">
+            <summary>
+            make sure selected cell's name is displayed
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ValueUpdatedCorrectly1">
+            <summary>
+            Make sure value is same as referenced cell
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsUpdatedCorrectly1">
+            <summary>
+            make sure contents is D4, the referenced cell
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.SaveFileAndClose1">
+            <summary>
+            save the file and close
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CreateFormulaError">
+            <summary>
+            references 2 empty cells
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ValueUpdatedToFormulaError1">
+            <summary>
+            make sure value is at first updated to a formula error
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsUpdatedCorrectly2">
+            <summary>
+            make sure cell contents were updated correctly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ChangeContentsOfDependentCell">
+            <summary>
+            changing the contents of a cell that another cell depends on, but the other cell still depends on another
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ValueUpdatedCorrectly2">
+            <summary>
+            make sure value was computed/updated correctly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsUpdatedCorrectly3">
+            <summary>
+            make sure contents were updated correctly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.SelectA1">
+            <summary>
+            select this cell to see its contents and value
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.FormulaErrorRemains">
+            <summary>
+            formula error still stands
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CircularDependency">
+            <summary>
+            Cause a circular dependency and make sure contents are not updated
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsNotUpdated2">
+            <summary>
+            contents should not have been updated
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.OpenExistingFile">
+            <summary>
+            open demo1.sprd
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.UpdateCellWithFormula">
+            <summary>
+            updating a cell with a formula
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ValueUpdatedCorrectly3">
+            <summary>
+            Make sure formula value is updated correctly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ContentsDisplayedCorrectly">
+            <summary>
+            make sure contents are displayed correctly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.UpdateCellToReferenceString">
+            <summary>
+            updating a cell to reference a string
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.FormulaErrorDisplayed">
+            <summary>
+            make sure formula error is displayed
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.UpdateReferencedCell">
+            <summary>
+            updating a cell that is referenced by another
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.ValueUpdatedCorrectly4">
+            <summary>
+            make sure value is updated correctly
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CloseApplicationAndNotSave">
+            <summary>
+            close application and it asks if we want to save and we say no
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.EditSheetAndThenOpenSheet">
+            <summary>
+            edit this empty spreadsheet and open another sheet to check if program asks if we want to save
+            </summary>
+        </member>
+        <member name="M:SpreadsheetCodedUITests.UIMap.CloseApplication1">
+            <summary>
+            close (shouldn't ask if we want to save)
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.OpenAndNewAndCloseParams">
+            <summary>
+            Parameters to be passed into 'OpenAndNewAndClose'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenAndNewAndCloseParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenAndNewAndCloseParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.EditCellContentsFormulaErrorParams">
+            <summary>
+            Parameters to be passed into 'EditCellContentsFormulaError'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditCellContentsFormulaErrorParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditCellContentsFormulaErrorParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditCellContentsFormulaErrorParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=a2' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.Testa2ChangedToA2ExpectedValues">
+            <summary>
+            Parameters to be passed into 'Testa2ChangedToA2'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.Testa2ChangedToA2ExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals 'A2'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ValueUpdatedToFormulaErrorExpectedValues">
+            <summary>
+            Parameters to be passed into 'ValueUpdatedToFormulaError'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ValueUpdatedToFormulaErrorExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals 'SpreadsheetUtilities.FormulaError'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.HelpMenuAndChangeColorsParams">
+            <summary>
+            Parameters to be passed into 'HelpMenuAndChangeColors'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.HelpMenuAndChangeColorsParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.HelpMenuAndChangeColorsParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.HelpMenuAndChangeColorsParams.UIComboBoxColorsComboBoxSelectedItem">
+            <summary>
+            Select 'pink' in 'comboBoxColors' combo box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.OpenAndUpdateASavedFileParams">
+            <summary>
+            Parameters to be passed into 'OpenAndUpdateASavedFile'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenAndUpdateASavedFileParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=B2/A1' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CellNameDisplayedProperlyExpectedValues">
+            <summary>
+            Parameters to be passed into 'CellNameDisplayedProperly'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.CellNameDisplayedProperlyExpectedValues.UITextBoxCellNameEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxCellName' text box equals 'C4'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ValueUpdatedCorrectlyExpectedValues">
+            <summary>
+            Parameters to be passed into 'ValueUpdatedCorrectly'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ValueUpdatedCorrectlyExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals '6'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsUpdatedCorrectlyExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsUpdatedCorrectly'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsUpdatedCorrectlyExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals 'B2/A1'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.SaveFileAndCloseParams">
+            <summary>
+            Parameters to be passed into 'SaveFileAndClose'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.SaveFileAndCloseParams.UIFilenameComboBoxEditableItem">
+            <summary>
+            Select 'demo1.sprd' in 'File name:' combo box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.EnterInvalidCellNameParams">
+            <summary>
+            Parameters to be passed into 'EnterInvalidCellName'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EnterInvalidCellNameParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EnterInvalidCellNameParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EnterInvalidCellNameParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=aa7 + 9' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CheckContentsUnchangedExpectedValues">
+            <summary>
+            Parameters to be passed into 'CheckContentsUnchanged'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.CheckContentsUnchangedExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals ''
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.EnterInvalidSyntaxParams">
+            <summary>
+            Parameters to be passed into 'EnterInvalidSyntax'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EnterInvalidSyntaxParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=32 + - 15.3' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsNotUpdatedExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsNotUpdated'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsNotUpdatedExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals ''
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CircularDependencySelfParams">
+            <summary>
+            Parameters to be passed into 'CircularDependencySelf'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.CircularDependencySelfParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=G6' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsNotUpdated1ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsNotUpdated1'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsNotUpdated1ExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals ''
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.UpdatingSomeCellsParams">
+            <summary>
+            Parameters to be passed into 'UpdatingSomeCells'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdatingSomeCellsParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdatingSomeCellsParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdatingSomeCellsParams.UITextBoxContentsEditText">
+            <summary>
+            Type '17.56' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdatingSomeCellsParams.UITextBoxContentsEditText1">
+            <summary>
+            Type 'hello' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdatingSomeCellsParams.UITextBoxContentsEditText2">
+            <summary>
+            Type '=D4' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.SelectedCellNameDisplayedExpectedValues">
+            <summary>
+            Parameters to be passed into 'SelectedCellNameDisplayed'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.SelectedCellNameDisplayedExpectedValues.UITextBoxCellNameEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxCellName' text box equals 'E6'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ValueUpdatedCorrectly1ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ValueUpdatedCorrectly1'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ValueUpdatedCorrectly1ExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals '17.56'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsUpdatedCorrectly1ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsUpdatedCorrectly1'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsUpdatedCorrectly1ExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals 'D4'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.SaveFileAndClose1Params">
+            <summary>
+            Parameters to be passed into 'SaveFileAndClose1'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.SaveFileAndClose1Params.UIFilenameComboBoxEditableItem">
+            <summary>
+            Select 'Test1.sprd' in 'File name:' combo box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CreateFormulaErrorParams">
+            <summary>
+            Parameters to be passed into 'CreateFormulaError'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.CreateFormulaErrorParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=D1 + D2' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ValueUpdatedToFormulaError1ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ValueUpdatedToFormulaError1'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ValueUpdatedToFormulaError1ExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals 'SpreadsheetUtilities.FormulaError'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsUpdatedCorrectly2ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsUpdatedCorrectly2'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsUpdatedCorrectly2ExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals 'D1+D2'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ChangeContentsOfDependentCellParams">
+            <summary>
+            Parameters to be passed into 'ChangeContentsOfDependentCell'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ChangeContentsOfDependentCellParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=15.6/9' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ValueUpdatedCorrectly2ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ValueUpdatedCorrectly2'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ValueUpdatedCorrectly2ExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals '1.73333333333333'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsUpdatedCorrectly3ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsUpdatedCorrectly3'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsUpdatedCorrectly3ExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals '15.6/9'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.FormulaErrorRemainsExpectedValues">
+            <summary>
+            Parameters to be passed into 'FormulaErrorRemains'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.FormulaErrorRemainsExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals 'SpreadsheetUtilities.FormulaError'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.CircularDependencyParams">
+            <summary>
+            Parameters to be passed into 'CircularDependency'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.CircularDependencyParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=A1' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsNotUpdated2ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsNotUpdated2'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsNotUpdated2ExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals ''
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.OpenExistingFileParams">
+            <summary>
+            Parameters to be passed into 'OpenExistingFile'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenExistingFileParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenExistingFileParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenExistingFileParams.UIFilenameComboBoxEditableItem">
+            <summary>
+            Select 'demo1.sprd' in 'File name:' combo box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenExistingFileParams.UIFilenameEditSendKeys">
+            <summary>
+            Type '{Enter}' in 'File name:' text box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.OpenExistingFileParams.UIOKButtonSendKeys">
+            <summary>
+            Type '{Enter}' in 'OK' button
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.UpdateCellWithFormulaParams">
+            <summary>
+            Parameters to be passed into 'UpdateCellWithFormula'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdateCellWithFormulaParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdateCellWithFormulaParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdateCellWithFormulaParams.UITextBoxContentsEditText">
+            <summary>
+            Type '=17.34/2+(8)' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ValueUpdatedCorrectly3ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ValueUpdatedCorrectly3'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ValueUpdatedCorrectly3ExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals '16.67'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ContentsDisplayedCorrectlyExpectedValues">
+            <summary>
+            Parameters to be passed into 'ContentsDisplayedCorrectly'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ContentsDisplayedCorrectlyExpectedValues.UITextBoxContentsEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxContents' text box equals '17.34/2+(8)'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.UpdateCellToReferenceStringParams">
+            <summary>
+            Parameters to be passed into 'UpdateCellToReferenceString'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdateCellToReferenceStringParams.UITextBoxContentsEditText">
+            <summary>
+            Type 'yes' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdateCellToReferenceStringParams.UITextBoxContentsEditText1">
+            <summary>
+            Type '=F9' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.FormulaErrorDisplayedExpectedValues">
+            <summary>
+            Parameters to be passed into 'FormulaErrorDisplayed'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.FormulaErrorDisplayedExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals 'SpreadsheetUtilities.FormulaError'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.UpdateReferencedCellParams">
+            <summary>
+            Parameters to be passed into 'UpdateReferencedCell'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.UpdateReferencedCellParams.UITextBoxContentsEditText">
+            <summary>
+            Type '987' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.ValueUpdatedCorrectly4ExpectedValues">
+            <summary>
+            Parameters to be passed into 'ValueUpdatedCorrectly4'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.ValueUpdatedCorrectly4ExpectedValues.UITextBoxValueEditText">
+            <summary>
+            Verify that the 'Text' property of 'textBoxValue' text box equals '987'
+            </summary>
+        </member>
+        <member name="T:SpreadsheetCodedUITests.EditSheetAndThenOpenSheetParams">
+            <summary>
+            Parameters to be passed into 'EditSheetAndThenOpenSheet'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditSheetAndThenOpenSheetParams.UISpreadsheetApplicatiWindowExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditSheetAndThenOpenSheetParams.UISpreadsheetApplicatiWindowAlternateExePath">
+            <summary>
+            Launch '%USERPROFILE%\Documents\Visual Studio 2013\Projects\PS6(1)\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe'
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditSheetAndThenOpenSheetParams.UITextBoxContentsEditText">
+            <summary>
+            Type 'never again playing video games' in 'textBoxContents' text box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditSheetAndThenOpenSheetParams.UIFilenameEditSendKeys">
+            <summary>
+            Type '{Enter}' in 'File name:' text box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditSheetAndThenOpenSheetParams.UIFilenameComboBoxEditableItem">
+            <summary>
+            Select 'Test1.sprd' in 'File name:' combo box
+            </summary>
+        </member>
+        <member name="F:SpreadsheetCodedUITests.EditSheetAndThenOpenSheetParams.UIFilenameEditSendKeys1">
+            <summary>
+            Type '{Enter}' in 'File name:' text box
+            </summary>
+        </member>
+    </members>
+</doc>

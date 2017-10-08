@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\DemoSimulationJetMan\DemoSimulationJetMan\bin\Debug\DemoSimulationJetMan.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\DemoSimulationJetMan\DemoSimulationJetMan\bin\Debug\DemoSimulationJetMan.exe
+c:\users\camille\documents\visual studio 2013\Projects\DemoSimulationJetMan\DemoSimulationJetMan\bin\Debug\DemoSimulationJetMan.pdb
+c:\users\camille\documents\visual studio 2013\Projects\DemoSimulationJetMan\DemoSimulationJetMan\obj\Debug\DemoSimulationJetMan.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\DemoSimulationJetMan\DemoSimulationJetMan\obj\Debug\DemoSimulationJetMan.exe
+c:\users\camille\documents\visual studio 2013\Projects\DemoSimulationJetMan\DemoSimulationJetMan\obj\Debug\DemoSimulationJetMan.pdb

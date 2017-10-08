@@ -1,0 +1,14 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleClientTest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleClientTest.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleModel.cs.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleServer.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\StringSocketOfficial.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleBoard.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleModel.cs.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleServer.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleServer.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleBoard.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\bin\Debug\BoggleBoard.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\obj\Debug\BoggleClientTest.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\obj\Debug\BoggleClientTest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS10\BoggleClientTest\obj\Debug\BoggleClientTest.pdb

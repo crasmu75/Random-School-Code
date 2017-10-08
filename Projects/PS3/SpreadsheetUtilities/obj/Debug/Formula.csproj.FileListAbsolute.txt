@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\SpreadsheetUtilities\bin\Debug\SpreadsheetUtilities.XML
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\SpreadsheetUtilities\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\SpreadsheetUtilities\bin\Debug\SpreadsheetUtilities.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\SpreadsheetUtilities\obj\Debug\SpreadsheetUtilities.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS3\SpreadsheetUtilities\obj\Debug\SpreadsheetUtilities.pdb

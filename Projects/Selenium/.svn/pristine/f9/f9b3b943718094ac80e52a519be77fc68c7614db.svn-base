@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Interactions;
+
+namespace Selenium
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			OpenQA.Selenium.IWebElement element;
+
+			IWebDriver driver = new FirefoxDriver();
+
+			driver.Navigate().GoToUrl("http://uofu-cs4540-60.cloudapp.net/");
+
+			element = driver.FindElement(By.Id("projects"));
+			element.Click();
+			element = driver.FindElement(By.Id("assignment7"));
+			element.Click();
+			element = driver.FindElement(By.Id("register"));
+			element.Click();
+		}
+	}
+}

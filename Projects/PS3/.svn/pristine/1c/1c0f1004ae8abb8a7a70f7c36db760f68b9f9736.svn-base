@@ -1,0 +1,17 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SpreadsheetUtilities;
+using System.Collections.Generic;
+
+namespace FormulaTester
+{
+    [TestClass]
+    public class FormulaTester
+    {
+        [TestMethod]
+        public void Invalid_Tokens()
+        {
+            
+        }
+    }
+}

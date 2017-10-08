@@ -1,0 +1,9 @@
+﻿<Window x:Class="StudentDb.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="College" Height="550" Width="650">
+    <StackPanel Margin="15">
+        <Label Name="TitleLb" Content="Student Database" FontSize="26" />
+        <TextBox Name="DisplayTB" AcceptsReturn="True" Height="430" FontFamily="Consolas" />
+    </StackPanel>
+</Window>

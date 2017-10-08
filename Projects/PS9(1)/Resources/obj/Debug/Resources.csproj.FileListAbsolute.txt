@@ -1,0 +1,7 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\Resources\bin\Debug\Resources.dll.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\Resources\bin\Debug\Resources.XML
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\Resources\bin\Debug\Resources.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\Resources\bin\Debug\Resources.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\Resources\obj\Debug\Resources.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\Resources\obj\Debug\Resources.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9(1)\Resources\obj\Debug\Resources.pdb

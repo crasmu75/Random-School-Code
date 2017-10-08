@@ -1,0 +1,6 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9\BoggleBoard\bin\Debug\BoggleBoard.XML
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9\BoggleBoard\bin\Debug\BoggleBoard.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9\BoggleBoard\bin\Debug\BoggleBoard.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9\BoggleBoard\obj\Debug\BoggleBoard.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9\BoggleBoard\obj\Debug\BoggleBoard.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS9\BoggleBoard\obj\Debug\BoggleBoard.pdb

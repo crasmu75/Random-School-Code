@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabIterator\bin\Debug\LabIterator.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabIterator\bin\Debug\LabIterator.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabIterator\obj\x86\Debug\LabIterator.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabIterator\obj\x86\Debug\LabIterator.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabIterator\obj\x86\Debug\LabIterator.pdb

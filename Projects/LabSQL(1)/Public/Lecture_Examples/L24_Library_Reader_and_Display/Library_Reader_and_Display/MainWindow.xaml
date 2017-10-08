@@ -1,0 +1,13 @@
+﻿<Window x:Class="Library_Reader_and_Display.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="411.837" Width="738.958">
+    <Grid Margin="0,0,-246,-79">
+        <DataGrid x:Name="Book_Display" HorizontalAlignment="Left" 
+                  Margin="34,68,0,0" VerticalAlignment="Top" Height="278" Width="613" CellEditEnding="Book_Display_CellEditEnding" BeginningEdit="Book_Display_BeginningEdit"
+                  />
+        <Button Content="Manual Population" HorizontalAlignment="Left" Margin="34,41,0,0" VerticalAlignment="Top" Width="121" Click="Button_Click_Manual_Creation" ToolTip="Create a dummy list of titles to show manual creation"/>
+        <Button Content="DB Population" HorizontalAlignment="Left" Margin="174,41,0,0" VerticalAlignment="Top" Width="121" Click="Button_Click_Creation_via_DB" ToolTip="Populate the table below by connecting to a MySQL DB"/>
+
+    </Grid>
+</Window>

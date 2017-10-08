@@ -1,0 +1,347 @@
+﻿/// Written by Camille Rasmussen 
+/// UID: u0717763
+/// CS 3500 Fall 2014
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SpreadsheetUtilities;
+
+namespace SS
+{
+	/// <summary>
+	/// A spreadsheet consists of an infinite number of named cells. Extended from AbstractSpreadsheet.
+	/// 
+	/// A string is a valid cell name if and only if:
+	///   (1) its first character is an underscore or a letter
+	///   (2) its remaining characters (if any) are underscores and/or letters and/or digits
+	/// Note that this is the same as the definition of valid variable from the PS3 Formula class.
+	/// 
+	/// For example, "x", "_", "x2", "y_15", and "___" are all valid cell  names, but
+	/// "25", "2x", and "&" are not.  Cell names are case sensitive, so "x" and "X" are
+	/// different cell names.
+	/// 
+	/// A spreadsheet contains a cell corresponding to every possible cell name.  (This
+	/// means that a spreadsheet contains an infinite number of cells.)  In addition to 
+	/// a name, each cell has a contents and a value.  The distinction is important.
+	/// 
+	/// The contents of a cell can be (1) a string, (2) a double, or (3) a Formula.  If the
+	/// contents is an empty string, we say that the cell is empty.  (By analogy, the contents
+	/// of a cell in Excel is what is displayed on the editing line when the cell is selected.)
+	/// 
+	/// In a new spreadsheet, the contents of every cell is the empty string.
+	///  
+	/// The value of a cell can be (1) a string, (2) a double, or (3) a FormulaError.  
+	/// (By analogy, the value of an Excel cell is what is displayed in that cell's position
+	/// in the grid.)
+	/// 
+	/// If a cell's contents is a string, its value is that string.
+	/// 
+	/// If a cell's contents is a double, its value is that double.
+	/// 
+	/// If a cell's contents is a Formula, its value is either a double or a FormulaError,
+	/// as reported by the Evaluate method of the Formula class.  The value of a Formula,
+	/// of course, can depend on the values of variables.  The value of a variable is the 
+	/// value of the spreadsheet cell it names (if that cell's value is a double) or 
+	/// is undefined (otherwise).
+	/// 
+	/// Spreadsheets are never allowed to contain a combination of Formulas that establish
+	/// a circular dependency.  A circular dependency exists when a cell depends on itself.
+	/// For example, suppose that A1 contains B1*2, B1 contains C1*2, and C1 contains A1*2.
+	/// A1 depends on B1, which depends on C1, which depends on A1.  That's a circular
+	/// dependency.
+	/// </summary>
+	public class Spreadsheet : AbstractSpreadsheet
+	{
+		// This list holds the current referencedCells (there may be empty cells here)
+		private List<Cell> referencedCells;
+		private DependencyGraph dependencyGraph;
+
+		/// <summary>
+		/// The constructor - creates an empty spreadsheet, along with an empty
+		/// list of referenced cells and the empty dependency graph.
+		/// </summary>
+		public Spreadsheet() : base()
+		{
+			referencedCells = new List<Cell>();
+			dependencyGraph = new DependencyGraph();
+		}
+
+		/// <summary>
+		/// Enumerates the names of all the non-empty cells in the spreadsheet.
+		/// </summary>
+		public override IEnumerable<String> GetNamesOfAllNonemptyCells()
+		{
+			foreach (Cell cell in referencedCells)
+			{
+				// Do not return empty cells that have already been referenced
+				if (!cell.GetContents().Equals(""))
+					yield return cell.GetName();
+			}
+		}
+
+		/// <summary>
+		/// If name is null or invalid, throws an InvalidNameException.
+		/// 
+		/// Otherwise, returns the contents (as opposed to the value) of the named cell.  The return
+		/// value should be either a string, a double, or a Formula.
+		/// </summary>
+		public override object GetCellContents(string name)
+		{
+			if (name == null)
+				throw new InvalidNameException();
+			if (!ValidateVariableName(name))
+				throw new InvalidNameException();
+
+			foreach (Cell cell in referencedCells)
+				if (name == cell.GetName())
+					return cell.GetContents();
+			return "";
+		}
+
+		/// <summary>
+		/// If name is null or invalid, throws an InvalidNameException.
+		/// 
+		/// Otherwise, the contents of the named cell becomes number.  The method returns a
+		/// set consisting of name plus the names of all other cells whose value depends, 
+		/// directly or indirectly, on the named cell.
+		/// 
+		/// For example, if name is A1, B1 contains A1*2, and C1 contains B1+A1, the
+		/// set {A1, B1, C1} is returned.
+		/// </summary>
+		public override ISet<string> SetCellContents(string name, double number)
+		{
+			bool referenced = false;
+			Cell newReferenced;
+
+			if (name == null)
+				throw new InvalidNameException();
+			if (!ValidateVariableName(name))
+				throw new InvalidNameException();
+
+			// has this cell already been referenced?
+			foreach (Cell cell in referencedCells)
+			{
+				if (name == cell.GetName())
+				{
+					// modify contents
+					cell.SetDoubleCellContents(number);
+					referenced = true;
+				}
+			}
+			// hasn't been referenced, add it to list of referenced
+			if (!referenced)
+			{
+				newReferenced = new Cell(name, number);
+				referencedCells.Add(newReferenced);
+			}
+
+			// return dependents - cells that depend on it
+			HashSet<string> dependents = new HashSet<string> { name };
+			foreach (string dependent in GetDirectDependents(name))
+				dependents.Add(dependent);
+			return dependents;
+		}
+
+		/// <summary>
+		/// If text is null, throws an ArgumentNullException.
+		/// 
+		/// Otherwise, if name is null or invalid, throws an InvalidNameException.
+		/// 
+		/// Otherwise, the contents of the named cell becomes text.  The method returns a
+		/// set consisting of name plus the names of all other cells whose value depends, 
+		/// directly or indirectly, on the named cell.
+		/// 
+		/// For example, if name is A1, B1 contains A1*2, and C1 contains B1+A1, the
+		/// set {A1, B1, C1} is returned.
+		/// </summary>
+		public override ISet<string> SetCellContents(string name, string text)
+		{
+			bool referenced = false;
+			Cell newReferenced;
+
+			if (name == null || text == null)
+				throw new InvalidNameException();
+			if (!ValidateVariableName(name))
+				throw new InvalidNameException();
+
+			// has this cell already been referenced?
+			foreach (Cell cell in referencedCells)
+			{
+				if (name == cell.GetName())
+				{
+					// modify contents
+					cell.SetTextCellContents(text);
+					referenced = true;
+				}
+			}
+			// hasn't been referenced, add it to list of referenced
+			if (!referenced)
+			{
+				newReferenced = new Cell(name, text);
+				referencedCells.Add(newReferenced);
+			}
+
+			// return dependents - cells that depend on it
+			HashSet<string> dependents = new HashSet<string> { name };
+			foreach (string dependent in GetDirectDependents(name))
+				dependents.Add(dependent);
+			return dependents;
+		}
+
+		/// <summary>
+		/// If the formula parameter is null, throws an ArgumentNullException.
+		/// 
+		/// Otherwise, if name is null or invalid, throws an InvalidNameException.
+		/// 
+		/// Otherwise, if changing the contents of the named cell to be the formula would cause a 
+		/// circular dependency, throws a CircularException.  (No change is made to the spreadsheet.)
+		/// 
+		/// Otherwise, the contents of the named cell becomes formula.  The method returns a
+		/// Set consisting of name plus the names of all other cells whose value depends,
+		/// directly or indirectly, on the named cell.
+		/// 
+		/// For example, if name is A1, B1 contains A1*2, and C1 contains B1+A1, the
+		/// set {A1, B1, C1} is returned.
+		/// </summary>
+		public override ISet<string> SetCellContents(string name, Formula formula)
+		{
+			bool referenced = false;
+			Cell newReferenced;
+			
+			if (object.Equals(formula, null))
+				throw new ArgumentNullException();
+			if (name == null)
+				throw new InvalidNameException();
+			if (!ValidateVariableName(name))
+				throw new InvalidNameException();
+
+			// this method will throw a CircularException and no change made to spreadsheet
+			GetCellsToRecalculate(name);
+
+			// has this cell already been referenced?
+			foreach (Cell cell in referencedCells)
+			{
+				if (name == cell.GetName())
+				{
+					// modify contents
+					cell.SetFormulaCellContents(formula, LookUpCellValue);
+					// add dependents
+					foreach (string formula1 in formula.GetVariables())
+						dependencyGraph.AddDependency(formula1, cell.GetName());
+					referenced = true;
+				}
+			}
+			// hasn't been referenced, add it to list of referenced
+			if (!referenced)
+			{
+				newReferenced = new Cell(name, formula, LookUpCellValue);
+				referencedCells.Add(newReferenced);
+				// add dependents
+				foreach (string formula1 in formula.GetVariables())
+					dependencyGraph.AddDependency(formula1, name);
+			}
+
+			// return dependents - cells that depend on it
+			// begin with the name of the current cell
+			HashSet<string> dependents = new HashSet<string> { name };
+			foreach (string dependent in GetDirectDependents(name))
+			{
+				dependents.Add(dependent);
+				foreach (string dep1 in GetDirectDependents(dependent))
+					dependents.Add(dep1);
+			}
+			return dependents;
+		}
+
+		/// <summary>
+		/// If name is null, throws an ArgumentNullException.
+		/// 
+		/// Otherwise, if name isn't a valid cell name, throws an InvalidNameException.
+		/// 
+		/// Otherwise, returns an enumeration, without duplicates, of the names of all cells whose
+		/// values depend directly on the value of the named cell.  In other words, returns
+		/// an enumeration, without duplicates, of the names of all cells that contain
+		/// formulas containing name.
+		/// 
+		/// For example, suppose that
+		/// A1 contains 3
+		/// B1 contains the formula A1 * A1
+		/// C1 contains the formula B1 + A1
+		/// D1 contains the formula B1 - C1
+		/// The direct dependents of A1 are B1 and C1
+		/// </summary>
+		protected override IEnumerable<string> GetDirectDependents(string name)
+		{
+			if (name == null)
+				throw new ArgumentNullException();
+			if (!ValidateVariableName(name))
+				throw new InvalidNameException();
+
+			return dependencyGraph.GetDependents(name);
+		}
+
+		/// <summary>
+		/// Given a variable symbol as its parameter, lookup returns the variable's value 
+		/// (if it has one) or throws an ArgumentException (otherwise).
+		/// </summary>
+		/// <param name="cellName"></param>
+		/// <returns></returns>
+		private double LookUpCellValue(string cellName)
+		{
+			foreach (Cell cell in referencedCells)
+				if (cell.GetName() == cellName)
+				{
+					if (cell.GetValue() is string)
+						throw new ArgumentException("Cell has a string value");
+					else
+					{
+						try
+						{
+							return (double)cell.GetValue();
+						}
+						catch (InvalidCastException e)
+						{
+							throw new CircularException();
+						}
+					}
+				}
+			throw new ArgumentException("Cell has no value.");
+		}
+
+		/// <summary>
+		/// Another helper method. Validates the variable's syntax (consist of a letter or underscore 
+		/// followed by zero or more letters, underscores, or digits)
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		private bool ValidateVariableName(string name)
+		{
+			if (Char.IsLetter(name[0]) || name[0] == '_')
+			{
+				if (name.Length > 1)
+				{
+					for (int i = 1; i < name.Length; i++)
+					{
+						if (!Char.IsLetterOrDigit(name[i]))
+							if (name[i] != '_')
+								throw new InvalidNameException();
+					}
+					return true;
+				}
+				else
+					return true;
+			}
+			else
+				throw new InvalidNameException();
+		}
+
+		/*private string GetAllDependents(string name)
+		{
+			foreach (string dependent in GetDirectDependents(name))
+				return GetAllDependents(dependent);
+		}*/
+	}
+}

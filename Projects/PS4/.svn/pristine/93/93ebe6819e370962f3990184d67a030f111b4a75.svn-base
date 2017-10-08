@@ -1,0 +1,35 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SS;
+
+namespace SpreadsheetTester
+{
+	/// <summary>
+	/// 
+	/// </summary>
+	[TestClass]
+	public class SpreadsheetTester
+	{
+		/// <summary>
+		/// Tests a valid cell entry with double
+		/// </summary>
+		[TestMethod]
+		public void Test_SetCellContents_Valid_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("A1", 3990.293823);
+			Assert.AreEqual(sheet.GetCellContents("A1"), 3990.293823);
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with text string
+		/// </summary>
+		[TestMethod]
+		public void Test_SetCellContents_Valid_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetCellContents("Yyy8_", "hellow");
+			Assert.AreEqual(sheet.GetCellContents("Yyy8_"), "hellow");
+		}
+	}
+}

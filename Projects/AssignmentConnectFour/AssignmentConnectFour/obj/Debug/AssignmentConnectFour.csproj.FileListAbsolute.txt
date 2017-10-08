@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\AssignmentConnectFour\AssignmentConnectFour\bin\Debug\AssignmentConnectFour.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\AssignmentConnectFour\AssignmentConnectFour\bin\Debug\AssignmentConnectFour.exe
+c:\users\camille\documents\visual studio 2013\Projects\AssignmentConnectFour\AssignmentConnectFour\bin\Debug\AssignmentConnectFour.pdb
+c:\users\camille\documents\visual studio 2013\Projects\AssignmentConnectFour\AssignmentConnectFour\obj\Debug\AssignmentConnectFour.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\AssignmentConnectFour\AssignmentConnectFour\obj\Debug\AssignmentConnectFour.exe
+c:\users\camille\documents\visual studio 2013\Projects\AssignmentConnectFour\AssignmentConnectFour\obj\Debug\AssignmentConnectFour.pdb

@@ -1,0 +1,31 @@
+﻿Camille Rasmussen
+UID: u0717763
+CS 3500
+
+Project started on October 8, 2014
+
+Formula Changes -
+	Token Parser: one or more letters followed by one or more digits
+
+Spreadsheet -
+	Checking for valid names: check isValid delegate from AbstractSpreadsheet
+	Whenever you are given a cell name - normalize it before doing anything
+		else with it
+	Formula Parameter: replace n with Normalize(n)  ??? maybe do this
+	3rd constructor: open file from file name
+
+Bugs -
+	Variable validation in Formula class... change?
+	bool Changed for formulas
+	ABC7 = abc7 ?
+	***GetCellsToRecalculate - when to call??
+	Multiple dependents with Formula Errors - test
+
+Don't forget to test -
+	invalid cell name: violates parser rules
+	invalid cell name: violates isValid function (just true or false)
+	1st constructor - check this.IsValid this.Normalize, this.Version
+	2nd constructor - check all these things with a couple different inputs
+	Test for formula errors...
+	***Test GetCellValue & GetCellContents on cells that haven't been referenced
+		yet

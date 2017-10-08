@@ -1,0 +1,13 @@
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\bin\Debug\Fonts.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\bin\Debug\Fonts.exe
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\bin\Debug\Fonts.pdb
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\Fonts.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\MainWindow.baml
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\MainWindow.g.cs
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\App.g.cs
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\Fonts_MarkupCompile.cache
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\Fonts.g.resources
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\Fonts.Properties.Resources.resources
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\Fonts.csproj.GenerateResource.Cache
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\Fonts.exe
+c:\users\camille\documents\visual studio 2013\Projects\Fonts\Fonts\obj\Debug\Fonts.pdb

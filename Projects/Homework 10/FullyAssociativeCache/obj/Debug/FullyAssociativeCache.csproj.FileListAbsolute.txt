@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\FullyAssociativeCache\bin\Debug\FullyAssociativeCache.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\FullyAssociativeCache\bin\Debug\FullyAssociativeCache.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\FullyAssociativeCache\bin\Debug\FullyAssociativeCache.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\FullyAssociativeCache\obj\Debug\FullyAssociativeCache.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\FullyAssociativeCache\obj\Debug\FullyAssociativeCache.pdb

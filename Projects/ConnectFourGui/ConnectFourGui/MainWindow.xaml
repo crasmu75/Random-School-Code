@@ -1,0 +1,58 @@
+﻿<Window x:Class="ConnectFourGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="Gray"
+        Title="Connect Four GUI" Height="600" Width="496">
+
+    <Window.Resources>
+        <Style x:Key="TitleStyle" TargetType="Label" >
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Background" Value="Navy" />
+            <Setter Property="Foreground" Value="LightGray" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="CanvasStyle" TargetType="Canvas">
+            <Setter Property="Background" Value="Navy" />
+            <Setter Property="Margin" Value="0,1,0,0" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10, 3" />
+        </Style>
+    </Window.Resources>
+    
+    <DockPanel>
+        <Label DockPanel.Dock="Top" Name="TitleLbl" Content="Connect Four" 
+               Style="{StaticResource TitleStyle}" />
+        <Canvas Name="MyCanvas" Style="{StaticResource CanvasStyle}" >
+            <Label  Canvas.Left="200" Canvas.Bottom="67" Name="whosTurn" Content="Red's Turn!"
+                    FontSize="15" Foreground="Red"/>
+            <Label Name="instructions" 
+                   Content="Click the button above the column you would like to place your game stone in." 
+                   Canvas.Left="0" Canvas.Bottom="25" Foreground="White"/>
+            <Label Name="lblRedWon" Content="Red was the victor this round!" Visibility="Hidden"
+                   Canvas.Left="0" Canvas.Bottom="28" FontSize="36" Foreground="Magenta"/>
+            <Label Name="lblYellowWon" Content="Yellow was the victor this round!" Visibility="Hidden"
+                   Canvas.Left="0" Canvas.Bottom="28" FontSize="33" Foreground="Magenta"/>
+            <Button Canvas.Left="0" Canvas.Top="0" Width="68.571" FontSize="10" Name="Column1" 
+                    Content="Column 1" Click="Column1_Click" />
+            <Button Canvas.Left="68.571" Canvas.Top="0" Width="68.571" FontSize="10" Name="Column2" 
+                    Content="Column 2" Click="Column2_Click" />
+            <Button Canvas.Left="137.142" Canvas.Top="0" Width="68.571" FontSize="10" Name="Column3" 
+                    Content="Column 3" Click="Column3_Click" />
+            <Button Canvas.Left="205.713" Canvas.Top="0" Width="68.571" FontSize="10" Name="Column4" 
+                    Content="Column 4" Click="Column4_Click" />
+            <Button Canvas.Left="274.284" Canvas.Top="0" Width="68.571" FontSize="10" Name="Column5" 
+                    Content="Column 5" Click="Column5_Click" />
+            <Button Canvas.Left="342.855" Canvas.Top="0" Width="68.571" FontSize="10" Name="Column6" 
+                    Content="Column 6" Click="Column6_Click" />
+            <Button Canvas.Left="411.426" Canvas.Top="0" Width="68.571" FontSize="10" Name="Column7" 
+                    Content="Column 7" Click="Column7_Click" />
+            <Image Canvas.Left="0" Canvas.Top="25"  Name="GameBoard" 
+                   Source="Images/Connect4Board.png"></Image>
+            <Image Canvas.Left="0" Canvas.Top="0" Name="GameOver"
+                   Source="Images/Game Over.png" Visibility="Hidden"></Image>
+        </Canvas>
+    </DockPanel>
+    
+</Window>

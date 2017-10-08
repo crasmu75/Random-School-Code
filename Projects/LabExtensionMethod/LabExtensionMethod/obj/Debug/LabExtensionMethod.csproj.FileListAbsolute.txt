@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\LabExtensionMethod\LabExtensionMethod\bin\Debug\LabExtensionMethod.exe.config
+C:\Users\Camille\documents\visual studio 2013\Projects\LabExtensionMethod\LabExtensionMethod\bin\Debug\LabExtensionMethod.exe
+C:\Users\Camille\documents\visual studio 2013\Projects\LabExtensionMethod\LabExtensionMethod\bin\Debug\LabExtensionMethod.pdb
+C:\Users\Camille\documents\visual studio 2013\Projects\LabExtensionMethod\LabExtensionMethod\obj\Debug\LabExtensionMethod.csprojResolveAssemblyReference.cache
+C:\Users\Camille\documents\visual studio 2013\Projects\LabExtensionMethod\LabExtensionMethod\obj\Debug\LabExtensionMethod.exe
+C:\Users\Camille\documents\visual studio 2013\Projects\LabExtensionMethod\LabExtensionMethod\obj\Debug\LabExtensionMethod.pdb

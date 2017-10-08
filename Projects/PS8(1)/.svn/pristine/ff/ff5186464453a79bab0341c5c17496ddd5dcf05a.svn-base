@@ -1,0 +1,116 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net.Sockets;
+using BoggleServer;
+using CustomNetworking;
+using System.Text;
+using System.Threading;
+
+namespace BoggleServerTest
+{
+    [TestClass]
+    public class BoggleServerTest
+    {
+		private static void CloseSockets(BoggleServer.BoggleServer server, Socket s1, Socket s2)
+		{
+			try
+			{
+				s1.Shutdown(SocketShutdown.Both);
+				s1.Close();
+			}
+			finally
+			{
+			}
+			try
+			{
+				s2.Shutdown(SocketShutdown.Both);
+				s2.Close();
+			}
+			finally
+			{
+			}
+			try
+			{
+				server.StopServer();
+			}
+			finally
+			{
+			}
+		}
+
+        /// <summary>
+        /// Test to ensure that the game begins and the START command is issued with the letters of the game and opponent's name
+        /// </summary>
+        [TestMethod]
+        public void TestMethod1()
+        {
+            string boggleBoardLetters = "AAPOERDSRAVSKEOK";
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 10, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+
+            TcpClient player1 = new TcpClient();
+            TcpClient player2 = new TcpClient();
+
+            player1.Connect("localhost", 2000);
+            player2.Connect("localhost", 2000);
+
+            Socket p1socket = player1.Client;
+            Socket p2socket = player2.Client;
+
+            try
+            {
+                StringSocket p1SS = new StringSocket(p1socket, new UTF8Encoding());
+                StringSocket p2SS = new StringSocket(p2socket, new UTF8Encoding());
+
+                ManualResetEvent mre = new ManualResetEvent(false);
+                string line = "";
+
+                p1SS.BeginReceive((s, e, p) => { line = s; mre.Set(); }, null);
+                p2SS.BeginReceive((s, e, p) => { }, null);
+
+                p1SS.BeginSend("PLAY PlayerONE", (e, p) => { }, null);
+                p2SS.BeginSend("PLAY PlayerTWO", (e, p) => { }, null);
+
+                mre.WaitOne();
+                Assert.AreEqual("START " + boggleBoardLetters + "\nPlayerTWO", line);
+            }
+            finally
+            {
+				CloseSockets(server, p1socket, p2socket);
+            }
+        }
+
+        /// <summary>
+        /// Test to ensure that the game begins and the START command is issued with the letters of the game and opponent's name
+        /// </summary>
+        [TestMethod]
+        public void TestMethod2()
+        {
+            string boggleBoardLetters = "AAPOERDSRAVSKEOK";
+            BoggleServer.BoggleServer server = new BoggleServer.BoggleServer(2000, 10, @"..\..\..\Resources\dictionary.txt", boggleBoardLetters);
+
+            TcpClient player1 = new TcpClient();
+            TcpClient player2 = new TcpClient();
+
+            player1.Connect("localhost", 2000);
+            player2.Connect("localhost", 2000);
+
+            Socket p1socket = player1.Client;
+            Socket p2socket = player2.Client;
+
+            StringSocket p1SS = new StringSocket(p1socket, new UTF8Encoding());
+            StringSocket p2SS = new StringSocket(p2socket, new UTF8Encoding());
+
+            ManualResetEvent mre = new ManualResetEvent(false);
+            string line = "";
+
+            p1SS.BeginReceive((s, e, p) => { line = s; mre.Set(); }, null);
+            p2SS.BeginReceive((s, e, p) => { }, null);
+
+            p1SS.BeginSend("PLAY PlayerONE", (e, p) => { }, null);
+            p2SS.BeginSend("PLAY PlayerTWO", (e, p) => { }, null);
+
+            mre.WaitOne();
+            Assert.AreEqual("START " + boggleBoardLetters + "\nPlayerTWO", line);
+        }
+    }
+}

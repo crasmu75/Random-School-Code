@@ -1,0 +1,6 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\SetAssociativeCache\bin\Debug\SetAssociativeCache.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\SetAssociativeCache\bin\Debug\SetAssociativeCache.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\SetAssociativeCache\bin\Debug\SetAssociativeCache.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\SetAssociativeCache\obj\Debug\SetAssociativeCache.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\SetAssociativeCache\obj\Debug\SetAssociativeCache.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Homework 10\SetAssociativeCache\obj\Debug\SetAssociativeCache.pdb

@@ -1,0 +1,26 @@
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\bin\Debug\LabTPLTask.exe.config
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\bin\Debug\LabTPLTask.exe
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\bin\Debug\LabTPLTask.pdb
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\LabTPLTask.csprojResolveAssemblyReference.cache
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\MainWindow.baml
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\MainWindow.g.cs
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\App.g.cs
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\LabTPLTask_MarkupCompile.cache
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\LabTPLTask.g.resources
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\LabTPLTask.Properties.Resources.resources
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\LabTPLTask.csproj.GenerateResource.Cache
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\LabTPLTask.exe
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson24TPL Part 1\LabTPLTask\LabTPLTask\LabTPLTask\obj\Debug\LabTPLTask.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\bin\Debug\LabTPLTask.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\LabTPLTask.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\LabTPLTask.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\bin\Debug\LabTPLTask.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\bin\Debug\LabTPLTask.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\LabTPLTask.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\MainWindow.baml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\MainWindow.g.cs
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\App.g.cs
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\LabTPLTask_MarkupCompile.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\LabTPLTask.g.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\LabTPLTask.Properties.Resources.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabParallel\LabTPLTask\obj\Debug\LabTPLTask.csproj.GenerateResource.Cache

@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace BoggleClient
+{
+    public partial class Form1 : Form
+    {
+		private BoggleClientModel model;
+
+		public Form1()
+		{
+			InitializeComponent();
+			model = new BoggleClientModel();
+			model.IncomingLineEvent += MessageReceived;
+			model.ConnectedEvent += ConnectedSuccessfully;
+		}
+
+		private void ConnectedSuccessfully()
+		{
+			ReadyButton.Text = "WAITING...";
+			ReadyButton.Enabled = false;
+		}
+
+		// add click methods here
+
+		private void MessageReceived(String line)
+		{
+			// what to do when we receive a message from server
+		}
+
+        private void ReadyButton_Click(object sender, EventArgs e)
+        {
+            if (ReadyButton.Text == "CONNECT")
+            {
+                if (IPAddressBox.Text == "" || NameTextBox.Text == "")
+                    MessageBox.Show("IP Address and Name fields cannot be empty to connect. Try Again!");
+                else
+                    model.Connect(IPAddressBox.Text, 2000, NameTextBox.Text);
+            }
+        }
+    }
+}

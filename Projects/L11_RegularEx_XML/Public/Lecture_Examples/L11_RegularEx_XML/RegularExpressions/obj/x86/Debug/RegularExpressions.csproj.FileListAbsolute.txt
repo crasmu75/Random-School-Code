@@ -1,0 +1,1 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\L11_RegularEx_XML\Public\Lecture_Examples\L11_RegularEx_XML\RegularExpressions\obj\x86\Debug\RegularExpressions.csprojResolveAssemblyReference.cache

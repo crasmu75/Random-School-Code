@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SpreadsheetUtilities;
+
+namespace Spreadsheet
+{
+	class Cell
+	{
+		private string name, value;
+		private object contents;
+
+		public Cell(string name, Formula contents, string value)
+		{
+			this.name = name;
+			if (contents is double || contents is string)
+				this.contents = contents;
+			else if (contents is Formula)
+				contents.Evaluate();
+		}
+	}
+}

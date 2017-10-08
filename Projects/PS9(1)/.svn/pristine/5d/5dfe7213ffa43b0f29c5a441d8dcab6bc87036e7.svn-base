@@ -1,0 +1,566 @@
+﻿// BoggleServer
+// Authors: Camille Rasmussen and Jessie Delacenserie
+// CS 3500 -- PS8
+// 11/24/14
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using CustomNetworking;
+using System.Net;
+using System.Threading;
+using System.Text.RegularExpressions;
+using System.IO;
+
+namespace BoggleServer
+{
+	/// <summary>
+	/// Boggle Server creates a TCPListener to provide a server for clients to connect
+	/// to and play Boggle. Two clients are required for one Boggle came to commence and 
+	/// finish completely.
+	/// </summary>
+	public class BoggleServer
+	{
+		// Listens for incoming connections
+		private TcpListener server;
+
+		// One StringSocket per connected client
+		private List<StringSocket> allSockets;
+
+		// the name associated with the socket
+		private List<string> user_names;
+
+        // list of boggle playing pairs (tuple of 2 sockets)
+        private List<Game> games;
+
+        // socket that is currently waiting for a partner
+        Tuple<StringSocket, string> singleSocket;
+
+		// Regex to be used for incoming commands
+		Regex playCommand = new Regex(@"(PLAY)|(play)\s[a-zA-Z]+");
+		Regex wordCommand = new Regex(@"(WORD|word)\s[a-zA-Z]+");
+
+		// Length of game
+		static int seconds = 0;
+
+		// Holds all legal words
+		static List<string> dictionary;
+
+		// Optional parameter of 16 letters
+		static string thirdParamString = null;
+
+		// Booleans to check if players are ready to play
+		private bool p1ready, p2ready = false;
+
+		// Boolean to check if game is still going on
+		private bool acceptingCommands = true;
+
+		/// <summary>
+		///  Main arguments are passed by the OS from command line into here.
+		///  Seconds are initialized, dictionary gets populated, and the third
+		///  parameter as well.
+		/// </summary>
+		/// <param name="args"></param>
+		static void Main(string[] args)
+		{
+            // Store the time length of the game
+			seconds = Convert.ToInt32(args[0]);
+
+			// Populate dictionary of valid words
+			PopulateDictionary(args[1]);
+
+			// Check for and store third parameter
+			if (args.Length == 3)
+				thirdParamString = args[2];
+
+            // Create a new server in port 2000
+			new BoggleServer(2000);
+			Console.Read();
+		}
+
+        /// <summary>
+        /// CONSTRUCTOR
+        /// 
+        /// Create a new BoggleServer given an input port
+        /// </summary>
+        /// <param name="port"></param>
+		public BoggleServer(int port)
+		{
+            // Set up the server
+			server = new TcpListener(IPAddress.Any, port);
+            allSockets = new List<StringSocket>();
+			user_names = new List<string>();
+			server.Start();
+			server.BeginAcceptSocket(ConnectionReceived, null);
+
+            // The single socket needs to be null to begin
+            singleSocket = null;
+
+            // Create a new empty list of games
+            games = new List<Game>();
+		}
+
+        /// <summary>
+        /// CONSTRUCTOR (for testing)
+        /// This constructor is used in the unit tests in place of the Main method.
+        /// Create a new BoggleServer given an input port
+        /// </summary>
+        /// <param name="port"></param>
+        public BoggleServer(int port, int time, string dictionaryFile, string boggleBoardInput)
+        {
+            // Set up the server
+            server = new TcpListener(IPAddress.Any, port);
+            allSockets = new List<StringSocket>();
+            user_names = new List<string>();
+            server.Start();
+            server.BeginAcceptSocket(ConnectionReceived, null);
+
+            // The single socket needs to be null to begin
+            singleSocket = null;
+
+            // Create a new empty list of games
+            games = new List<Game>();
+
+            // Store the time length of the game
+            seconds = time;
+
+            // Populate dictionary of valid words
+            PopulateDictionary(dictionaryFile);
+
+            // Check for and store third parameter
+            thirdParamString = boggleBoardInput;
+        }
+
+        /// <summary>
+        /// ConnectionReceived
+        /// 
+        /// Server callback for BeginAcceptSocket
+        /// </summary>
+        /// <param name="ar"></param>
+        public void ConnectionReceived(IAsyncResult ar)
+        {
+			
+            // Create a new Socket and StringSocket
+			Socket socket = server.EndAcceptSocket(ar);
+            StringSocket ss = new StringSocket(socket, UTF8Encoding.Default);
+
+            // Begin receiving from SS and continue accepting new sockets
+			ss.BeginReceive(CommandReceived, ss);
+			server.BeginAcceptSocket(ConnectionReceived, null);
+        }
+
+		/// <summary>
+		/// Method that serves as a callbak for receiving messages. This method goes
+		/// through and attempts to parse the message into a command according to the 
+		/// protocol. If it is an invalid command, it sends a message back to the socket
+		/// indicating that it is ignoring.
+		/// </summary>
+		/// <param name="incomingCommand"></param>
+		/// <param name="e"></param>
+		/// <param name="p"></param>
+		public void CommandReceived(String incomingCommand, Exception e, object p)
+		{
+			if (acceptingCommands)
+			{
+				// create a string socket from the input object
+				StringSocket ss = (StringSocket)p;
+
+				if(incomingCommand == null && e == null)
+				{
+					GameTerminated(ss);
+				}
+				else
+				{
+					if (incomingCommand == null)
+						GameTerminated(ss);
+					else
+					{
+						// if the command from client is a PLAY command, call helper method to create a new game
+						if (playCommand.IsMatch(incomingCommand))
+							ProcessPlayCommand(ss, incomingCommand);
+
+						// if the command from client is a WORD command, call helper method to process and score the word
+						else if (wordCommand.IsMatch(incomingCommand))
+							ProcessWordCommand(ss, incomingCommand);
+
+						// else an illegal command has been received, send IGNORING message
+						else
+						{
+                            ss.BeginSend("IGNORING " + incomingCommand + '\n', (ee, pp) => { }, null);
+						}
+
+						// Continue to receive from socket
+						ss.BeginReceive(CommandReceived, p);
+					}
+				}
+			}
+		}
+
+        /// <summary>
+        /// PopulateDictionary -- helper method to make hashset of all words in dictionary from text file
+        /// </summary>
+        /// <param name="filePath"></param>
+		private static void PopulateDictionary(string filePath)
+		{
+
+            // Create a new HashSet
+			dictionary = new List<string>();
+
+            // Read each line of the text
+			try
+			{
+				using (StreamReader reader = new StreamReader(filePath))
+				{
+                    // One word per line, add each to the HashSet
+					string line;
+					while ((line = reader.ReadLine()) != null)
+					{
+                        line = line.Trim();
+                        line = line.ToUpper();
+						dictionary.Add(line);
+					}
+				}
+			}
+
+            // Send error message if something goes wrong
+			catch (Exception e)
+			{
+				Console.WriteLine("Sorry, something went wrong when reading the list of words:\n" + e.Message);
+			}
+		}
+
+        /// <summary>
+        /// Callback to inform program when player1 has received its START message
+        /// 
+        /// Game can begin when both boolean are set to true
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="payload"></param>
+		private void Player1ReadyCallback(Exception e, object payload)
+		{
+			p1ready = true;
+		}
+
+        /// <summary>
+        /// Callback to inform program when player2 has received its START message
+        /// 
+        /// Game can begin when both boolean are set to true
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="payload"></param>
+		private void Player2ReadyCallback(Exception e, object payload)
+		{
+			p2ready = true;
+		}
+
+        /// <summary>
+        /// Helper method to wait until both players' callbacks have been invoked
+        /// 
+        /// Calls the CountdownTime which starts the timer for the game
+        /// </summary>
+        /// <param name="currentGame"></param>
+		private void WaitForPlayers(Game currentGame)
+		{
+			while(!p1ready || !p2ready){}
+			CountdownTime(currentGame);
+		}
+
+        /// <summary>
+        /// CountdownTime -- helper method to run the timer for the game
+        /// 
+        /// Loop and update the time to both players every second
+        /// Then call another method to send final messages and end the game
+        /// </summary>
+        /// <param name="currentGame"></param>
+		private void CountdownTime(Game currentGame)
+		{
+            // Define player1 and player2 for the current game
+            StringSocket player1 = currentGame.getP1();
+            StringSocket player2 = currentGame.getP2();
+
+			int t;
+
+            // Loop and send a time update every second while time > 0
+			while (currentGame.getTime() != 0)
+			{
+				t = currentGame.decrementTime();
+                currentGame.getP1().BeginSend("TIME " + t.ToString() + '\n', (ee, pp) => { }, null);
+                currentGame.getP2().BeginSend("TIME " + t.ToString() + '\n', (ee, pp) => { }, null);
+				Thread.Sleep(1000);
+			}
+
+            // When time = 0, stop accepting commands and end the game
+			acceptingCommands = false;
+            EndGame(currentGame, player1, player2);
+		}
+
+        /// <summary>
+        /// ProcessPlayCommand -- helper method to handle command from client
+        /// 
+        /// Called when client issues a PLAY command and waits for a second player
+        /// to start a new game.
+        /// </summary>
+        /// <param name="ss"></param>
+        /// <param name="incomingCommand"></param>
+        private void ProcessPlayCommand(StringSocket ss, string incomingCommand)
+        {
+            lock (ss)
+            {
+                // Save the name of the client
+                string name = incomingCommand.Substring(5);
+
+                // if there is no single socket, replace with the incoming socket
+                if (singleSocket == null)
+                {
+                    singleSocket = Tuple.Create(ss, name);
+                }
+
+                // else, if 2 players are ready, combine the singlesocket with the incoming socket to create a new game
+                else
+                {
+                    // Define the socket and name of both players
+                    StringSocket p1ss = singleSocket.Item1;
+                    StringSocket p2ss = ss;
+                    string p1name = singleSocket.Item2;
+                    string p2name = name;
+
+                    // Create a new current game
+                    Game currentGame;
+
+                    // If there was no 16 letter string inputted at beginning, create a new game and beginSend to both
+                    //      players without it
+                    if (thirdParamString == null)
+                    {
+                        currentGame = new Game(p1ss, p2ss, p1name, p2name, seconds);
+                        p1ss.BeginSend("START " + currentGame.getBoardLetters() + ' ' + seconds.ToString() + ' ' + currentGame.GetPlayerName(currentGame.GetPartner(p1ss)) + '\n', Player1ReadyCallback, null);
+                        p2ss.BeginSend("START " + currentGame.getBoardLetters() + ' ' + seconds.ToString() + ' ' + currentGame.GetPlayerName(currentGame.GetPartner(p2ss)) + '\n', Player2ReadyCallback, null);
+                    }
+                    // Else send the same message and create the same game, but include the 16 letter string specified in
+                    //      original args
+                    else
+                    {
+                        currentGame = new Game(p1ss, p2ss, p1name, p2name, seconds, thirdParamString);
+                        p1ss.BeginSend("START " + thirdParamString + seconds.ToString() + ' ' + currentGame.GetPlayerName(currentGame.GetPartner(p1ss)) + '\n', Player1ReadyCallback, null);
+                        p2ss.BeginSend("START " + thirdParamString + seconds.ToString() + ' ' + currentGame.GetPlayerName(currentGame.GetPartner(p2ss)) + '\n', Player2ReadyCallback, null);
+                    }
+
+                    // Add the game to the list of games
+                    games.Add(currentGame);
+
+                    // Set singleSocket back to null to wait for new player
+                    singleSocket = null;
+
+                    // Wait for both players to receive START on a new thread to start the game
+                    new Thread(() => WaitForPlayers(currentGame)).Start();
+                }
+            }
+        }
+
+        /// <summary>
+        /// ProcessWordCommand -- helper method to handle a client input of a new word
+        /// 
+        /// Finds the current game, then validates the input word and updates the players' scores
+        /// Reports the scores to the players and adds the word to the appropriate list of words within the game
+        /// </summary>
+        /// <param name="ss"></param>
+        /// <param name="incomingCommand"></param>
+        private void ProcessWordCommand(StringSocket ss, string incomingCommand)
+        {
+            // Initiate current game as null incase it does not exist
+            Game currentGame = null;
+            
+            // Looks for current game given a string socket
+			currentGame = FindCurrentGame(ss);
+
+            // If the current game does not exist in the list of games, send IGNORING message
+            if (currentGame == null)
+                ss.BeginSend("IGNORING " + incomingCommand + '\n', (ee, pp) => { }, null);
+            
+            // Else check that the word is valid and process
+            else
+            {
+                // format the incoming word
+                string word = incomingCommand.Substring(5).ToUpper().Trim();
+
+                // bool to check if the word exists in the dictionary
+                bool wordInDictionary = dictionary.Contains(word);
+
+                // bool to check if the word is valid for the current boggle game
+                bool validWord = currentGame.CanBeFormed(ss, word);
+
+                // If word is in the dictionary and can be processed by the boggle game, update scores and add
+                //      to game list
+                if (word.Length > 2)
+                {
+                    if (validWord && wordInDictionary)
+                    {
+                        // Increment scores in the game
+                        currentGame.IncrementScore(ss, word);
+
+                        // Add word to list of legal words for appropriate SS
+                        currentGame.AddLegalWord(ss, word);
+
+                        // Define player1 and get partner
+                        StringSocket p1 = ss;
+                        StringSocket p2 = currentGame.GetPartner(ss);
+
+                        // Get scores of both players
+                        int s1 = currentGame.GetScore(p1);
+                        int s2 = currentGame.GetScore(p2);
+
+                        // Send scores to each player
+                        p1.BeginSend("SCORE " + s1.ToString() + " " + s2.ToString() + "\n",
+                            (ee, pp) => { }, null);
+
+                        p2.BeginSend("SCORE " + s2.ToString() + " " + s1.ToString() + "\n",
+                            (ee, pp) => { }, null);
+                    }
+
+                    // If word is not legal, add it to the appropriate socket's list of illegal words
+                    else
+                        currentGame.AddIllegalWord(ss, word);
+                }
+            }
+        }
+
+		/// <summary>
+		/// Find the current game we want to deal with. If there is no game associated
+		/// with this socket, null is returned.
+		/// </summary>
+		/// <param name="current"></param>
+		/// <returns></returns>
+		private Game FindCurrentGame(StringSocket current)
+		{
+			// Looks for current game given a string socket
+			foreach (Game game in games)
+			{
+				if (game.isCurrentGame(current))
+				{
+					return game;
+				}
+			}
+			return null;
+		}
+
+
+        /// <summary>
+        /// EndGame -- helper method to execute all final components of the game
+        /// 
+        /// Called when the timer reaches zero. 
+        /// Sends the final score to both players.
+        /// Send the lists and counts of legal, illegal and common words played to both players
+        /// Closes sockets TODO: CLOSE SOCKETS
+        /// </summary>
+        /// <param name="currentGame"></param>
+        /// <param name="player1"></param>
+        /// <param name="player2"></param>
+        private void EndGame(Game currentGame, StringSocket player1, StringSocket player2)
+        {
+            // Get and send the final scores of both players
+            int p1Score = currentGame.GetScore(player1);
+            int p2Score = currentGame.GetScore(player2);
+
+            player1.BeginSend("SCORE " + p1Score.ToString() + " " + p2Score.ToString() + "\n",
+                                (ee, pp) => { }, null);
+
+            player2.BeginSend("SCORE " + p2Score.ToString() + " " + p1Score.ToString() + "\n",
+                (ee, pp) => { }, null);
+
+            // Ends the current game, method which creates the necessary lists of legal/illegal/common words
+            //currentGame.ResetLists();
+
+            // Lists created in the game
+            List<string> p1LegalWords = currentGame.getLegalWords(player1);
+            List<string> p2LegalWords = currentGame.getLegalWords(player2);
+            List<string> p1IllegalWords = currentGame.getIllegalWords(player1);
+            List<string> p2IllegalWords = currentGame.getIllegalWords(player2);
+            List<string> commonWords = currentGame.getCommonWords();
+
+            // Creates a string for each list create above to be inserted in the message to be sent to each socket
+            string p1Legal = "";
+            foreach (string word in p1LegalWords)
+            {
+                p1Legal += word;
+                p1Legal += " ";
+            }
+
+            string p2Legal = "";
+            foreach (string word in p2LegalWords)
+            {
+                p2Legal += word;
+                p2Legal += " ";
+            }
+
+            string p1Illegal = "";
+            foreach (string word in p1IllegalWords)
+            {
+                p1Illegal += word;
+                p1Illegal += " ";
+            }
+
+            string p2Illegal = "";
+            foreach (string word in p2IllegalWords)
+            {
+                p2Illegal += word;
+                p2Illegal += " ";
+            }
+
+            string common = "";
+            foreach (string word in commonWords)
+            {
+                common += word;
+                common += " ";
+            }
+
+            // BeginSend all counts and lists necessary to both players
+            player1.BeginSend("STOP " + ' ' + p1LegalWords.Count.ToString() + " " +
+                p1Legal + ' ' + p2LegalWords.Count.ToString() + " " + p2Legal + ' ' + commonWords.Count.ToString()
+                + " " + common + ' ' + p1IllegalWords.Count.ToString() + " " + p1Illegal + ' ' + p2IllegalWords.Count.ToString()
+                + " " + p2Illegal + '\n', (ee, pp) => { }, null);
+
+            player2.BeginSend("STOP " + ' ' + p2LegalWords.Count.ToString() + " " +
+                p2Legal + ' ' + p1LegalWords.Count.ToString() + " " + p1Legal + ' ' + commonWords.Count.ToString()
+                + " " + common + ' ' + p2IllegalWords.Count.ToString() + " " + p2Illegal + ' ' + p1IllegalWords.Count.ToString()
+                + " " + p1Illegal + '\n', (ee, pp) => { }, null);
+
+            player1.Close();
+            player2.Close();
+        }
+
+		/// <summary>
+		/// If one client drops out of the game (closes, disconnects, or becomes unresponsive)
+		/// then the game is terminated and the command TERMINATED is sent to the surviving
+		/// socket of that game.
+		/// </summary>
+		/// <param name="terminatedSocket"></param>
+		public void GameTerminated(StringSocket terminatedSocket)
+		{
+			Game currentGame = FindCurrentGame(terminatedSocket);
+			if (currentGame != null) 
+			{
+				StringSocket survivingSocket = currentGame.GetPartner(terminatedSocket);
+				survivingSocket.BeginSend("TERMINATED\n", (ee, pp) => { }, null);
+				acceptingCommands = false;
+				survivingSocket.Close();
+				games.Remove(currentGame);
+			}
+			else
+			{
+				singleSocket = null;
+			}
+		}
+
+		/// <summary>
+		/// Used mainly for testing to close the Server. When starting this application 
+		/// from command line, simply pressing enter will close the server and stop the
+		/// app.
+		/// </summary>
+		public void StopServer()
+		{
+			server.Stop();
+		}
+	}
+}

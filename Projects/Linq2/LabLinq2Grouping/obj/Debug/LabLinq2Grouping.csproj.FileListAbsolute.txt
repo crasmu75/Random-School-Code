@@ -1,0 +1,12 @@
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson18 Linq Grouping Extension Method\LabLinq2Grouping\LabLinq2Grouping\bin\Debug\LabLinq2Grouping.exe.config
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson18 Linq Grouping Extension Method\LabLinq2Grouping\LabLinq2Grouping\obj\Debug\LabLinq2Grouping.csprojResolveAssemblyReference.cache
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson18 Linq Grouping Extension Method\LabLinq2Grouping\LabLinq2Grouping\bin\Debug\LabLinq2Grouping.exe
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson18 Linq Grouping Extension Method\LabLinq2Grouping\LabLinq2Grouping\bin\Debug\LabLinq2Grouping.pdb
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson18 Linq Grouping Extension Method\LabLinq2Grouping\LabLinq2Grouping\obj\Debug\LabLinq2Grouping.exe
+C:\Users\mposch\SkyDrive\CSIS-2530 Spring 2014\Lesson\_Lesson18 Linq Grouping Extension Method\LabLinq2Grouping\LabLinq2Grouping\obj\Debug\LabLinq2Grouping.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq2\LabLinq2Grouping\bin\Debug\LabLinq2Grouping.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq2\LabLinq2Grouping\obj\Debug\LabLinq2Grouping.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq2\LabLinq2Grouping\obj\Debug\LabLinq2Grouping.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq2\LabLinq2Grouping\bin\Debug\LabLinq2Grouping.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq2\LabLinq2Grouping\bin\Debug\LabLinq2Grouping.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\Linq2\LabLinq2Grouping\obj\Debug\LabLinq2Grouping.csprojResolveAssemblyReference.cache

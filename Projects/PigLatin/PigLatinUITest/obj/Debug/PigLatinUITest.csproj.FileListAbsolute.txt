@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PigLatin\PigLatinUITest\bin\Debug\PigLatinUITest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PigLatin\PigLatinUITest\bin\Debug\PigLatinUITest.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PigLatin\PigLatinUITest\obj\Debug\PigLatinUITest.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PigLatin\PigLatinUITest\obj\Debug\PigLatinUITest.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PigLatin\PigLatinUITest\obj\Debug\PigLatinUITest.pdb

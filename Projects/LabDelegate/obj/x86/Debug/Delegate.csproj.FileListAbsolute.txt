@@ -1,0 +1,5 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabDelegate\bin\Debug\Delegate.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabDelegate\bin\Debug\Delegate.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabDelegate\obj\x86\Debug\Delegate.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabDelegate\obj\x86\Debug\Delegate.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\LabDelegate\obj\x86\Debug\Delegate.pdb

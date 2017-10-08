@@ -1,0 +1,13 @@
+01 <>!*''#
+02 ^"`$$-
+03 !*=@$_
+04 %*<>~#4
+05 &[]../
+06 |{,,SYSTEM HALTED
+07 
+08 Waka waka bang splat tick tick hash,
+09 Caret quote back-tick dollar dollar dash,
+10 Bang splat equal at dollar under-score,
+11 Percent splat waka waka tilde number four,
+12 Ampersand bracket bracket dot dot slash,
+13 Vertical-bar curly-bracket comma comma CRASH.

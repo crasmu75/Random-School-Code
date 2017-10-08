@@ -1,0 +1,651 @@
+﻿/// Written by Camille Rasmussen 
+/// UID: u0717763
+/// CS 3500 Fall 2014
+
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SS;
+using SpreadsheetUtilities;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace SpreadsheetTester
+{
+	/// <summary>
+	/// This tester class holds all the tests for public/protected methods
+	/// of the Spreadsheet class. Extends Spreadsheet class specially for 
+	/// test methods that test it's protected methods. This tester class 
+	/// provides reasonably close to 100% code coverage.
+	/// </summary>
+	[TestClass]
+	public class SpreadsheetTester : Spreadsheet
+	{
+		/// <summary>
+		/// Tests actions of non-parameterized constructor
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_NonParameterized_Constructor()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+
+			// imposes no extra validity testing
+			Assert.IsTrue(sheet.IsValid("anything can go here"));
+			// normalizes every cell to itself
+			Assert.AreEqual("UofU is better than BYU", sheet.Normalize("UofU is better than BYU"));
+			// has the version 'default'
+			Assert.AreEqual("default", sheet.Version);
+			// changed is false
+			Assert.IsFalse(sheet.Changed);
+		}
+
+		/// <summary>
+		/// Tests actions of 3-parameterized constructor
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_3Parameterized_Constructor()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet(x => false, x => x.ToUpper(), "info");
+
+			// test fails for all 
+			Assert.IsFalse(sheet.IsValid("anything can go here"));
+			Assert.IsFalse(sheet.IsValid("A1"));
+			// normalizes every cell to upper
+			Assert.AreEqual("UOFU IS BETTER THAN BYU", sheet.Normalize("UofU is better than BYU"));
+			Assert.AreEqual("SOME OTHER STUFF TO CAPITALIZE", sheet.Normalize("Some other stuff to CaPiTaLiZe"));
+			// version contains 'info'
+			Assert.AreEqual("info", sheet.Version);
+			// changed is false
+			Assert.IsFalse(sheet.Changed);
+		}
+		
+		/*/// <summary>
+		/// Tests actions of 4-parameterized constructor
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_4Parameterized_Constructor_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet("SpreadsheetTest.XML", x => true, x => x.ToLower(), "info");
+
+			// test fails for all 
+			Assert.IsFalse(sheet.IsValid("anything can go here"));
+			Assert.IsFalse(sheet.IsValid("A1"));
+			// normalizes every cell to upper
+			Assert.AreEqual("UOFU IS BETTER THAN BYU", sheet.Normalize("UofU is better than BYU"));
+			Assert.AreEqual("SOME OTHER STUFF TO CAPITALIZE", sheet.Normalize("Some other stuff to CaPiTaLiZe"));
+			// version contains 'info'
+			Assert.AreEqual("info", sheet.Version);
+		}*/
+
+
+
+		/// <summary>
+		/// Tests a valid cell entry with text string
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_CellContents_Valid_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("Y6", "hellow");
+			// check Changed
+			Assert.IsTrue(sheet.Changed);
+			Assert.AreEqual(sheet.GetCellContents("Y6"), "hellow");
+			Assert.AreEqual(sheet.GetCellValue("Y6"), "hellow");
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with text string
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_CellContents_Valid_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet(x => true, x => x.ToUpper(), "version info");
+			sheet.SetContentsOfCell("abc7", "Spongebob");
+			// check Changed
+			Assert.IsTrue(sheet.Changed);
+			Assert.AreEqual(sheet.GetCellContents("abc7"), "Spongebob");
+			// make sure Normalize is being used appropriately
+			Assert.AreEqual(sheet.GetCellValue("ABC7"), "Spongebob");
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with Formula, no dependencies
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_CellContents_Valid_3()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("I63", "=16 - 8.3");
+			// check Changed
+			Assert.IsTrue(sheet.Changed);
+			Formula testFormula = new Formula("16 - 8.3");
+			Assert.AreEqual(sheet.GetCellContents("I63"), testFormula);
+			Assert.AreEqual((double)sheet.GetCellValue("I63"), 7.7, 0.000000001);
+		}
+
+		/// <summary>
+		/// Tests a valid cell entry with Formula, with dependencies
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_CellContents_Valid_4()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("i63", "32");
+			// check Changed
+			Assert.IsTrue(sheet.Changed);
+			sheet.SetContentsOfCell("i64", "=(i63 * 5.4) / 2.66");
+			// check Changed
+			Assert.IsTrue(sheet.Changed);
+			sheet.SetContentsOfCell("i65", "=i64 - 7.8");
+			// check Changed
+			Assert.IsTrue(sheet.Changed);
+			Formula testFormula = new Formula("(i63*5.4)/2.66");
+			Formula testFormula2 = new Formula("i64 - 7.8");
+			Assert.AreEqual(sheet.GetCellContents("i63"), 32.0);
+			Assert.AreEqual(sheet.GetCellValue("i63"), 32.0);
+			Assert.AreEqual(sheet.GetCellContents("i64"), testFormula);
+			Assert.AreEqual((double)sheet.GetCellValue("i64"), 64.96240601, 0.00000001);
+			Assert.AreEqual(sheet.GetCellContents("i65"), testFormula2);
+			Assert.AreEqual((double)sheet.GetCellValue("i65"), 57.162406015, 0.00000001);
+		}
+
+		/// <summary>
+		/// Tests a valid cell name entry with double
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_CellContents_Valid_5()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("TT89", "3990.293823");
+			// check Changed
+			Assert.IsTrue(sheet.Changed);
+			Assert.AreEqual(3990.293823, sheet.GetCellContents("TT89"));
+			Assert.AreEqual(3990.293823, sheet.GetCellValue("TT89"));
+		}
+
+		/// <summary>
+		/// Tests GetCellContents and GetCellValue on cells that are empty
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_GetCell_Empty_Cells()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			Assert.AreEqual("", sheet.GetCellContents("T9"));
+			Assert.AreEqual("", sheet.GetCellContents("HH765"));
+			Assert.AreEqual("", sheet.GetCellValue("T9"));
+			Assert.AreEqual("", sheet.GetCellValue("HH765"));
+		}
+
+		/// <summary>
+		/// Tests SetContentsOfCell on an invalid cell name with double
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_Invalid_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("B_0", "13.12");
+		}
+
+		/// <summary>
+		/// Tests SetContentsOfCell on an invalid cell name with text string
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_Invalid_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("_A5", "BeetleJuice");
+		}
+		
+		/// <summary>
+		/// Tests a invalid cell name with Formula, no dependencies
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_Invalid_3()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("8i63", "=15 - 6.98");
+		}
+
+		/// <summary>
+		/// Tests an invalid cell name entry with Formula, with dependencies
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_Invalid_4()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			// this value will be a Formula Error at first just FYI
+			sheet.SetContentsOfCell("i63", "=i65 - 9");
+			sheet.SetContentsOfCell("i65", "23.60");
+			sheet.SetContentsOfCell("&i64", "i63");
+		}
+		
+		/// <summary>
+		/// Tests a valid cell name entry with invalid Formula, no dependencies
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(FormulaFormatException))]
+		public void Public_Test_SetContentsOfCell_Invalid_5()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("Xx0", "=3++ 8.6");
+		}
+		
+		/// <summary>
+		/// Tests a valid cell name entry with invalid Formula, with direct dependencies
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(FormulaFormatException))]
+		public void Public_Test_SetContentsOfCell_Invalid_6()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("i64", "=8.8/i63");
+			sheet.SetContentsOfCell("i63", "=3.23 + 15)");
+		}
+		
+		/// <summary>
+		/// Tests a valid cell name entry with invalid Formula, with indirect and direct dependencies
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(FormulaFormatException))]
+		public void Public_Test_SetContentsOfCell_Invalid_7()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("i63", "16");
+			sheet.SetContentsOfCell("i64", "=(77.9+ i63");
+			sheet.SetContentsOfCell("i65", "=i64");
+		}
+		
+		/// <summary>
+		/// Tests a valid cell name entry with valid Formula, and variable
+		/// names whose cells contains a text string.
+		/// The GetCellValue should return a FormulaError
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_SetContentsOfCell_Invalid_8()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("X2", "I am Iron Man");
+			sheet.SetContentsOfCell("A1", "=567.0 + X2");
+			Assert.IsTrue(sheet.GetCellValue("A1") is FormulaError);
+		}
+
+		/// <summary>
+		/// Tests a valid cell name entry with valid Formula, and variable
+		/// names whose cells contains an empty string (hasn't been referenced)
+		/// The GetCellValue should return a FormulaError
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_SetContentsOfCell_Invalid_9()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("A1", "=567.0 + UVR77");
+			Assert.IsTrue(sheet.GetCellValue("A1") is FormulaError);
+		}
+		
+		/// <summary>
+		/// Tests a null cell name entry with double
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_NullName_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell(null, "3990.29");
+		}
+
+		/// <summary>
+		/// Tests a null cell entry with text string
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_NullName_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell(null, "Jim is Great");
+		}
+
+		/// <summary>
+		/// Tests a null cell entry with Formula, no dependencies
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_NullName_3()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell(null, "=3.21 * (7)");
+		}
+		
+		/// <summary>
+		/// Tests a null cell name entry with Formula, with indirect and direct dependencies
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Public_Test_SetContentsOfCell_NullName_4()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("i63", "=12 - 900.7");
+			sheet.SetContentsOfCell("i64", "=1.2222 / (i63 + 8)");
+			sheet.SetContentsOfCell(null, "=i64 + 12.3");
+		}
+		
+		/// <summary>
+		/// Tests a valid cell entry with null text string
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void Public_Test_SetContentsOfCell_NullContent()
+		{
+			string hey = null;
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("x86", hey);
+		}
+		
+		/// <summary>
+		/// Tests get cell contents on a referenced but altered cell
+		/// (Make sure the cell name wasn't duplicated, but rather the contents
+		/// were just altered)
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_GetCellContents_AlteredCell()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet(x => true, x => x.ToUpper(), "Version information");
+			sheet.SetContentsOfCell("H45", "=67.5 - 976 / 2");
+			// Normalize should uppercase this before checking to update
+			sheet.SetContentsOfCell("h45", "this cell has changed!");
+			// should be modified, not added
+			Assert.AreEqual("H45", sheet.GetNamesOfAllNonemptyCells().ElementAt(0));
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 1);
+			Assert.AreEqual("this cell has changed!", sheet.GetCellContents("h45"));
+			Assert.AreEqual("this cell has changed!", sheet.GetCellValue("H45"));
+		}
+
+		 /* test for updating cells when one is changed
+		 * GetCellsToRecalculate!
+		 */
+		/// <summary>
+		/// Tests the GetNamesOfNonEmptyCells method upon having no non-empty
+		/// cells.
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_GetNamesOfNonEmptyCells_1()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			Assert.IsFalse(sheet.GetNamesOfAllNonemptyCells().Any());
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 0);
+		}
+
+		/// <summary>
+		/// Tests the GetNamesOfNonEmptyCells method upon having 2 valid non-
+		/// empty cells.
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_GetNamesOfNonEmptyCells_2()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("FFFo8", "72.001");
+			sheet.SetContentsOfCell("HIJK9", "Shrek");
+			Assert.IsTrue(sheet.GetNamesOfAllNonemptyCells().Any());
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 2);
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(0), "FFFo8");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(1), "HIJK9");
+		}
+		
+		/// <summary>
+		/// Tests the GetNamesOfNonEmptyCells method upon having 5 valid non-
+		/// empty cells.
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_GetNamesOfNonEmptyCells_3()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("B33", "0.04");
+			sheet.SetContentsOfCell("Iue4", "=477.22+ 0 * (3/55.4 + 8.94)");
+			sheet.SetContentsOfCell("U2", "Get him some melk");
+			sheet.SetContentsOfCell("W2", "Taxes");
+			sheet.SetContentsOfCell("I234567", "=(45)");
+			Assert.IsTrue(sheet.GetNamesOfAllNonemptyCells().Any());
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 5);
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(0), "B33");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(1), "Iue4");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(2), "U2");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(3), "W2");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().ElementAt(4), "I234567");
+		}
+		
+		/// <summary>
+		/// Tests the GetNamesOfNonEmptyCells method upon having a cell modified to
+		/// contain an empty string (referenced, but still empty)
+		/// cells.
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_GetNamesOfNonEmptyCells_4()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("E6", "what's in that shoe?");
+			// Modify
+			sheet.SetContentsOfCell("E6", "");
+			Assert.AreEqual(sheet.GetNamesOfAllNonemptyCells().Count(), 0);
+		}
+
+		/// <summary>
+		/// Test to make sure cells are being recalculated as they are modified
+		/// </summary>
+		[TestMethod]
+		public void Public_Test_RecalculatingCells()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("A0", "=B0 + B0");
+			sheet.SetContentsOfCell("B0", "45");
+			Assert.AreEqual(90.0, sheet.GetCellValue("A0"));
+		}
+
+
+		[TestMethod]
+		public void Public_Test_SaveAndLoad()
+		{
+			// new empty spreadsheet
+			AbstractSpreadsheet sheet1 = new Spreadsheet(x => true, x => x.ToUpper(), "version1");
+			Assert.IsFalse(sheet1.Changed);
+
+			// add some cells
+			sheet1.SetContentsOfCell("Y6", "=V8*V8");
+			Assert.IsTrue(sheet1.Changed);
+			sheet1.SetContentsOfCell("V8", "=(6+2)");
+			Assert.IsTrue(sheet1.Changed);
+			sheet1.SetContentsOfCell("T2", "Sublime");
+			Assert.IsTrue(sheet1.Changed);
+
+			// save the spreadsheet
+			sheet1.Save("sheet1.xml");
+			Assert.IsFalse(sheet1.Changed);
+
+			// new spreadsheet from the first
+			AbstractSpreadsheet sheet2 = new Spreadsheet("sheet1.xml", x => true, x => x.ToUpper(), "version1");
+			Assert.IsFalse(sheet2.Changed);
+			
+			// check cells were copied correctly
+			Assert.AreEqual(new Formula("V8*V8"), sheet2.GetCellContents("Y6"));
+			Assert.IsFalse(sheet2.Changed);
+			Assert.AreEqual(64.0, sheet2.GetCellValue("Y6"));
+			Assert.IsFalse(sheet2.Changed);
+			Assert.AreEqual(new Formula("(6+2)"), sheet2.GetCellContents("V8"));
+			Assert.IsFalse(sheet2.Changed);
+			Assert.AreEqual(8.0, sheet2.GetCellValue("V8"));
+			Assert.IsFalse(sheet2.Changed);
+			Assert.AreEqual("Sublime", sheet2.GetCellContents("T2"));
+			Assert.IsFalse(sheet2.Changed);
+			Assert.AreEqual("Sublime", sheet2.GetCellValue("T2"));
+
+			// add and update some cells
+			sheet2.SetContentsOfCell("BB7", "56.17");
+			sheet2.SetContentsOfCell("V8", "12.3");
+
+			// save this one
+			sheet2.Save("sheet2.xml");
+
+			// one more spreadsheet
+			AbstractSpreadsheet sheet3 = new Spreadsheet("sheet2.xml", x => true, x => x.ToUpper(), "version1");
+
+			// check cells were copied and updated correctly
+			Assert.AreEqual(new Formula("V8*V8"), sheet3.GetCellContents("Y6"));
+			Assert.AreEqual(151.29, (double)sheet3.GetCellValue("Y6"), 0.00000001);
+			Assert.AreEqual(12.3, sheet3.GetCellContents("V8"));
+			Assert.AreEqual(12.3, sheet2.GetCellValue("V8"));
+			Assert.AreEqual("Sublime", sheet2.GetCellContents("T2"));
+			Assert.AreEqual("Sublime", sheet2.GetCellValue("T2"));
+			Assert.AreEqual(56.17, sheet3.GetCellContents("BB7"));
+			Assert.AreEqual(56.17, sheet3.GetCellValue("bb7"));
+
+			// save
+			sheet3.Save("sheet3.xml");
+		}
+
+		/// <summary>
+		/// Tests the GetDirectDependents method with one dependent.
+		/// </summary>
+		[TestMethod]
+		public void Protected_Test_GetDirectDependents_1()
+		{
+			base.SetContentsOfCell("t64", "6.1");
+			base.SetContentsOfCell("U750", "=t64 + 7");
+			Assert.AreEqual(base.GetDirectDependents("t64").Count(), 1);
+			Assert.AreEqual(base.GetDirectDependents("t64").ElementAt(0), "U750");
+		}
+		
+		/// <summary>
+		/// Tests the GetDirectDependents method with a few dependents.
+		/// </summary>
+		[TestMethod]
+		public void Protected_Test_GetDirectDependents_2()
+		{
+			base.SetContentsOfCell("A1", "19.776");
+			base.SetContentsOfCell("A2", "1");
+			base.SetContentsOfCell("A3", "=A1 / A2");
+			base.SetContentsOfCell("A4", "=A3 + 7.8");
+			Assert.AreEqual(base.GetDirectDependents("A1").Count(), 1);
+			Assert.AreEqual(base.GetDirectDependents("A2").Count(), 1);
+			Assert.AreEqual(base.GetDirectDependents("A3").Count(), 1);
+			Assert.AreEqual(base.GetDirectDependents("A4").Count(), 0);
+			Assert.AreEqual(base.GetDirectDependents("A1").ElementAt(0), "A3");
+			Assert.AreEqual(base.GetDirectDependents("A2").ElementAt(0), "A3");
+			Assert.AreEqual(base.GetDirectDependents("A3").ElementAt(0), "A4");
+		}
+		
+		/// <summary>
+		/// Tests the GetDirectDependents method with no dependents.
+		/// </summary>
+		[TestMethod]
+		public void Protected_Test_GetDirectDependents_3()
+		{
+			base.SetContentsOfCell("Y1", "6.1");
+			base.SetContentsOfCell("Y2", "=9 + 7");
+			Assert.AreEqual(base.GetDirectDependents("Y1").Count(), 0);
+			Assert.AreEqual(base.GetDirectDependents("Y2").Count(), 0);
+		}
+		
+		/// <summary>
+		/// Tests the GetDirectDependents method with null name.
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void Protected_Test_GetDirectDependents_4()
+		{
+			base.GetDirectDependents(null);
+		}
+
+		/// <summary>
+		/// Tests the GetDirectDependents method with invalid cell name.
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(InvalidNameException))]
+		public void Protected_Test_GetDirectDependents_5()
+		{
+			base.GetDirectDependents("$33");
+		}
+		
+		/// <summary>
+		/// Tests the GetCellsToRecalculate method with a few dependents.
+		/// No Circular Dependencies
+		/// </summary>
+		[TestMethod]
+		public void Protected_Test_GetCellsToRecalculate_1()
+		{
+			base.SetContentsOfCell("A1", "5");
+			base.SetContentsOfCell("B1", "7");
+			base.SetContentsOfCell("C1", "=A1 + B1");
+			base.SetContentsOfCell("D1", "=B1 * C1");
+			base.SetCellContents("E1", "=15");
+			IEnumerable<string> recalculate = base.GetCellsToRecalculate("A1");
+			Assert.AreEqual(recalculate.Count(), 3);
+			var cells = recalculate.Cast<string>().Take(4).ToArray();
+			CollectionAssert.AreEqual(cells, new[] { "A1", "C1", "D1" });
+		}
+
+		/// <summary>
+		/// Tests the GetCellsToRecalculate method with a few dependents.
+		/// No Circular Dependencies
+		/// </summary>
+		[TestMethod]
+		public void Protected_Test_GetCellsToRecalculate_2()
+		{
+			base.SetContentsOfCell("Y0", "5");
+			base.SetContentsOfCell("Y1", "=Y0");
+			base.SetContentsOfCell("Y2", "=Y0 + Y1");
+			base.SetContentsOfCell("Y3", "=Y2 * 3");
+			base.SetContentsOfCell("Y4", "=Y3");
+			IEnumerable<string> recalculate = base.GetCellsToRecalculate("Y0");
+			Assert.AreEqual(recalculate.Count(), 5);
+			var cells = recalculate.Cast<string>().Take(5).ToArray();
+			CollectionAssert.AreEqual(cells, new[] { "Y0", "Y1", "Y2", "Y3", "Y4" });
+		}
+
+		/// <summary>
+		/// Tests the GetCellsToRecalculate method with a few dependents.
+		/// No Circular Dependencies
+		/// </summary>
+		[TestMethod]
+		public void Protected_Test_GetCellsToRecalculate_3()
+		{
+			base.SetContentsOfCell("F0", "5");
+			base.SetContentsOfCell("G0", "=F0");
+			base.SetContentsOfCell("H0", "=14");
+			base.SetContentsOfCell("J0", "=G0 * 3");
+			base.SetContentsOfCell("K0", "=(8+F0) - 7.9");
+			IEnumerable<string> recalculate = base.GetCellsToRecalculate("F0");
+			Assert.AreEqual(recalculate.Count(), 4);
+			var cells = recalculate.Cast<string>().Take(4).ToArray();
+			// remember, direct dependencies are added to list first **
+			CollectionAssert.AreEqual(cells, new[] { "F0", "K0", "G0", "J0" });
+		}
+
+		/// <summary>
+		/// Tests the GetCellsToRecalculate method with small number of dependents.
+		/// should throw Circular Dependency Exception
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(CircularException))]
+		public void Protected_Test_GetCellsToRecalculate_4()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("F0", "13");
+			sheet.SetContentsOfCell("G0", "=F0");
+			sheet.SetContentsOfCell("F0", "=G0");
+		}
+
+		/// <summary>
+		/// Tests the GetCellsToRecalculate method with cell depending on itself
+		/// which is not allowed -
+		/// should throw Circular Dependency Exception
+		/// </summary>
+		[TestMethod]
+		[ExpectedException(typeof(CircularException))]
+		public void Protected_Test_GetCellsToRecalculate_5()
+		{
+			AbstractSpreadsheet sheet = new Spreadsheet();
+			sheet.SetContentsOfCell("TTT4", ("=TTT4"));
+		}
+	}
+}

@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\AssignmentCards\AssignmentCards\bin\Debug\AssignmentCards.exe.config
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AssignmentCards\AssignmentCards\obj\Debug\AssignmentCards.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AssignmentCards\AssignmentCards\bin\Debug\AssignmentCards.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AssignmentCards\AssignmentCards\bin\Debug\AssignmentCards.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AssignmentCards\AssignmentCards\obj\Debug\AssignmentCards.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\AssignmentCards\AssignmentCards\obj\Debug\AssignmentCards.pdb

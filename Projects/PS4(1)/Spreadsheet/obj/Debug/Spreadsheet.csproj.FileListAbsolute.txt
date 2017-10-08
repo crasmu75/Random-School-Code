@@ -1,0 +1,13 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Spreadsheet.XML
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Spreadsheet.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Spreadsheet.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Formula.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Resources.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Resources.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Resources.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\Formula.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\obj\Debug\Spreadsheet.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS4(1)\Spreadsheet\obj\Debug\Spreadsheet.pdb

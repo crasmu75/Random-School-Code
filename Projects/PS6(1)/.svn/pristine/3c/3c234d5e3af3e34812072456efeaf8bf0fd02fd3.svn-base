@@ -1,0 +1,105 @@
+﻿using SS;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SpreadsheetGUI
+{
+	public partial class Form1 : Form
+	{
+		AbstractSpreadsheet loadedSheet;
+		public Form1()
+		{
+			// start window at full screen
+			WindowState = FormWindowState.Maximized;
+			InitializeComponent();
+			// Create new empty spreadsheet
+			AbstractSpreadsheet newEmptySheet = new Spreadsheet(isValidExcelName, x => x.ToUpper(), "ps6");
+		}
+
+		private void DisplayCells(Spreadsheet currentSheet)
+		{
+			foreach(string cellName in currentSheet.GetNamesOfAllNonemptyCells())
+				;
+		}
+
+		// Deals with the New menu
+		private void menuChoiceNew_Click(object sender, EventArgs e)
+		{
+			// Tell the application context to run the form on the same
+			// thread as the other forms.
+			SpreadsheetApplicationContext.getAppContext().RunForm(new Form1());
+		}
+
+		// Deals with the Close menu
+		private void menuChoiceClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void menuChoiceOpen_Click(object sender, EventArgs e)
+		{
+			openFileDialog1.Filter = "spreadsheet files (*.sprd)|*.sprd|All files (*.*)|*.*";
+			if (openFileDialog1.ShowDialog() == DialogResult.OK)
+			{
+				if (!openFileDialog1.FileName.EndsWith(".sprd"))
+					MessageBox.Show("Incorrect file type or extension.");
+				else
+					LoadSpreadsheet();
+			}
+		}
+
+		/// <summary>
+		/// There are a number of exceptions that could be thrown when an existing 
+		/// Spreadsheet is loaded. This method loads the spreadsheet and handles 
+		/// these exceptions appropriately.
+		/// </summary>
+		private void LoadSpreadsheet()
+		{
+			try
+			{
+				loadedSheet = new Spreadsheet(openFileDialog1.FileName, isValidExcelName, x => x.ToUpper(), "ps6");
+			}
+			catch(SpreadsheetReadWriteException ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			catch(InvalidNameException ex)
+			{
+				MessageBox.Show("File contained an invalid cell name(s). This particular cell was not updated.");
+			}
+			catch(ArgumentNullException ex)
+			{
+				MessageBox.Show("File contained a null argument(s). This particular cell was not updated.");
+			}
+			catch(CircularException ex)
+			{
+				MessageBox.Show("File contained a circular dependency(s). This particular cell was not updated.");
+			}
+		}
+
+		/// <summary>
+		/// The isValid method being passed into a new spreadsheet. This method maps string
+		/// names to true if they contain one letter and one digit 1-9 followed by zero or 
+		/// one digit 0-9. This gives the range A1-Z99. a1 = A1 and z99 = Z99
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		private bool isValidExcelName(string name)
+		{
+			Regex pattern = new Regex("^[A-Za-z][1-9][0-9]?$");
+
+			if (pattern.IsMatch(name))
+				return true;
+			else
+				return false;
+		}
+	}
+}

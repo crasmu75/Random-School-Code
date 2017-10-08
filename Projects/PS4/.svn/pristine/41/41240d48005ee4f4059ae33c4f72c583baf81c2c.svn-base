@@ -1,0 +1,15 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace SpreadsheetTester
+{
+	[TestClass]
+	public class SpreadsheetTester
+	{
+		[TestMethod]
+		public void Test_Cell_Constructor()
+		{
+
+		}
+	}
+}

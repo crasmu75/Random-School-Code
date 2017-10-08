@@ -1,0 +1,120 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace BoggleClient
+{
+    public partial class Form1 : Form
+    {
+		private BoggleClientModel model;
+
+        // Regex to be used for incoming commands
+        Regex scoreCommand = new Regex(@"(SCORE)\s[0-9]+\s[0-9]+");
+        Regex ignoringCommand = new Regex(@"(IGNORING)\s.*");
+        Regex startCommand = new Regex(@"(START)\s[A-Z]{16}\s[0-9]+\s.*");
+
+		/// <summary>
+		/// Constructor to initialize the component and set up Action events for the model.
+		/// </summary>
+		public Form1()
+		{
+			InitializeComponent();
+			model = new BoggleClientModel();
+			model.IncomingLineEvent += CommandReceived;
+			model.ConnectedEvent += ConnectedSuccessfully;
+		}
+
+		/// <summary>
+		/// Called using the Actions from model when we are successfully connected 
+		/// to the server. 
+		/// </summary>
+		private void ConnectedSuccessfully()
+		{
+			StatusButton.Text = "CANCEL";
+            StatusButton.BackColor = Color.Red;
+		}
+
+		/// <summary>
+		/// Called using the Actions from model when we receive a command from server.
+		/// </summary>
+		/// <param name="line"></param>
+		private void CommandReceived(String line)
+		{
+			NameTextBox.Text = "Command Received";
+			if (scoreCommand.IsMatch(line))
+			{
+				string[] scores = line.Split(' ');
+				Player1Score.Text = scores[1];
+				Player2Score.Text = scores[2];
+			}
+
+			else if (ignoringCommand.IsMatch(line))
+				MessageBox.Show("Client sent illegal command to server: " + line.Substring(9));
+
+			else if (startCommand.IsMatch(line))
+			{
+				string[] startParams = line.Split(' ');
+				TimeLabel.Text = startParams[1];
+				SetBoggleLetters(startParams[2]);
+				Player2.Text = startParams[3];
+			}
+
+			else
+				MessageBox.Show(line);
+		}
+
+        private void SetBoggleLetters(string s)
+        {
+            Letter1.Text = s[0].ToString();
+            Letter2.Text = s[1].ToString();
+            Letter3.Text = s[2].ToString();
+            Letter4.Text = s[3].ToString();
+            Letter5.Text = s[4].ToString();
+            Letter6.Text = s[5].ToString();
+            Letter7.Text = s[6].ToString();
+            Letter8.Text = s[7].ToString();
+            Letter9.Text = s[8].ToString();
+            Letter10.Text = s[9].ToString();
+            Letter11.Text = s[10].ToString();
+            Letter12.Text = s[11].ToString();
+            Letter13.Text = s[12].ToString();
+            Letter14.Text = s[13].ToString();
+            Letter15.Text = s[14].ToString();
+            Letter16.Text = s[15].ToString();
+        }
+
+		/// <summary>
+		/// This method is called when the user clicks on the status button. Depending
+		/// on what text is inside the button, different events are handled.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void StatusButton_Click(object sender, EventArgs e)
+        {
+			// user hasn't connected to server yet, do so
+            if (StatusButton.Text == "CONNECT")
+            {
+                if (IPAddressBox.Text == "" || NameTextBox.Text == "")
+                    MessageBox.Show("IP Address and Name fields cannot be empty to connect. Try Again!");
+                else
+                {
+                    model.Connect(IPAddressBox.Text, 2000, NameTextBox.Text);
+                    Player1.Text = NameTextBox.Text;
+                }
+            }
+
+			// user has connected to the server, wants to cancel on waiting for game
+            else if (StatusButton.Text == "CANCEL")
+            {
+
+            }
+        }
+    }
+}

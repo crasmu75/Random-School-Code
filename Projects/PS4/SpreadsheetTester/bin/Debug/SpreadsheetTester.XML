@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SpreadsheetTester</name>
+    </assembly>
+    <members>
+        <member name="T:SpreadsheetTester.SpreadsheetTester">
+            <summary>
+            This tester class holds all the tests for public/protected methods
+            of the Spreadsheet class. Extends Spreadsheet class specially for 
+            test methods that test it's protected methods. This tester class 
+            provides reasonably close to 100% code coverage.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Valid_1">
+            <summary>
+            Tests a valid cell entry with double
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Valid_2">
+            <summary>
+            Tests a valid cell entry with text string
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Valid_3">
+            <summary>
+            Tests a valid cell entry with Formula, no dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Valid_4">
+            <summary>
+            Tests a valid cell entry with Formula, with dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_1">
+            <summary>
+            Tests a invalid cell name entry with double
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_2">
+            <summary>
+            Tests a invalid cell entry with text string
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_3">
+            <summary>
+            Tests a invalid cell entry with Formula, no dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_4">
+            <summary>
+            Tests a invalid cell name entry with Formula, with dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_5">
+            <summary>
+            Tests a valid cell name entry with invalid Formula, no dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_6">
+            <summary>
+            Tests a valid cell name entry with invalid Formula, with direct dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_7">
+            <summary>
+            Tests a valid cell name entry with invalid Formula, with indirect and direct dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_Invalid_8">
+            <summary>
+            Tests a valid cell name entry with valid Formula, and variable
+            names whose cells contains a text string.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_NullName_1">
+            <summary>
+            Tests a null cell name entry with double
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_NullName_2">
+            <summary>
+            Tests a null cell entry with text string
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_NullName_3">
+            <summary>
+            Tests a null cell entry with Formula, no dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_NullName_4">
+            <summary>
+            Tests a null cell name entry with Formula, with indirect and direct dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_NullText">
+            <summary>
+            Tests a valid cell entry with null text string
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_SetCellContents_NullFormula">
+            <summary>
+            Tests a valid cell entry with null Formula
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_GetCellContents_1">
+            <summary>
+            Tests get cell contents on two newly referenced cells
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_GetCellContents_2">
+            <summary>
+            Tests get cell contents on non-referenced cells
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_GetCellContents_3">
+            <summary>
+            Tests get cell contents on a referenced but altered cell
+            (Make sure the cell name wasn't duplicated, but rather the contents
+            were just altered)
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_GetNamesOfNonEmptyCells_1">
+            <summary>
+            Tests the GetNamesOfNonEmptyCells method upon having no non-empty
+            cells.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_GetNamesOfNonEmptyCells_2">
+            <summary>
+            Tests the GetNamesOfNonEmptyCells method upon having 2 valid non-
+            empty cells.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_GetNamesOfNonEmptyCells_3">
+            <summary>
+            Tests the GetNamesOfNonEmptyCells method upon having 5 valid non-
+            empty cells.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Public_Test_GetNamesOfNonEmptyCells_4">
+            <summary>
+            Tests the GetNamesOfNonEmptyCells method upon having a cell modified to
+            contain an empty string (referenced, but still empty)
+            cells.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetDirectDependents_1">
+            <summary>
+            Tests the GetDirectDependents method with one dependent.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetDirectDependents_2">
+            <summary>
+            Tests the GetDirectDependents method with a few dependents.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetDirectDependents_3">
+            <summary>
+            Tests the GetDirectDependents method with no dependents.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetDirectDependents_4">
+            <summary>
+            Tests the GetDirectDependents method with null name.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetDirectDependents_5">
+            <summary>
+            Tests the GetDirectDependents method with invalid cell name.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetCellsToRecalculate_1">
+            <summary>
+            Tests the GetCellsToRecalculate method with a few dependents.
+            No Circular Dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetCellsToRecalculate_2">
+            <summary>
+            Tests the GetCellsToRecalculate method with a few dependents.
+            No Circular Dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetCellsToRecalculate_3">
+            <summary>
+            Tests the GetCellsToRecalculate method with a few dependents.
+            No Circular Dependencies
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetCellsToRecalculate_4">
+            <summary>
+            Tests the GetCellsToRecalculate method with small number of dependents.
+            should throw Circular Dependency Exception
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.SpreadsheetTester.Protected_Test_GetCellsToRecalculate_5">
+            <summary>
+            Tests the GetCellsToRecalculate method with cell depending on itself
+            which is not allowed -
+            should throw Circular Dependency Exception
+            </summary>
+        </member>
+    </members>
+</doc>

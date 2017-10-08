@@ -1,0 +1,81 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using CustomNetworking;
+using System.Net;
+using System.Threading;
+
+namespace BoggleServer
+{
+	class BoggleServer
+	{
+		// Listens for incoming connections
+		private TcpListener server;
+
+		// One StringSocket per connected client
+		private List<StringSocket> allSockets;
+
+		// the name associated with the socket
+		private List<string> user_names;
+
+        // list of boggle playing pairs (tuple of 2 sockets)
+        private List<Tuple<StringSocket, StringSocket>> socketPairs;
+
+        // socket that is currently waiting for a partner
+        StringSocket singleSocket;
+
+        // spin boolean
+        bool spin;
+
+		static void Main(string[] args)
+		{
+			foreach (string arg in args)
+				Console.WriteLine(arg);
+			new BoggleServer(2000);
+		}
+
+		public BoggleServer(int port)
+		{
+			server = new TcpListener(IPAddress.Any, port);
+			allSockets = new List<StringSocket>();
+			user_names = new List<string>();
+			server.Start();
+			server.BeginAcceptSocket(ConnectionReceived, null);
+
+            singleSocket = null;
+            socketPairs = new List<Tuple<StringSocket, StringSocket>>();
+
+            spin = true;
+
+            new Thread( () => CheckForPairs()).Start();
+		}
+
+        public void ConnectionReceived(IAsyncResult ar)
+        {
+
+        }
+
+        public void CheckForPairs()
+        {
+            while (spin)
+            {
+                // if a new connection is made
+                StringSocket newSocket = null;
+                {
+                    if (singleSocket != null)
+                    {
+                        socketPairs.Add(Tuple.Create(newSocket, singleSocket));
+                        singleSocket = null;
+                    }
+                    else
+                    {
+                        singleSocket = newSocket;
+                    }
+                }
+            }
+        }
+	}
+}

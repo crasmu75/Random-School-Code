@@ -1,0 +1,146 @@
+﻿using BB;
+using CustomNetworking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BoggleServer
+{
+	class Game
+	{
+		private SS player1;
+		private SS player2;
+
+		private int p1score;
+		private int p2score;
+
+		private BoggleBoard board;
+
+		private int seconds;
+
+		private string p1name;
+		private string p2name;
+
+		public Game(SS p1, SS p2, string p1n, string p2n, int time)
+		{
+			player1 = p1;
+			player2 = p2;
+
+			p1score = 0;
+			p2score = 0;
+
+			board = new BoggleBoard();
+
+			seconds = time;
+
+			p1name = p1n;
+			p2name = p2n;
+		}
+
+		public Game(SS p1, SS p2, string p1n, string p2n, int time, string letters)
+		{
+			player1 = p1;
+			player2 = p2;
+
+			p1score = 0;
+			p2score = 0;
+
+			board = new BoggleBoard(letters);
+
+			seconds = time;
+
+			p1name = p1n;
+			p2name = p2n;
+		}
+
+		public SS GetPartner(SS currentPlayer)
+		{
+			if (currentPlayer.Equals(player1))
+				return player2;
+			else if (currentPlayer.Equals(player2))
+				return player1;
+			else
+				return null;
+		}
+		public void IncrementScore(SS player, int points)
+		{
+			if (player.Equals(player1))
+				p1score += points;
+			else if (player.Equals(player2))
+				p2score += points;
+		}
+
+		public int GetScore(SS player)
+		{
+			if (player.Equals(player1))
+				return p1score;
+			else if (player.Equals(player2))
+				return p2score;
+			else
+				return 1000000000;
+		}
+
+		public bool ProcessWord(SS player, string word)
+		{
+			if (!board.CanBeFormed(word))
+				return false;
+			else
+			{
+				if (word.Length < 3)
+					return false;
+				switch(word.Length)
+				{
+					case 3:
+						IncrementScore(player, 1);
+						break;
+					case 4:
+						IncrementScore(player, 1);
+						break;
+					case 5:
+						IncrementScore(player, 2);
+						break;
+					case 6:
+						IncrementScore(player, 3);
+						break;
+					case 7:
+						IncrementScore(player, 5);
+						break;
+					default:
+						IncrementScore(player, 11);
+						break;
+				}
+				return true;
+			}
+		}
+
+		public bool isCurrentGame(SS player)
+		{
+			if (player.Equals(player1) || player.Equals(player2))
+				return true;
+			else
+				return false;
+		}
+
+		public SS getP1()
+		{
+			return player1;
+		}
+
+		public SS getP2()
+		{
+			return player2;
+		}
+
+		public int getTime()
+		{
+			return seconds;
+		}
+
+		public int decrementTime()
+		{
+			return seconds--;
+		}
+	}
+}

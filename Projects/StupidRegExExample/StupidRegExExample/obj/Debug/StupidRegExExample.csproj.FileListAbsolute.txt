@@ -1,0 +1,6 @@
+c:\users\camille\documents\visual studio 2013\Projects\StupidRegExExample\StupidRegExExample\bin\Debug\StupidRegExExample.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\StupidRegExExample\StupidRegExExample\bin\Debug\StupidRegExExample.exe
+c:\users\camille\documents\visual studio 2013\Projects\StupidRegExExample\StupidRegExExample\bin\Debug\StupidRegExExample.pdb
+c:\users\camille\documents\visual studio 2013\Projects\StupidRegExExample\StupidRegExExample\obj\Debug\StupidRegExExample.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\StupidRegExExample\StupidRegExExample\obj\Debug\StupidRegExExample.exe
+c:\users\camille\documents\visual studio 2013\Projects\StupidRegExExample\StupidRegExExample\obj\Debug\StupidRegExExample.pdb

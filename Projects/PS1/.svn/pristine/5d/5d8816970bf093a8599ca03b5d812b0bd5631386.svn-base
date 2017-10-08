@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FormulaEvaluator;
+
+namespace Tester
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            Console.WriteLine("Hi I'm testing");
+            FormulaEvaluator.Evaluator.Lookup look = LooksUpStuff;
+            Console.WriteLine(FormulaEvaluator.Evaluator.Evaluate("1+2", look));
+            Console.Read();
+        }
+
+        public static int LooksUpStuff(String v)
+        {
+            if (v.Equals("a1"))
+            {
+                return -1;
+            }
+            else
+                throw new ArgumentException("thrown");
+        }
+    }
+}

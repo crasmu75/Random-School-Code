@@ -1,0 +1,17 @@
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\bin\Debug\StudentDb.exe.config
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\bin\Debug\StudentDb.exe
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\bin\Debug\StudentDb.pdb
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\bin\Debug\EntityFramework.dll
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\bin\Debug\EntityFramework.SqlServer.dll
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\bin\Debug\EntityFramework.xml
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\bin\Debug\EntityFramework.SqlServer.xml
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\StudentDb.csprojResolveAssemblyReference.cache
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\MainWindow.baml
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\MainWindow.g.cs
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\App.g.cs
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\StudentDb_MarkupCompile.cache
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\StudentDb.g.resources
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\StudentDb.Properties.Resources.resources
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\StudentDb.csproj.GenerateResource.Cache
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\StudentDb.exe
+c:\users\camille\documents\visual studio 2013\Projects\StudentDb\StudentDb\obj\Debug\StudentDb.pdb

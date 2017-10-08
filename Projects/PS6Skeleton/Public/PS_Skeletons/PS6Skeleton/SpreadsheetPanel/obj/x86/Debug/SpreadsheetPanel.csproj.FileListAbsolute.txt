@@ -1,0 +1,8 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.XML
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\obj\x86\Debug\SS.Properties.Resources.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.csproj.GenerateResource.Cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\PS6Skeleton\Public\PS_Skeletons\PS6Skeleton\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.pdb
