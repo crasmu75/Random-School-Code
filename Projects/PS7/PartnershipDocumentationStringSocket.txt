@@ -1,0 +1,30 @@
+Partner1 Name  // P1: Camille Rasmussen
+Partner2 Name  // P2: Jessie Delacenserie
+
+Repository     // Repository: svn://lenny.eng.utah.edu/home/camiller/.cs3500_respository/PS7
+Contribution   // My Contribution: about 50% 
+
+Two to three paragraphs on the experience.  Consider: 1) How well the partnership worked.
+2) Which techniques worked well, which did not.  3) What was the division of work on the
+project
+
+	I feel as if our partnership worked out very well for the most part. We didn't disagree on much yet were 
+still able to come up with different ideas for solving problems. We were able to meet several times and work 
+together. We used my computer for most of the coding because it's more reliable. We also decided to use my 
+repository. The only time we needed to access the repository outside of my computer was when we wanted to look 
+over the code at our own paces, so we just opened it on Jessie's laptop. This technique worked well, as did the 
+technique of switching off typing the code and sharing ideas. We didn't switch off as often as we probably should 
+have, but the division of work was still fairly even because the other partner was always helping look up 
+information on another device or doing something else relevant to the project. 
+	The only thing that didn't work well with this project was the lack of information either of us had on 
+how to implement the StringSocket. Great partnerships come when each partner can help each other understand the 
+project, but neither of us were clear on the specifications of this project. It made it really really difficult 
+for us to move forward on several occasions.
+	We worked together several days on the week and spent many hours trying to figure out the details of the 
+requirements for the assignment, and eventually were able to gather some help online from our classmates and TA's.
+
+A note on our project - when running all of the class's tests at once, a lot of them fail because they time out, 
+however when we run all the tests one by one, we pass all but 6. We believe this is the result of the tester 
+slowing down when trying to test all the tests in close succession, causing several timeouts on the tests.
+
+I have a screenshot of us only failing 6 of the tests
